@@ -1,0 +1,15 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: favyapp_development
+  pool: 5
+  username: pamihood
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: favyapp_test
+  pool: 5
+  username: pamihood
+  password:

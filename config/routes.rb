@@ -1,4 +1,8 @@
 FavyApp::Application.routes.draw do
+
+
+  devise_for :users, :controllers => { :registrations => "registrations" }
+
   get "static_pages/home"
 
   # The priority is based upon order of creation:

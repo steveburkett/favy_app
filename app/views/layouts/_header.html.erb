@@ -3,7 +3,32 @@
     <div class="container">
       <%= link_to "Favy", root_path, :class=>"brand" %>
         <ul class="nav">
-            <li><%= link_to "Locations",    "#" %></li>
+            <li><%= link_to "",    "#" %></li>
+
+
+          <% if user_signed_in? %>
+            <li class="divider-vertical"></li>
+            <li id="fat-menu" class="dropdown">
+              <a href="#fat-menu" class="dropdown-toggle" data-toggle="dropdown">
+                Account <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to current_user.email, "#" %></li>
+                <li class="divider"></li>
+                <li><%= link_to "Settings", edit_user_registration_path %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+                </li>
+              </ul>
+            </li>
+          <% else %>
+            <li><div><%= link_to "LOG IN", new_user_session_path, :style =>"font-size:10px;", :class => "btn btn-mini" %></div></li> 
+            <li><div><%= link_to "SIGN UP", new_user_registration_path, :style =>"font-size:10px;", :class => "btn btn-mini" %></div></li> 
+          <% end %>
+
+
+
         </ul>
     </div><!--container-->
   </div><!--navbar-inner-->

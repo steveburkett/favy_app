@@ -1,7 +1,8 @@
 FavyApp::Application.routes.draw do
 
-
   devise_for :users, :controllers => { :registrations => "registrations" }
+
+  resources :lists
 
   get "static_pages/home"
 

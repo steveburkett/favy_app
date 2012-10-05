@@ -4,15 +4,15 @@ class ApplicationController < ActionController::Base
   private
 
       def after_sign_out_path_for(user)
-          root_path
+        root_path
       end
 
       def after_sign_in_path_for(user)
-		root_path
-	  end
+		    user_path(user)
+	    end
 
       def after_update_path_for(user)
-        root_path
+        user_path(user)
       end
 
 end

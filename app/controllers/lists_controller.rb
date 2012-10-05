@@ -24,7 +24,7 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @list.destroy
     flash[:success] = "List deleted."
-    redirect_to main_path
+    redirect_to user_path(current_user)
   end
 
   def edit

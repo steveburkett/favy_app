@@ -3,11 +3,12 @@
     <div class="container">
       <%= link_to "Favy", root_path, :class=>"brand" %>
         <ul class="nav">
-            <li><%= link_to "",    "#" %></li>
+            <li><%= link_to "Search for people",  users_path %></li>
 
 
           <% if user_signed_in? %>
             <li class="divider-vertical"></li>
+            <li><%= link_to "#{current_user.firstname} #{current_user.lastname}",  user_path(current_user) %></li>
             <li id="fat-menu" class="dropdown">
               <a href="#fat-menu" class="dropdown-toggle" data-toggle="dropdown">
                 Account <b class="caret"></b>

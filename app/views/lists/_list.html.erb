@@ -1,0 +1,32 @@
+
+<%= div_for list do %>
+	<div class="row">
+		<div class="offset0 span2">
+			<%= "#{list.title}" %>
+			<div class="actions">
+				<%= link_to 'delete', list, method: :delete %>
+			</div>
+		</div>
+		<div class="offset1 span3">
+			<div class="items" id="<%= dom_id(list) %>" style="width:200px;height:200px">
+      			<%= render list.items %>
+		    </div>
+
+			<%= form_for(Item.new, remote: true) do |f| %>
+				<%= f.hidden_field :list_id, :value => list.id %>
+				<div class="field">
+					<%= f.text_field :name %>
+				</div>
+				<div class="actions">
+					<%= f.submit "Add Item" %>
+				</div>
+			<% end %>
+		</div>
+		<div class="offset0 span3">		
+		 friends
+		</div>
+		<div class="offset0 span3">
+		  wishlist
+	    </div>
+	</div><!--row-->
+<% end %>

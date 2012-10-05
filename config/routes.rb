@@ -1,10 +1,14 @@
 FavyApp::Application.routes.draw do
 
+
   devise_for :users, :controllers => { :registrations => "registrations" }
 
   resources :lists
+  resources :items
 
   get "static_pages/home"
+
+  match 'main' => 'dashboard#main'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

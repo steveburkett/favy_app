@@ -1,0 +1,22 @@
+<div class="offset1 span4"><%= link_to "#{item.name}", item, remote: true %><%= link_to ' x', item, method: :delete %><br />
+</div>
+<div class="span2">
+  Comments:
+
+			<div class="comments" style="width:200px;height:200px">
+      			<%= render item.comments %>
+		    </div>
+
+			<%= form_for(Comment.new, remote: true) do |f| %>
+				<%= f.hidden_field :item_id, :value => item.id %>
+				<div class="field">
+					<%= f.text_field :body %>
+				</div>
+				<div class="actions">
+					<%= f.submit "Comment" %>
+				</div>
+			<% end %>
+
+
+
+</div>

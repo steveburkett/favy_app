@@ -22,7 +22,7 @@ class ItemsController < ApplicationController
   def update
   end
 
-  def delete
+  def destroy
     @item = Item.find(params[:id])
     @item.destroy
     flash[:success] = "Item deleted."
@@ -33,5 +33,10 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @item = Item.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 end

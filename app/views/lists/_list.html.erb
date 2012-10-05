@@ -4,7 +4,7 @@
 		<div class="offset0 span2">
 			<%= "#{list.title}" %>
 			<div class="actions">
-				<%= link_to 'delete', list, method: :delete %>
+				<%= link_to 'delete', list, confirm: "Are you sure?", method: :delete %>
 			</div>
 		</div>
 		<div class="offset1 span3">

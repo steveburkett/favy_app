@@ -1,16 +1,19 @@
 <br />
 
-
-<%= form_for(List.new, remote: true) do |f| %>
-	<div class="field">
-		<%= f.label :title, "Enter list title:" %>
-		<%= f.text_field :title %>
-	</div>
-	<div class="actions">
-		<%= f.submit %>
-	</div>
-<% end %>
-
+<div class="row">
+  <div class="span3">
+	<%= form_for(List.new, remote: true) do |f| %>
+		<div class="field">
+			<%= f.label :title, "Enter list title:" %>
+			<%= f.text_field :title %>
+		</div>
+		<div class="actions">
+			<%= f.submit %>
+		</div>
+	<% end %>
+  </div>  
+  <div id="item_show"></div>
+</div>
 
 <div class="row">
 	  <div class="offset3 span3"><h3>Your Favorites</h3></div>

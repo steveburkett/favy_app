@@ -25,4 +25,7 @@ class User < ActiveRecord::Base
     direct_friends | inverse_friends
   end
 
+  has_many :listships
+  has_many :followlists, :through => :listships, :source => :followlist
+
 end

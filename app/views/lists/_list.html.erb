@@ -5,6 +5,11 @@
 			<%= "#{list.title}" %>
 			<div class="actions">
 				<%= link_to 'delete', list, confirm: "Are you sure?", method: :delete %>
+				<% if current_user.listships.where("followlist_id = ?", list.id).exists? %>
+					<%= link_to 'unfollow', listship_path(id: list.id), method: :delete %>
+				<% else %>
+					<%= link_to 'follow', listships_path(id: list.id), method: :post %>
+				<% end %>
 			</div>
 		</div>
 		<div class="offset1 span3">

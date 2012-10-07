@@ -1,5 +1,7 @@
 FavyApp::Application.routes.draw do
 
+  resources :listships
+
   resources :friendships
   match 'friendships/approve' => 'friendships#approve'
   match 'friendships/ignore' => 'friendships#ignore'

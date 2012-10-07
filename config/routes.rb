@@ -1,15 +1,16 @@
 FavyApp::Application.routes.draw do
 
   resources :friendships
-  get "friendships/approve"
-
-  get "friendships/ignore"
+  match 'friendships/approve' => 'friendships#approve'
+  match 'friendships/ignore' => 'friendships#ignore'
 
 
   devise_for :users, :controllers => { :registrations => "registrations" }, :path_prefix => 'd'
 
   match "users/:id" => 'users#show', :as => "user"
   match "users" => 'users#index'
+  match "users/:id/friends" => 'users#friends', :as => "friends"
+
 
   resources :lists
   resources :items

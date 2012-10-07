@@ -1,0 +1,32 @@
+  <br />
+  <br />
+  <br />
+
+  Your Friends: <br />
+  	<ul>
+  	<% for friend in @user.friends %>
+    	<li>
+      		<%= friend.firstname %><%= link_to 'remove', friendship_path(:friend_id => friend.id), confirm: "Are you sure?", method: :delete %>
+    	</li>
+  	<% end %>
+	</ul>
+  	<br />
+  	Friendship Requests to you: <br />
+  	<ul>
+  	<% for user in @user.requested_friendships %>
+    	<li>
+      		<%= user.firstname %> <%= link_to "Approve", friendships_approve_path(user_id: user.id), :method => :post %> <%= link_to "Ignore", friendships_ignore_path(user_id: user.id), :method => :post %>
+    	</li>
+  	<% end %>
+	</ul>
+
+  	<br />
+  	Friendship Requests you made:<br />
+  	<ul>
+  	<% for friend in @user.pending_friends %>
+    	<li>
+      		<%= friend.firstname %>
+    	</li>
+  	<% end %>
+	</ul>
+

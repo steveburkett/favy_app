@@ -7,4 +7,8 @@ class UsersController < ApplicationController
   def index
   	@users = User.all
   end
+
+  def friends
+  	@user = User.find(params[:id])
+  end
 end

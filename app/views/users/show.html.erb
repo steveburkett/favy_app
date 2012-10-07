@@ -2,38 +2,10 @@
 
 <div class="row">
   <div class="span3">
-  	<h2><%= @user.firstname %> <%= @user.lastname %> <%= @user.id %></h2>
+  	<h3><%= @user.firstname %> <%= @user.lastname %> </h3>
   	<%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
   	<br />
-  	
-  	Your Friends: <br />
-  	<ul>
-  	<% for friend in @user.friends %>
-    	<li>
-      		<%= friend.firstname %>
-    	</li>
-  	<% end %>
-	</ul>
-  	
-  	Friendship Requests to you: <br />
-  	<ul>
-  	<% for friend in @user.requested_friendships %>
-    	<li>
-      		<%= friend.firstname %>
-    	</li>
-  	<% end %>
-	</ul>
-
-  	<br />
-  	Friendship Requests you made:<br />
-  	<ul>
-  	<% for friend in @user.pending_friends %>
-    	<li>
-      		<%= friend.firstname %>
-    	</li>
-  	<% end %>
-	</ul>
-
+  	<%= link_to "Friends", friends_path(@user) %>
 	<br />
   	<br />
 	<%= form_for(List.new, remote: true) do |f| %>

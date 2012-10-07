@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121005205257) do
+ActiveRecord::Schema.define(:version => 20121007051814) do
 
   create_table "comments", :force => true do |t|
     t.text     "body"
@@ -20,6 +20,18 @@ ActiveRecord::Schema.define(:version => 20121005205257) do
     t.datetime "updated_at", :null => false
     t.integer  "item_id"
   end
+
+  create_table "friendships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.boolean  "approved"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "friendships", ["friend_id"], :name => "index_friendships_on_friend_id"
+  add_index "friendships", ["user_id", "friend_id"], :name => "index_friendships_on_user_id_and_friend_id", :unique => true
+  add_index "friendships", ["user_id"], :name => "index_friendships_on_user_id"
 
   create_table "items", :force => true do |t|
     t.string   "name"

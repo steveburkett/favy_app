@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = comment.find(params[:id])
+    @comment = current_user.comments.find(params[:id])
     @comment.destroy
     flash[:success] = "Comment deleted."
     redirect_to user_path(current_user)

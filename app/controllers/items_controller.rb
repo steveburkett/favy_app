@@ -23,7 +23,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item = Item.find(params[:id])
+    @item = current_user.items.find(params[:id])
     @item.destroy
     flash[:success] = "Item deleted."
     redirect_to user_path(current_user)

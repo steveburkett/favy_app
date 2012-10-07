@@ -10,7 +10,7 @@ class ListsController < ApplicationController
   def create
     @list = List.new(params[:list])
     @list.user = current_user
-    
+
     respond_to do |format|
       if @list.save
         format.html
@@ -21,7 +21,7 @@ class ListsController < ApplicationController
   end
 
   def destroy
-    @list = List.find(params[:id])
+    @list = current_user.lists.find(params[:id])
     @list.destroy
     flash[:success] = "List deleted."
     redirect_to user_path(current_user)

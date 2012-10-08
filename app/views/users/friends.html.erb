@@ -2,16 +2,22 @@
   <br />
   <br />
 
-  Your Friends: <br />
+  <%= @user.firstname %>'s Friends: <br />
   	<ul>
   	<% for friend in @user.friends %>
     	<li>
-      		<%= friend.firstname %><%= link_to 'remove', friendship_path(:friend_id => friend.id), confirm: "Are you sure?", method: :delete %>
+      		<%= link_to "#{friend.firstname} #{friend.lastname}", friend %> 
+          <% if @user == current_user %>
+            <%= link_to '(remove)', friendship_path(:friend_id => friend.id), confirm: "Are you sure?", method: :delete %>
+          <% end %>
     	</li>
   	<% end %>
 	</ul>
+
+  <br/>
+  <% if @user == current_user %>
   	<br />
-  	Friendship Requests to you: <br />
+  	Friend Requests: <br />
   	<ul>
   	<% for user in @user.requested_friendships %>
     	<li>
@@ -19,18 +25,10 @@
           <% if can? :approve, @user.friendships.new(:user_id => user.id, :friend_id => @user.id) %>
             <%= link_to "Approve", friendships_approve_path(user_id: user.id), :method => :post %> 
           <% end %>
+          <% if can? :ignore, @user.friendships.new(:user_id => user.id, :friend_id => @user.id) %>
           <%= link_to "Ignore", friendships_ignore_path(user_id: user.id), :method => :post %>
+          <% end %>
     	</li>
   	<% end %>
 	</ul>
-
-  	<br />
-  	Friendship Requests you made:<br />
-  	<ul>
-  	<% for friend in @user.pending_friends %>
-    	<li>
-      		<%= friend.firstname %>
-    	</li>
-  	<% end %>
-	</ul>
-
+<% end %>

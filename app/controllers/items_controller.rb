@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_filter :authenticate_user!
-  
+
   def new
     @item = Item.new
   end
@@ -9,6 +9,7 @@ class ItemsController < ApplicationController
     list = List.find(params[:item][:list_id])
     @item = Item.new(:name => params[:item][:name])
     @item.list = list
+    authorize! :create, @item
     respond_to do |format|
       if @item.save
         format.html
@@ -25,7 +26,8 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item = current_user.items.find(params[:id])
+    @item = Item.find(params[:id])
+    authorize! :destroy, @item
     @item.destroy
     flash[:success] = "Item deleted."
     redirect_to user_path(current_user)

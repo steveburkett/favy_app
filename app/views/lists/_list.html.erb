@@ -4,11 +4,15 @@
 		<div class="offset0 span2">
 			<%= "#{list.title}" %>
 			<div class="actions">
-				<%= link_to 'delete', list, confirm: "Are you sure?", method: :delete %>
-				<% if current_user.listships.where("followlist_id = ?", list.id).exists? %>
-					<%= link_to 'unfollow', listship_path(id: list.id), method: :delete %>
-				<% else %>
-					<%= link_to 'follow', listships_path(id: list.id), method: :post %>
+				<% if @user == current_user %>
+					<%= link_to 'x', list, confirm: "Are you sure?", method: :delete %>
+				<% end %>
+				<% if not @user == current_user %>
+					<% if current_user.listships.where("followlist_id = ?", list.id).exists? %>
+						<%= link_to 'unfollow', listship_path(id: list.id), method: :delete %>
+					<% else %>
+						<%= link_to 'follow', listships_path(id: list.id), method: :post %>
+					<% end %>
 				<% end %>
 			</div>
 		</div>
@@ -17,14 +21,16 @@
       			<%= render list.items %>
 		    </div>
 
-			<%= form_for(Item.new, remote: true) do |f| %>
-				<%= f.hidden_field :list_id, :value => list.id %>
-				<div class="field">
-					<%= f.text_field :name %>
-				</div>
-				<div class="actions">
-					<%= f.submit "Add Item" %>
-				</div>
+		    <% if @user == current_user %>
+				<%= form_for(Item.new, remote: true) do |f| %>
+					<%= f.hidden_field :list_id, :value => list.id %>
+					<div class="field">
+						<%= f.text_field :name %>
+					</div>
+					<div class="actions">
+						<%= f.submit "Add Item" %>
+					</div>
+				<% end %>
 			<% end %>
 		</div>
 		<div class="offset0 span3">		

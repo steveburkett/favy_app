@@ -1,3 +1,6 @@
 <%= div_for item do %>
-	<%= link_to "#{item.name}", item, remote: true %><%= item.comments.count == 0 ? "" : "  (#{item.comments.count}) " %> <%= link_to ' x', item, method: :delete %><br />
+	<%= link_to "#{item.name}", item, remote: true %><%= item.comments.count == 0 ? "" : "  (#{item.comments.count}) " %> 
+	 	<% if item.list.user == current_user %>
+			<%= link_to ' x', item, method: :delete %><br />
+		<% end %>
 <% end %>

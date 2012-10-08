@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_filter :authenticate_user!
-  
+
   def new
   end
 
@@ -25,10 +25,12 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = current_user.comments.find(params[:id])
+    @comment = Comment.find(params[:id])
+    user_page_with_comment = @comment.item.list.user_id
+    authorize! :destroy, @comment
     @comment.destroy
     flash[:success] = "Comment deleted."
-    redirect_to user_path(current_user)
+    redirect_to user_path(id: user_page_with_comment)
   end
 
   def index

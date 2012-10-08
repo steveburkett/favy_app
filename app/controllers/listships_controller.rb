@@ -1,6 +1,6 @@
 class ListshipsController < ApplicationController
   before_filter :authenticate_user!
-	
+
   def create
     @listship = current_user.listships.build(:followlist_id => params[:id])
     if @listship.save
@@ -16,6 +16,7 @@ class ListshipsController < ApplicationController
   def destroy
   	Listship.where("user_id = ? and followlist_id = ?", current_user.id, params[:id]).first.destroy
     list = List.find(params[:id])
+    flash[:notice] = "List unfollowed."
     redirect_to user_path(id: list.user_id)
   end
 

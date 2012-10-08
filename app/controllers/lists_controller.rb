@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_filter :authenticate_user!
-  
+
   def index
     @lists = current_user.lists
   end
@@ -11,8 +11,7 @@ class ListsController < ApplicationController
 
   def create
     @list = List.new(params[:list])
-    @list.user = current_user
-
+    authorize! :create, @list
     respond_to do |format|
       if @list.save
         format.html
@@ -23,7 +22,8 @@ class ListsController < ApplicationController
   end
 
   def destroy
-    @list = current_user.lists.find(params[:id])
+    @list = List.find(params[:id])
+    authorize! :destroy, @list
     @list.destroy
     flash[:success] = "List deleted."
     redirect_to user_path(current_user)

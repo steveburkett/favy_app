@@ -8,6 +8,36 @@ class Ability
         friendship.friend_id == user.id
     end
 
+    can :ignore, Friendship do |friendship|
+        friendship.friend_id == user.id
+    end
+
+    can :destroy, Friendship do |friendship|
+        ((friendship.user_id == user.id) or (friendship.friend_id == user.id)) and (friendship.approved == true)
+    end
+
+    can :create, List do |list|
+        list.user_id == user.id
+    end
+
+    can :destroy, List do |list|
+        list.user_id == user.id
+    end
+
+    can :create, Item do |item|
+        item.list.user_id == user.id
+    end
+
+    can :destroy, Item do |item|
+        item.list.user_id == user.id
+    end
+
+    can :destroy, Comment do |comment|
+        comment.user_id == user.id
+    end
+
+
+
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

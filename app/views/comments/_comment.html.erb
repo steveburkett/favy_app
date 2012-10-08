@@ -1,3 +1,7 @@
 <%= div_for comment do %>
-  <%= "#{comment.user.firstname} says: #{comment.body}" %><%= link_to ' x', comment, method: :delete %><br />
+  <%= "#{comment.user.firstname} says: #{comment.body}" %>
+  <% if @user == current_user %>
+  	<%= link_to ' x', comment, method: :delete %>
+  <% end %>
+  <br />
  <% end %>

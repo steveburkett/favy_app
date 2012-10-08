@@ -8,14 +8,18 @@
   	<%= link_to "Friends", friends_path(@user) %>
 	<br />
   	<br />
-	<%= form_for(List.new, remote: true) do |f| %>
-		<div class="field">
-			<%= f.label :title, "Enter list title:" %>
-			<%= f.text_field :title %>
-		</div>
-		<div class="actions">
-			<%= f.submit %>
-		</div>
+
+  	<% if @user == current_user %>
+		<%= form_for(List.new, remote: true) do |f| %>
+			<%= f.hidden_field :user_id, :value => @user.id %>
+			<div class="field">
+				<%= f.label :title, "Enter list title:" %>
+				<%= f.text_field :title %>
+			</div>
+			<div class="actions">
+				<%= f.submit %>
+			</div>
+		<% end %>
 	<% end %>
   </div>  
   <div id="item_show"></div>

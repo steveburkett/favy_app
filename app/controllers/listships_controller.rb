@@ -1,4 +1,6 @@
 class ListshipsController < ApplicationController
+  before_filter :authenticate_user!
+	
   def create
     @listship = current_user.listships.build(:followlist_id => params[:id])
     if @listship.save

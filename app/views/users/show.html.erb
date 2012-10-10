@@ -51,18 +51,32 @@
 					</div>
 				<% end %>
 		</div>
+	<% end %>
 
+	<% if @user == current_user %>
 		<!-- Button to trigger modal -->
 		<a href="#listModal" role="button" class="btn btn-mini btn-primary" data-toggle="modal">Add list</a> <a href="#" rel="tooltip" title="Your list can be public (everyone can see it), visible only to your friends, or private (only you can see it). When you first create it, by default, only your friends can see it."><i class="icon-question-sign"></i></a>
 	<% end %>
-	<%= will_paginate @lists, style:"margin-left:0px; display:inline;" %>
-
-	<hr>
 
  <% end %>
 
+	<ul class="pager" style="margin-left:800px; margin-top:<%= ((@user == current_user) and  !@followedlists) ? -20 : 0 %>px">
+		<% if @lists.previous_page %>
+		  <li><%= link_to "&larr;".html_safe, params.merge(page: @lists.previous_page) %></li>
+		<% end %>
+		<% if not @lists.total_pages == 1 %>
+			<%= @lists.current_page %> / <%= @lists.total_pages %>
+		<% end %>
+		<% if @lists.next_page %>
+		  <li><%= link_to "&rarr;".html_safe, params.merge(page: @lists.next_page) %></li>
+		<% end %>
+	</ul>
 
-<div class="row">
+	<hr>
+
+
+
+<div class="row" style="margin-left:5px">
 <div id="lists">
   <%= render @lists %>
 </div>

@@ -1,7 +1,7 @@
-<%= div_for(list, :class => "offset0 span2", :style => "border-right-style:solid; border-right-width:1px; border-right-color:#eee; padding-right:20px") do %>
-			<%= "#{list.title}" %>
+<%= div_for(list, :class => "offset0 span2", :style => "border-right-style:solid; border-right-width:1px; border-right-color:#eee; padding-right:20px; height:800px") do %>
+			<h4 style="display:inline"><%= "#{list.title}" %></h4>
 			<% if list.user == current_user %>
-					<%= link_to 'x', list, confirm: "Are you sure?", method: :delete %>
+					<%= link_to 'x', list, confirm: "Delete list?", method: :delete %>
 			<% end %>
 			<br />
 			<% if @followedlists %>

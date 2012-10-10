@@ -1,22 +1,22 @@
-<div class="offset1 span4"><%= link_to "#{item.name}", item, remote: true %>
-		<% if @user == current_user %>
+<div class="offset1 span4"><%= "#{item.name}" %>
+		<% if item.list.user == current_user %>
 			<%= link_to ' x', item, method: :delete %><br />
 		<% end %>
 </div>
-<div class="span2">
+<div class="span3">
   Comments:
 
-			<div class="comments" style="width:200px;height:200px">
+			<div class="comments">
       			<%= render item.comments %>
 		    </div>
-
+		    <br />
 			<%= form_for(Comment.new, remote: true) do |f| %>
 				<%= f.hidden_field :item_id, :value => item.id %>
 				<div class="field">
-					<%= f.text_field :body %>
+					<%= f.text_field :body, placeholder: "Write a comment..." %>
 				</div>
 				<div class="actions">
-					<%= f.submit "Comment" %>
+					<%= f.submit "Comment", :class => "btn btn-mini" %>
 				</div>
 			<% end %>
 

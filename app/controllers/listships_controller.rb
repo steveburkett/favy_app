@@ -6,7 +6,7 @@ class ListshipsController < ApplicationController
     if @listship.save
       flash[:notice] = "List followed."
       list = List.find(params[:id])
-      redirect_to user_path(id: list.user_id)
+      redirect_to user_path(id: current_user.id)
     else
       flash[:error] = "Unable to follow list."
       redirect_to root_path
@@ -17,7 +17,7 @@ class ListshipsController < ApplicationController
   	Listship.where("user_id = ? and followlist_id = ?", current_user.id, params[:id]).first.destroy
     list = List.find(params[:id])
     flash[:notice] = "List unfollowed."
-    redirect_to user_path(id: list.user_id)
+    redirect_to user_path(id:current_user.id, followedlists:true)
   end
 
   def show

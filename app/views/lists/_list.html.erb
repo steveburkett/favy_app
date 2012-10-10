@@ -1,13 +1,44 @@
-
-<%= div_for list do %>
-	<div class="row">
-		<div class="offset0 span2">
+<%= div_for(list, :class => "offset0 span2", :style => "border-right-style:solid; border-right-width:1px; border-right-color:#eee; padding-right:20px") do %>
 			<%= "#{list.title}" %>
-			<div class="actions">
-				<% if @user == current_user %>
+			<% if list.user == current_user %>
 					<%= link_to 'x', list, confirm: "Are you sure?", method: :delete %>
+			<% end %>
+			<br />
+			<% if @followedlists %>
+				(<%= link_to "#{list.user.firstname} #{list.user.lastname}", user_path(list.user) %>)<br />
+			<% end %>
+
+		    <% if list.user == current_user %>
+				<!-- Modal -->
+				<div class="modal hide fade" id="itemModal-<%= dom_id(list) %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-header">
+				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				    <h3 id="myModalLabel">Create Item in <%= list.title %></h3>
+				  </div>
+					<%= form_for(Item.new, remote: true, :html => { :class => "modal-form" }) do |f| %>
+						<%= f.hidden_field :list_id, :value => list.id %>
+						<div class="modal-body field">
+							<%= f.text_field :name, placeholder: "Enter item here" %>
+						</div>
+						<div class="modal-footer">
+							<%= f.submit "Add Another", :name => "another_button", :class => "btn btn-primary" %>
+							<%= f.submit "Done", :name => "done_button", :class => "btn btn-primary" %>
+						</div>
+					<% end %>
+				</div>
+
+				<!-- Button to trigger modal -->
+				<a href="#itemModal-<%= dom_id(list) %>" role="button" class="btn btn-mini" data-toggle="modal" style="margin-bottom:5px">Add item</a>
+			<% end %>
+
+
+			<div class="actions">
+				<% if list.user == current_user %>
+					<%= link_to "public", lists_change_privacy_path(id: list.id, privacy:0), :class => "btn btn-mini #{list.privacy == 0 ? "btn-primary" : ""}", method: :post, :style =>"margin-right:0px" %><%= link_to "friends",  lists_change_privacy_path(id: list.id, privacy:1), :class => "btn btn-mini #{list.privacy == 1 ? "btn-primary" : ""}", method: :post %><%= link_to "private",  lists_change_privacy_path(id: list.id, privacy:2), :class => "btn btn-mini #{list.privacy == 2 ? "btn-primary" : ""}", method: :post %>
+					
+
 				<% end %>
-				<% if not @user == current_user %>
+				<% if not list.user == current_user %>
 					<% if current_user.listships.where("followlist_id = ?", list.id).exists? %>
 						<%= link_to 'unfollow', listship_path(id: list.id), method: :delete %>
 					<% else %>
@@ -15,29 +46,9 @@
 					<% end %>
 				<% end %>
 			</div>
-		</div>
-		<div class="offset1 span3">
-			<div class="items" id="<%= dom_id(list) %>" style="width:200px;height:200px">
-      			<%= render list.items %>
+		
+			<br />
+			<div class="items" id="<%= dom_id(list) %>">
+      			<%= render list.items.order("created_at DESC") %>
 		    </div>
-
-		    <% if @user == current_user %>
-				<%= form_for(Item.new, remote: true) do |f| %>
-					<%= f.hidden_field :list_id, :value => list.id %>
-					<div class="field">
-						<%= f.text_field :name %>
-					</div>
-					<div class="actions">
-						<%= f.submit "Add Item" %>
-					</div>
-				<% end %>
-			<% end %>
-		</div>
-		<div class="offset0 span3">		
-		 friends
-		</div>
-		<div class="offset0 span3">
-		  wishlist
-	    </div>
-	</div><!--row-->
 <% end %>

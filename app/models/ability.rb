@@ -36,6 +36,10 @@ class Ability
         comment.user_id == user.id
     end
 
+    can :change_privacy, List do |list|
+        list.user_id == user.id
+    end
+
 
 
     # Define abilities for the passed in user here. For example:

@@ -1,4 +1,2 @@
-<br />
-<% @users.each do |user| %>
-  <%= link_to "#{user.firstname} #{user.lastname}", user_path(user) %><br />
-<% end %>
+<%= will_paginate @users %>
+<%= render @users %>

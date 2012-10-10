@@ -5,32 +5,65 @@
   	<h3><%= @user.firstname %> <%= @user.lastname %> </h3>
   	<%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
   	<br />
-  	<%= link_to "Friends", friends_path(@user) %>
+  	<%= link_to "View Friends", friends_path(@user) %>
 	<br />
   	<br />
-
-  	<% if @user == current_user %>
-		<%= form_for(List.new, remote: true) do |f| %>
-			<%= f.hidden_field :user_id, :value => @user.id %>
-			<div class="field">
-				<%= f.label :title, "Enter list title:" %>
-				<%= f.text_field :title %>
-			</div>
-			<div class="actions">
-				<%= f.submit %>
-			</div>
-		<% end %>
-	<% end %>
   </div>  
   <div id="item_show"></div>
 </div>
 
+<% if @followedlists %>
+	<ul class="nav nav-tabs">
+		<li>
+			<%= link_to "#{@user.firstname}'s Lists", user_path(@user) %>
+		</li>
+		<li class="active">
+			<a href="#">Followed Lists</a>
+		</li>
+	</ul>
+<% else %>
+	<ul class="nav nav-tabs">
+		<li class="active">
+			<a href="#"><%= "#{@user.firstname}'s Lists" %></a>
+		</li>
+		<li>
+			<%= link_to "Followed Lists", user_path(id:@user.id, followedlists: true) %>
+		</li>
+	</ul>	
+
+
+
+
+	<% if @user == current_user %>
+		<!-- Modal -->
+		<div class="modal hide fade" id="listModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    <h3 id="myModalLabel">Create List</h3>
+		  </div>
+				<%= form_for(List.new, remote: true, :html => { :class => "modal-form" }) do |f| %>
+					<%= f.hidden_field :user_id, :value => @user.id %>
+					<div class="modal-body field">
+						<%= f.text_field :title, placeholder: "Enter list title" %>
+					</div>
+					<div class="modal-footer">
+						<%= f.submit "Save", :class => "btn btn-primary" %>
+					</div>
+				<% end %>
+		</div>
+
+		<!-- Button to trigger modal -->
+		<a href="#listModal" role="button" class="btn btn-mini btn-primary" data-toggle="modal">Add list</a> <a href="#" rel="tooltip" title="Your list can be public (everyone can see it), visible only to your friends, or private (only you can see it). When you first create it, by default, only your friends can see it."><i class="icon-question-sign"></i></a>
+	<% end %>
+	<%= will_paginate @lists, style:"margin-left:0px; display:inline;" %>
+
+	<hr>
+
+ <% end %>
+
+
 <div class="row">
-	  <div class="offset3 span3"><h3><%= @user.firstname %>'s Favorites</h3></div>
-	  <div class="offset0 span3"><h3>Friends Favorites</h3></div>
-	  <div class="offset0 span3"><h3>Wish List</h3></div>
-</div>
 <div id="lists">
   <%= render @lists %>
 </div>
-  
+</div>

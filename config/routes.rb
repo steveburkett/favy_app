@@ -13,6 +13,7 @@ FavyApp::Application.routes.draw do
   match "users" => 'users#index'
   match "users/:id/friends" => 'users#friends', :as => "friends"
 
+  match "search" => "users#search"
 
   resources :lists
   match "lists/create_popup" => 'lists#create_popup'

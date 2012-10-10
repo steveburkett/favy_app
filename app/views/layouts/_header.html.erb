@@ -4,9 +4,23 @@
       <%= link_to "Favy", root_path, :class=>"brand" %>
         <ul class="nav">
             <li><%= link_to "Search for people",  users_path %></li>
-
-
+        </ul>
+      <div class="nav pull-right">
+        <ul class="nav">
           <% if user_signed_in? %>
+
+            <li style="margin-bottom:-20px; margin-top:5px">
+
+
+<%= form_tag(search_path, :method => 'get', :html => {:style => "padding-top:10px"}) do %>
+  
+    <%= text_field_tag :search, params[:search] %>
+    <%= image_submit_tag('search.png', :name => nil, :style =>"width:20px;margin-bottom:10px") %>
+  
+<% end %>
+
+            
+            </li>
             <li class="divider-vertical"></li>
             <li><%= link_to "#{current_user.firstname} #{current_user.lastname}",  user_path(current_user) %></li>
             <li id="fat-menu" class="dropdown">
@@ -31,6 +45,7 @@
 
 
         </ul>
+      </div>
     </div><!--container-->
   </div><!--navbar-inner-->
 </header>

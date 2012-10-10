@@ -4,7 +4,7 @@
 					<%= link_to 'x', list, confirm: "Delete list?", method: :delete %>
 			<% end %>
 			<br />
-			<% if @followedlists %>
+			<% if @followedlists or @search %>
 				(<%= link_to "#{list.user.firstname} #{list.user.lastname}", user_path(list.user) %>)<br />
 			<% end %>
 

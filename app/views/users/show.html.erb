@@ -3,7 +3,9 @@
 <div class="row">
   <div class="span3">
   	<h3><%= @user.firstname %> <%= @user.lastname %> </h3>
-  	<%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
+  	<% if not @user == current_user %>
+	  	<%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
+	 <% end %>
   	<br />
   	<%= link_to "View Friends", friends_path(@user) %>
 	<br />
@@ -21,6 +23,18 @@
 			<a href="#">Followed Lists</a>
 		</li>
 	</ul>
+<% elsif @search %>
+	<ul class="nav nav-tabs">
+		<li>
+			<%= link_to "#{@user.firstname}'s Lists", user_path(@user) %>
+		</li>
+		<li>
+			<%= link_to "Followed Lists", user_path(id:@user.id, followedlists: true) %>
+		</li>
+		<li class="active">
+			<a href="#">Search Results</a>
+		</li>
+	</ul>
 <% else %>
 	<ul class="nav nav-tabs">
 		<li class="active">
@@ -30,9 +44,6 @@
 			<%= link_to "Followed Lists", user_path(id:@user.id, followedlists: true) %>
 		</li>
 	</ul>	
-
-
-
 
 	<% if @user == current_user %>
 		<!-- Modal -->
@@ -60,7 +71,11 @@
 
  <% end %>
 
-	<ul class="pager" style="margin-left:800px; margin-top:<%= ((@user == current_user) and  !@followedlists) ? -20 : 0 %>px">
+ 	<% if @search %>
+ 		Searched your list and your friends: <strong><%= @lists.count %> <%= "list".pluralize(@lists.count) %> returned for <%= @search %></strong>
+ 	<% end %>
+
+	<ul class="pager" style="margin-left:800px; margin-top:<%= ((@user == current_user) and  !@followedlists and !@search) ? -20 : 0 %>px">
 		<% if @lists.previous_page %>
 		  <li><%= link_to "&larr;".html_safe, params.merge(page: @lists.previous_page) %></li>
 		<% end %>
@@ -71,6 +86,9 @@
 		  <li><%= link_to "&rarr;".html_safe, params.merge(page: @lists.next_page) %></li>
 		<% end %>
 	</ul>
+
+
+
 
 	<hr>
 

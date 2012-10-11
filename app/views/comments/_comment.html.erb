@@ -1,6 +1,6 @@
 <%= div_for comment do %>
   <strong><%= "#{comment.user.firstname}" %></strong> <%= "#{comment.body}" %>
-  <% if @user == current_user %>
+  <% if comment.user == current_user %>
   	<%= link_to ' x', comment, method: :delete %>
   <% end %>
   <br />

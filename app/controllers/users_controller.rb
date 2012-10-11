@@ -14,10 +14,10 @@ class UsersController < ApplicationController
 
   	#is current_user friends with @user?
   	#must optimize this later, must be better way
-  	friend = false
+  	@friend = false
   	@user.friends.each do |f|
   		if f == current_user
-  			friend = true
+  			@friend = true
   		end
   	end
 
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
   else
 		if @user == current_user
 		  	@lists = @user.lists.order("created_at DESC")
-		elsif friend
+		elsif @friend
 			@lists = @user.lists.where("privacy = ? OR privacy = ?", 0, 1).order("created_at DESC")
 		else #current_user not viewing himself or a friend so only show @user's public lists
 			@lists = @user.lists.where("privacy = ?", 0).order("created_at DESC")

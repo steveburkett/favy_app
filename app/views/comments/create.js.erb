@@ -1,1 +1,3 @@
 $('div.comments').append("<%= escape_javascript(render @comment) %>");
+$('form#new_comment').find('input#comment_body').val('');
+$('input#comment_body').focus();

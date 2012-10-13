@@ -13,9 +13,8 @@ class ListsController < ApplicationController
     tag_list = params[:list][:tag_list]
     title = params[:list][:title]
     tag_list = tag_list + ", " + title
-    @list = List.new(user_id: params[:list][:user_id], title: title, tag_list: tag_list)
+    @list = List.new(user_id: params[:list][:user_id], title: title, tag_list: tag_list, privacy: params[:list][:privacy])
     authorize! :create, @list
-    @list.privacy = 1 #default to friends
     respond_to do |format|
       if @list.save
         format.html

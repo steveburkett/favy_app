@@ -1,7 +1,4 @@
-<div class="offset1 span4"><%= "#{item.name}" %>
-		<% if item.list.user == current_user %>
-			<%= link_to ' x', item, method: :delete %><br />
-		<% end %>
+<div class="offset1 span4"><%= "#{item.name} in #{item.list.title}" %>
 </div>
 <div class="span3">
   Comments:

@@ -59,6 +59,9 @@
 					<%= f.text_field :title, placeholder: "" %>
 					<%= f.label :tag_list, "Tags (separated by commas):" %>
 					<%= f.text_field :tag_list, :style => "width:400px" %>
+					<%= f.label :privacy, "Privacy for list:" %>
+					<%= f.select :privacy, [['public', 0], ['friends only', 1], ['private', 2]], :selected => 1 %>
+					<a href="#" rel="tooltip" title="Your list can be public, visible to your friends only, or private. Friends of your friends can see it only if it is public."><i class="icon-question-sign"></i></a>
 				</div>
 				<div class="modal-footer">
 					<%= f.submit "Add List", :class => "btn btn-primary" %>
@@ -69,7 +72,7 @@
 
 	<% if @user == current_user %>
 		<!-- Button to trigger modal -->
-		<a href="#listModal" role="button" class="btn btn-mini btn-primary" data-toggle="modal">Add list</a> <a href="#" rel="tooltip" title="Your list can be public (everyone can see it), visible only to your friends, or private (only you can see it). When you first create it, by default, only your friends can see it."><i class="icon-question-sign"></i></a>
+		<a href="#listModal" role="button" class="btn btn-mini btn-primary" data-toggle="modal">+ list</a>
 	<% end %>
 
  <% end %>
@@ -100,7 +103,7 @@
  	<% end %>
 
 		<div id="tag_cloud">
-		  
+		  Tags: 
 		  <% tag_cloud @tagcounts, %w[s m l] do |tag, css_class| %>
 		    <%= link_to tag.name, tag_path(id:@user.id, tag:tag.name), class: css_class %>
 		  <% end %>

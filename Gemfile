@@ -18,6 +18,7 @@ gem 'cancan'
 gem 'omniauth-facebook'
 gem 'rack-rewrite', '~> 1.2.1'
 gem 'texticle', "2.0", :require => "texticle/rails"
+gem 'acts-as-taggable-on'
 
 group :development, :test do
   #gem 'sqlite3', '1.3.5'

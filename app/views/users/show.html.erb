@@ -50,15 +50,18 @@
 		<div class="modal hide fade" id="listModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-header">
 		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		    <h3 id="myModalLabel">Create List</h3>
+		    <h3 id="myModalLabel">Create a list. Your items will go in here.</h3>
 		  </div>
 			<%= form_for(List.new, remote: true, :html => { :class => "modal-form" }) do |f| %>
 				<%= f.hidden_field :user_id, :value => @user.id %>
 				<div class="modal-body field">
-					<%= f.text_field :title, placeholder: "Enter list title" %>
+					<%= f.label :title, "List title:" %>
+					<%= f.text_field :title, placeholder: "" %>
+					<%= f.label :tag_list, "Tags (separated by commas):" %>
+					<%= f.text_field :tag_list, :style => "width:400px" %>
 				</div>
 				<div class="modal-footer">
-					<%= f.submit "Create List", :class => "btn btn-primary" %>
+					<%= f.submit "Add List", :class => "btn btn-primary" %>
 				</div>
      		<% end %>
 		</div>
@@ -75,7 +78,8 @@
  		Searched your list and your friends: <strong><%= @lists.count %> <%= "list".pluralize(@lists.count) %> returned for <%= @search %></strong>
  	<% end %>
 
-	<ul class="pager" style="margin-left:800px; margin-top:<%= ((@user == current_user) and  !@followedlists and !@search) ? -20 : 0 %>px">
+
+	<ul class="pager" style="margin-left:800px; margin-top:<%= ((@user == current_user) and  !@followedlists and !@search and !@tag) ? -20 : 0 %>px">
 		<% if @lists.previous_page %>
 		  <li><%= link_to "&larr;".html_safe, params.merge(page: @lists.previous_page) %></li>
 		<% end %>
@@ -87,6 +91,21 @@
 		<% end %>
 	</ul>
 
+
+
+ 	<% if @tag %>
+ 		Filtered by: <strong><%= @tag %></strong> <%= link_to "x", user_path(@user) %>
+ 	<% else %>
+
+ 	<% end %>
+
+		<div id="tag_cloud">
+		  
+		  <% tag_cloud @tagcounts, %w[s m l] do |tag, css_class| %>
+		    <%= link_to tag.name, tag_path(id:@user.id, tag:tag.name), class: css_class %>
+		  <% end %>
+		  <br />
+		</div>
 
 
 

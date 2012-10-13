@@ -1,5 +1,6 @@
 FavyApp::Application.routes.draw do
 
+
   resources :listships
 
   resources :friendships
@@ -12,6 +13,7 @@ FavyApp::Application.routes.draw do
   match "users/:id" => 'users#show', :as => "user"
   match "users" => 'users#index'
   match "users/:id/friends" => 'users#friends', :as => "friends"
+  get 'users/:id/tags/:tag', to: 'users#show', as: :tag
 
   match "search" => "users#search"
 

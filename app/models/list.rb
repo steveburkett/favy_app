@@ -1,5 +1,5 @@
 class List < ActiveRecord::Base
-  attr_accessible :title, :user_id, :privacy
+  attr_accessible :title, :user_id, :privacy, :tag_list
 
   validates_presence_of :title
 
@@ -8,5 +8,7 @@ class List < ActiveRecord::Base
 
   has_many :listships
   has_many :users, :through => :listships, :source => :user
+
+  acts_as_taggable
 
 end

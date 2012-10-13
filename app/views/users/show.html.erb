@@ -52,15 +52,15 @@
 		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 		    <h3 id="myModalLabel">Create List</h3>
 		  </div>
-				<%= form_for(List.new, remote: true, :html => { :class => "modal-form" }) do |f| %>
-					<%= f.hidden_field :user_id, :value => @user.id %>
-					<div class="modal-body field">
-						<%= f.text_field :title, placeholder: "Enter list title" %>
-					</div>
-					<div class="modal-footer">
-						<%= f.submit "Save", :class => "btn btn-primary" %>
-					</div>
-				<% end %>
+			<%= form_for(List.new, remote: true, :html => { :class => "modal-form" }) do |f| %>
+				<%= f.hidden_field :user_id, :value => @user.id %>
+				<div class="modal-body field">
+					<%= f.text_field :title, placeholder: "Enter list title" %>
+				</div>
+				<div class="modal-footer">
+					<%= f.submit "Create List", :class => "btn btn-primary" %>
+				</div>
+     		<% end %>
 		</div>
 	<% end %>
 

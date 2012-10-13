@@ -8,6 +8,24 @@
 				(<%= link_to "#{list.user.firstname} #{list.user.lastname}", user_path(list.user) %>)<br />
 			<% end %>
 
+			<div class="actions">
+				<% if list.user == current_user %>
+					<div class="btn-group">
+					<%= link_to "public", lists_change_privacy_path(id: list.id, privacy:0), :class => "btn btn-mini #{list.privacy == 0 ? "btn-primary disabled" : ""}", method: :post, :style =>"margin-right:0px" %><%= link_to "friends",  lists_change_privacy_path(id: list.id, privacy:1), :class => "btn btn-mini #{list.privacy == 1 ? "btn-primary disabled" : ""}", method: :post %><%= link_to "private",  lists_change_privacy_path(id: list.id, privacy:2), :class => "btn btn-mini #{list.privacy == 2 ? "btn-primary disabled" : ""}", method: :post %>
+					</div>
+				<% end %>
+
+				<% if not list.user == current_user %>
+					<% if current_user.listships.where("followlist_id = ?", list.id).exists? %>
+						<%= link_to 'unfollow', listship_path(id: list.id), method: :delete %>
+					<% else %>
+						<%= link_to 'follow', listships_path(id: list.id), method: :post %>
+					<% end %>
+				<% end %>
+
+
+
+
 		    <% if list.user == current_user %>
 				<!-- Modal -->
 				<div class="modal hide fade" id="itemModal-<%= dom_id(list) %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -28,23 +46,11 @@
 				</div>
 
 				<!-- Button to trigger modal -->
-				<a href="#itemModal-<%= dom_id(list) %>" role="button" class="btn btn-mini" data-toggle="modal" style="margin-bottom:5px">Add item</a>
+				<a href="#itemModal-<%= dom_id(list) %>" role="button" class="btn btn-mini btn-primary" data-toggle="modal" style="margin-top:5px">Add item</a>
 			<% end %>
 
 
-			<div class="actions">
-				<% if list.user == current_user %>
-					<%= link_to "public", lists_change_privacy_path(id: list.id, privacy:0), :class => "btn btn-mini #{list.privacy == 0 ? "btn-primary" : ""}", method: :post, :style =>"margin-right:0px" %><%= link_to "friends",  lists_change_privacy_path(id: list.id, privacy:1), :class => "btn btn-mini #{list.privacy == 1 ? "btn-primary" : ""}", method: :post %><%= link_to "private",  lists_change_privacy_path(id: list.id, privacy:2), :class => "btn btn-mini #{list.privacy == 2 ? "btn-primary" : ""}", method: :post %>
-					
 
-				<% end %>
-				<% if not list.user == current_user %>
-					<% if current_user.listships.where("followlist_id = ?", list.id).exists? %>
-						<%= link_to 'unfollow', listship_path(id: list.id), method: :delete %>
-					<% else %>
-						<%= link_to 'follow', listships_path(id: list.id), method: :post %>
-					<% end %>
-				<% end %>
 			</div>
 		
 			<br />

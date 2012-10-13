@@ -14,13 +14,16 @@ class UsersController < ApplicationController
 
   	#is current_user friends with @user?
   	#must optimize this later, must be better way
-  	@friend = false
-  	@user.friends.each do |f|
-  		if f == current_user
-  			@friend = true
-  		end
-  	end
-
+  	f = Benchmark.measure do
+      @friend = false
+    	@user.friends.each do |f|
+    		if f == current_user
+    			@friend = true
+    		end
+    	end
+    end
+    puts "time to check user is a friend"
+    puts f
 
   	if @followedlists
   		#these are followed lists of currently viewed user
@@ -46,12 +49,28 @@ class UsersController < ApplicationController
     self_and_friends_lists = current_user.lists | friends_lists
     
     lists_with_item = []
-    self_and_friends_lists.each do |l|
-      if !l.items.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:search].downcase}%"]).empty?
-        lists_with_item << l
+    search_benchmark = Benchmark.measure do
+      self_and_friends_lists.each do |l|
+        if !l.items.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:search].downcase}%"]).empty?
+          lists_with_item << l
+        end
       end
     end
-    puts lists_with_item
+    puts "search all friends list"
+    puts search_benchmark
+
+    =begin
+    texticle_benchmark = Benchmark.measure do
+      self_and_friends_lists.each do |l|
+        if !l.items.search(params[:search]).empty?
+          lists_with_item << l
+        end
+      end
+    end
+    puts "texticle"
+    puts texticle_benchmark
+    =end
+    
     @lists = lists_with_item.paginate(:page => params[:page], :per_page => 5)
   else
 		if @user == current_user

@@ -50,15 +50,21 @@
 		<div class="modal hide fade" id="listModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-header">
 		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		    <h3 id="myModalLabel">Create a list. Your items will go in here.</h3>
+		    <h3 id="myModalLabel">Pick a general title. Then tag it.</h3>
 		  </div>
 			<%= form_for(List.new, remote: true, :html => { :class => "modal-form" }) do |f| %>
 				<%= f.hidden_field :user_id, :value => @user.id %>
 				<div class="modal-body field">
 					<%= f.label :title, "List title:" %>
 					<%= f.text_field :title, placeholder: "" %>
+					<p style="font-size:x-small; margin-top:-1em">Eg. Books, Movies, Restaurants, Destinations, Music, Doctors, Shoes...</p>
 					<%= f.label :tag_list, "Tags (separated by commas):" %>
 					<%= f.text_field :tag_list, :style => "width:400px" %>
+					<p style="font-size:x-small; margin-top:-1em">Eg. 
+						Books: mystery;
+						Restaurants: San Francisco, Sushi;
+						Destinations: holidays;
+						Music: long drives</p>
 					<%= f.label :privacy, "Privacy for list:" %>
 					<%= f.select :privacy, [['public', 0], ['friends only', 1], ['private', 2]], :selected => 1 %>
 					<a href="#" rel="tooltip" title="Your list can be public, visible to your friends only, or private. Friends of your friends can see it only if it is public."><i class="icon-question-sign"></i></a>

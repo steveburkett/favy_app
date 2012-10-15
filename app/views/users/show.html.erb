@@ -108,6 +108,7 @@
 
  	<% end %>
 
+ 	<% if not @tagcounts.empty? %>
 		<div id="tag_cloud">
 		  Tags: 
 		  <% tag_cloud @tagcounts, %w[s m l] do |tag, css_class| %>
@@ -115,12 +116,37 @@
 		  <% end %>
 		  <br />
 		</div>
-
+	<% end %>
 
 
 	<hr>
 
 
+<% if @user == current_user %>
+				<!-- Modal -->
+				<div class="modal hide fade" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel" aria-hidden="true">
+				  <div class="modal-header">
+				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				    <h3 id="itemModalLabel"></h3>
+				  </div>
+					<%= form_for(Item.new, remote: true, :html => { :class => "modal-form"}) do |f| %>
+						<%= f.hidden_field :list_id, :value => 1 %>
+						<div class="modal-body field">
+							<a href="#" id="location-toggle">click here to include a location</a>
+							<div class="field" id="location">
+								<%= f.text_field :location, placeholder: "City, neighborhood, or zipcode" %>
+							</div>
+							<div class="ui-widget">
+								<%= f.text_field :name, placeholder: "Enter item here" %>
+							</div>					
+						</div>
+						<div class="modal-footer">
+							<%= f.submit "Add Another", :name => "another_button", :class => "btn btn-primary" %>
+							<%= f.submit "Done", :name => "done_button", :class => "btn btn-primary" %>
+						</div>
+					<% end %>
+				</div>
+			<% end %>
 
 <div class="row" style="margin-left:5px">
 <div id="lists">

@@ -1,3 +1,63 @@
+<style>
+.ui-autocomplete-category {
+    font-weight: bold;
+    padding: .2em .4em;
+    margin: .8em 0 .2em;
+    line-height: 1.5;
+}
+</style>
+
+<script>
+var YWSID = "cpdQ-5t6lIHziB-PIS-eHA";
+
+ $.widget( "custom.catcomplete", $.ui.autocomplete, {
+        _renderMenu: function( ul, items ) {
+            var that = this,
+                currentCategory = "";
+            $.each( items, function( index, item ) {
+                if ( item.category != currentCategory ) {
+                    ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+                    currentCategory = item.category;
+                }
+                that._renderItem( ul, item );
+            });
+        }
+    });
+
+
+
+$(function() {
+
+    $('input#item_name').catcomplete({
+          source: function(req, add){
+
+        $.ajax({
+            url      : 'http://api.yelp.com/business_review_search',
+            dataType : 'jsonp',
+            data     : {term: req.term, location: $("input#item_location").val(), limit:10, ywsid:'cpdQ-5t6lIHziB-PIS-eHA'}, // callback is not necessary
+            success  : function(data) {
+                // data is a normal response shown on yelp's API page
+                
+                var restaurantSuggestions = [];
+
+                      $.each(data.businesses, function(i, business){ 
+                      	var h = {};
+                      	h['label'] = business.name;
+                      	h['category'] = "Yelp";
+                        restaurantSuggestions.push(h);  
+                      });
+
+                      add(restaurantSuggestions);  
+
+                      
+              }
+          });
+      }
+  })
+})
+
+</script>
+
 <%= div_for(list, :class => "offset0 span2", :style => "border-right-style:solid; border-right-width:1px; border-right-color:#eee; padding-right:20px; height:800px") do %>
 			<h4 style="display:inline"><%= "#{list.title}" %></h4>
 
@@ -36,15 +96,21 @@
 
 		    <% if list.user == current_user %>
 				<!-- Modal -->
-				<div class="modal hide fade" id="itemModal-<%= dom_id(list) %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="itemmodal modal hide fade" id="itemModal-<%= dom_id(list) %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-header">
 				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 				    <h3 id="myModalLabel">Create Item in <%= list.title %></h3>
 				  </div>
-					<%= form_for(Item.new, remote: true, :html => { :class => "modal-form" }) do |f| %>
+					<%= form_for(Item.new, remote: true, :html => { :class => "modal-form"}) do |f| %>
 						<%= f.hidden_field :list_id, :value => list.id %>
 						<div class="modal-body field">
-							<%= f.text_field :name, placeholder: "Enter item here" %>
+							<a href="#" class="location-toggle">click here to include a location</a>
+							<div class="field" id="location">
+								<%= f.text_field :location, placeholder: "City, neighborhood, or zipcode" %>
+							</div>
+							<div class="ui-widget">
+								<%= f.text_field :name, placeholder: "Enter item here" %>
+							</div>					
 						</div>
 						<div class="modal-footer">
 							<%= f.submit "Add Another", :name => "another_button", :class => "btn btn-primary" %>

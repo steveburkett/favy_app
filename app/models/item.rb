@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name, :location
 
   validates_presence_of :name
 

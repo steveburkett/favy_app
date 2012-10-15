@@ -1,2 +1,30 @@
 <h1>StaticPages#home</h1>
 <p>Find me in app/views/static_pages/home.html.erb</p>
+
+<script>
+var YWSID = "cpdQ-5t6lIHziB-PIS-eHA";
+
+$(function() {
+  	$('#restaurantSearch').autocomplete({
+	        source: function(req, add){
+
+				$.ajax({
+				    url      : 'http://api.yelp.com/business_review_search',
+				    dataType : 'jsonp',
+				    data     : {term: req.term, location: 'San Francisco', limit:20, ywsid:'cpdQ-5t6lIHziB-PIS-eHA'}, // callback is not necessary
+				    success  : function(data) {
+				        // data is a normal response shown on yelp's API page
+				        var restaurantSuggestions = [];
+
+						          $.each(data.businesses, function(i, business){  
+						            restaurantSuggestions.push(business.name);  
+						          });
+
+						          add(restaurantSuggestions);  
+				    	}
+					});
+			}
+	})
+})
+</script>
+<input id="restaurantSearch" />

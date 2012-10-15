@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013033623) do
+ActiveRecord::Schema.define(:version => 20121015033034) do
 
   create_table "comments", :force => true do |t|
     t.text     "body"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20121013033623) do
     t.integer  "list_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "location"
   end
 
   create_table "lists", :force => true do |t|

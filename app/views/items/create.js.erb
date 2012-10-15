@@ -1,2 +1,2 @@
 $('div#<%= dom_id(@item.list) %>.items').prepend("<%= escape_javascript(render @item) %>");
-$('#itemModal-<%= dom_id(@item.list) %>').modal('hide');
+$('#itemModal').modal('hide');

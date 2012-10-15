@@ -8,3 +8,10 @@
   .m { font-size: 0.8em; }
   .l { font-size: 1.2em; }
 }
+
+.ui-autocomplete-loading {
+	background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat;
+}
+
+.field#location { display: none;
+}

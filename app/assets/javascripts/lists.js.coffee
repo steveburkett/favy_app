@@ -19,4 +19,4 @@ $ ->
     $('input#item_name').val("")
     $('input#item_name').focus()
     $('#itemModalLabel').text('Add Item to ' + $('#listTitle-list_'+list_id).text())
-    $('#item_list_id').val(99)
+    $('#item_list_id').val(list_id)

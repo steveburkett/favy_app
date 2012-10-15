@@ -59,7 +59,7 @@ $(function() {
 </script>
 
 <%= div_for(list, :class => "offset0 span2", :style => "border-right-style:solid; border-right-width:1px; border-right-color:#eee; padding-right:20px; height:800px") do %>
-			<h4 style="display:inline"><%= "#{list.title}" %></h4>
+			<h4 style="display:inline" id="listTitle-<%= dom_id(list) %>"><%= "#{list.title}" %></h4>
 
 			<% if list.user == current_user %>
 					<%= link_to 'x', list, confirm: "Delete list?", method: :delete %>
@@ -95,32 +95,8 @@ $(function() {
 
 
 		    <% if list.user == current_user %>
-				<!-- Modal -->
-				<div class="itemmodal modal hide fade" id="itemModal-<%= dom_id(list) %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-header">
-				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				    <h3 id="myModalLabel">Create Item in <%= list.title %></h3>
-				  </div>
-					<%= form_for(Item.new, remote: true, :html => { :class => "modal-form"}) do |f| %>
-						<%= f.hidden_field :list_id, :value => list.id %>
-						<div class="modal-body field">
-							<a href="#" class="location-toggle">click here to include a location</a>
-							<div class="field" id="location">
-								<%= f.text_field :location, placeholder: "City, neighborhood, or zipcode" %>
-							</div>
-							<div class="ui-widget">
-								<%= f.text_field :name, placeholder: "Enter item here" %>
-							</div>					
-						</div>
-						<div class="modal-footer">
-							<%= f.submit "Add Another", :name => "another_button", :class => "btn btn-primary" %>
-							<%= f.submit "Done", :name => "done_button", :class => "btn btn-primary" %>
-						</div>
-					<% end %>
-				</div>
-
 				<!-- Button to trigger modal -->
-				<a href="#itemModal-<%= dom_id(list) %>" role="button" class="btn btn-mini btn-primary" data-toggle="modal" style="margin-top:5px">+ item</a>
+				<a href="#" role="button" class="itemModalButton btn btn-mini btn-primary" data-toggle="modal" style="margin-top:5px" id="itemModalButton-<%= dom_id(list) %>">+ item</a>
 			<% end %>
 
 

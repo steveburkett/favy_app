@@ -1,2 +1,3 @@
 $('div#<%= dom_id(@item.list) %>.items').prepend("<%= escape_javascript(render @item) %>");
-$('#itemModal').modal('hide');
+$('form#new_item').find('input:text').val('');
+$('input#item_name').focus();

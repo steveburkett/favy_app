@@ -14,11 +14,7 @@ class ItemsController < ApplicationController
       if @item.save
         format.html
         format.json
-        if params[:done_button]
-          format.js {render :create}
-        elsif params[:another_button]
-          format.js {render :file => "/items/create_another.js"}
-        end
+        format.js {render :create}
       end
     end
   end

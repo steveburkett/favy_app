@@ -3,6 +3,25 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $ ->
+  $('#submit_item').click (event) ->
+    event.preventDefault()
+    console.log("done button clicked")
+    if $('input#item_name').val()
+      $('#new_item').submit()
+    $('#itemModal').modal('hide');
+
+$ ->
+  $('#itemModal').on 'shown', ->
+    $('input#item_name').focus()
+
+$ ->
+  $('#submit_item_another').click (event) ->
+    event.preventDefault()
+    if $('input#item_name').val()
+      $('#new_item').submit()
+
+
+$ ->
   $('#location-toggle').click (event) ->
     event.preventDefault()
     $(this).hide()

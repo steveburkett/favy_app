@@ -20,3 +20,11 @@ $ ->
     $('input#item_name').focus()
     $('#itemModalLabel').text('Add Item to ' + $('#listTitle-list_'+list_id).text())
     $('#item_list_id').val(list_id)
+
+$ ->
+  $('.container').on 'click', '#listModalButton', ->
+    event.preventDefault()
+    $('#listModal').modal('show')
+    $('input#list_title').val("")
+    $('input#list_title').focus()
+    $('input#list_tag_list').val("")

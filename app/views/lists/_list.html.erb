@@ -68,7 +68,7 @@ $(function() {
 
 
 
-			<%= raw list.tag_list.reject { |t| t == list.title.downcase }.map { |t| link_to t, tag_path(id:list.user_id, tag:t) }.join(', ')  %>
+			<%= raw list.tag_list.reject { |t| t.downcase == list.title.downcase }.map { |t| link_to t, tag_path(id:list.user_id, tag:t)  }.join(', ')  %>
 			<br />
 			<br />
 

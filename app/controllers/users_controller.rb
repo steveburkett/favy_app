@@ -79,6 +79,7 @@ class UsersController < ApplicationController
   		end
   	end
 
+    puts @tag
     if @tag
       @lists = @lists.tagged_with(params[:tag])
     end

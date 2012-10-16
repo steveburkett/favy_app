@@ -9,7 +9,7 @@ $ ->
     $('.field#location').show()
 
 $ ->
-  $('.itemModalButton').click (event) ->
+  $('.container').on 'click', '.itemModalButton', ->
     event.preventDefault()
     itemModalButtonID = $(this).attr 'id'
     list_id = itemModalButtonID.slice(21)

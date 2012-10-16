@@ -42,19 +42,19 @@ class UsersController < ApplicationController
 	  	end
   	elsif @search
       
-      friends_lists = []
+      friends_ids = []
       current_user.friends.each do |f|
-        friends_lists = friends_lists | f.lists
+        friends_ids.push(f.id)
       end
-      self_and_friends_lists = current_user.lists | friends_lists
+      self_and_friends_ids = friends_ids.push(current_user.id)
       
-      lists_with_item = []
+      list_array = []
+      List.where(:user_id => self_and_friends_ids).each do |l|
+        list_array.push(l.id)
+      end
+
       search_benchmark = Benchmark.measure do
-        self_and_friends_lists.each do |l|
-          if !l.items.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:search].downcase}%"]).empty?
-            lists_with_item << l
-          end
-        end
+        list_array.select{ |l| !List.find(l).items.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:search].downcase}%"]).empty? } 
       end
       puts "search all friends list"
       puts search_benchmark
@@ -68,7 +68,7 @@ class UsersController < ApplicationController
       #end
       #puts "texticle"
       #puts texticle_benchmark
-      @lists = lists_with_item
+      @lists = List.where(:id => list_array)
     else
   		if @user == current_user
   		  	@lists = @user.lists
@@ -82,10 +82,19 @@ class UsersController < ApplicationController
     if @tag
       @lists = @lists.tagged_with(params[:tag])
     end
-    @tagcounts = @lists.tag_counts
-    
-    @lists = @lists.order("created_at DESC").paginate(:page => params[:page], :per_page => 5)
-  
+
+    puts @lists
+    @lists.each do |l|
+      puts l.tags
+      puts l.tag_counts
+    end
+
+    @tagcounts = []
+    if not @lists.empty? #for search results
+      @tagcounts = @lists.tag_counts
+      @lists = @lists.order("created_at DESC")
+    end
+    @lists = @lists.paginate(:page => params[:page], :per_page => 5)
   end
 
   def index

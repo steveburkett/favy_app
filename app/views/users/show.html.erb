@@ -112,10 +112,12 @@
 		<div id="tag_cloud">
 		  Tags: 
 		  <% tag_cloud @tagcounts, %w[s m l] do |tag, css_class| %>
-		    <%= link_to tag.name, tag_path(id:@user.id, tag:tag.name), class: css_class %>
+		    <%= link_to tag.name, tag_path(id:@user.id, tag:tag.name, search:@search), class: css_class %>
 		  <% end %>
 		  <br />
 		</div>
+	<% else %>
+		<br />
 	<% end %>
 
 
@@ -132,7 +134,7 @@
 					<%= form_for(Item.new, remote: true, :html => { :class => "modal-form"}) do |f| %>
 						<%= f.hidden_field :list_id, :value => 1 %>
 						<div class="modal-body field">
-							<a href="#" id="location-toggle">click here to include a location</a>
+							<a href="#" id="location-toggle">click here to include a location for this item</a>
 							<div class="field" id="location">
 								<%= f.text_field :location, placeholder: "City, neighborhood, or zipcode" %>
 							</div>

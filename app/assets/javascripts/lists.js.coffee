@@ -13,6 +13,8 @@ $ ->
 $ ->
   $('#itemModal').on 'shown', ->
     $('input#item_name').focus()
+    $('input#item_name').val("")
+    $('input#item_location').val("")
 
 $ ->
   $('#submit_item_another').click (event) ->
@@ -33,7 +35,6 @@ $ ->
     itemModalButtonID = $(this).attr 'id'
     list_id = itemModalButtonID.slice(21)
     $('#itemModal').modal('show')
-    $('.field#location').hide()
     $('#location-toggle').show()
     $('input#item_name').val("")
     $('input#item_name').focus()

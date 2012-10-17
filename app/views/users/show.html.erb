@@ -50,7 +50,7 @@
 		<div class="modal hide fade" id="listModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-header">
 		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		    <h3 id="myModalLabel">Pick a general title. Then tag it.</h3>
+		    <h3 id="myModalLabel">Pick a general title.</h3>
 		  </div>
 			<%= form_for(List.new, remote: true, :html => { :class => "modal-form" }) do |f| %>
 				<%= f.hidden_field :user_id, :value => @user.id %>
@@ -58,13 +58,6 @@
 					<%= f.label :title, "List title:" %>
 					<%= f.text_field :title, placeholder: "" %>
 					<p style="font-size:x-small; margin-top:-1em">Eg. Books, Movies, Restaurants, Destinations, Music, Doctors, Shoes...</p>
-					<%= f.label :tag_list, "Tags (separated by commas):" %>
-					<%= f.text_field :tag_list, :style => "width:400px" %>
-					<p style="font-size:x-small; margin-top:-1em">Eg. 
-						Books: mystery;
-						Restaurants: San Francisco, Sushi;
-						Destinations: holidays;
-						Music: long drives</p>
 					<%= f.label :privacy, "Privacy for list:" %>
 					<%= f.select :privacy, [['public', 0], ['friends only', 1], ['private', 2]], :selected => 1 %>
 					<a href="#" rel="tooltip" title="Your list can be public, visible to your friends only, or private. Friends of your friends can see it only if it is public."><i class="icon-question-sign"></i></a>
@@ -134,12 +127,14 @@
 					<%= form_for(Item.new, remote: true, :html => { :class => "modal-form"}) do |f| %>
 						<%= f.hidden_field :list_id, :value => 1 %>
 						<div class="modal-body field">
-							<a href="#" id="location-toggle">click here to include a location for this item</a>
 							<div class="field" id="location">
-								<%= f.text_field :location, placeholder: "City, neighborhood, or zipcode" %>
+								<%= f.label :location, "If it's a place, enter a location:" %>
+								<%= f.text_field :location, placeholder: "city, neighborhood, or zipcode" %>
 							</div>
+							<br />
 							<div class="ui-widget">
-								<%= f.text_field :name, placeholder: "Enter item here" %>
+								<%= f.text_field :name, placeholder: "Enter item here", :style => "width:400px;height:40px;margin-left:60px;font-size:1.5em" %>
+								<%= f.text_field :category, placeholder: "Enter category for item", :style => "width:400px;height:28px;margin-left:60px;font-size:1.5em" %>
 							</div>					
 						</div>
 						<div class="modal-footer">

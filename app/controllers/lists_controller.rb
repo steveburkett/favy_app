@@ -10,10 +10,10 @@ class ListsController < ApplicationController
   end
 
   def create
-    tag_list = params[:list][:tag_list]
     title = params[:list][:title]
-    tag_list = tag_list + ", " + title
-    @list = List.new(user_id: params[:list][:user_id], title: title, tag_list: tag_list, privacy: params[:list][:privacy])
+    tag_list = title
+    @list = List.new(user_id: params[:list][:user_id], 
+      title: title, tag_list: tag_list, privacy: params[:list][:privacy], sort_by: "category")
     authorize! :create, @list
     respond_to do |format|
       if @list.save
@@ -54,4 +54,10 @@ class ListsController < ApplicationController
     redirect_to user_path(current_user)
   end
 
+  def sort
+    list = List.find(params[:id])
+    list.sort_by = params[:sort_by]
+    list.save
+    redirect_to user_path(current_user)
+  end
 end

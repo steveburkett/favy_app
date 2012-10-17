@@ -1,6 +1,23 @@
 <%= div_for item do %>
-	<%= link_to "#{item.name}", item, remote: true %><%= item.comments.count == 0 ? "" : "  (#{item.comments.count}) " %> 
-	 	<% if item.list.user == current_user %>
-			<%= link_to ' x', item, method: :delete %><br />
+
+	<% if item.list.sort_by == "category" %>
+		<% if item.category != @previous %>
+			<br />
+			<strong><%= item.category %></strong><br />
+			<% @previous = item.category %>
 		<% end %>
+	<% else %>
+		<% if item.location != @previous %>
+			<br />
+			<strong><%= item.location %></strong><br />
+			<% @previous = item.location %>
+		<% end %>
+	<% end %>
+	
+	<%= link_to "#{item.name}", item, remote: true %><%= item.comments.count == 0 ? "" : "  (#{item.comments.count}) " %> 
+ 	<% if item.list.user == current_user %>
+		<%= link_to ' x', item, method: :delete %><br />
+	<% end %>
+
+
 <% end %>

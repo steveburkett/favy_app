@@ -20,6 +20,7 @@ FavyApp::Application.routes.draw do
   resources :lists
   match "lists/create_popup" => 'lists#create_popup'
   match "lists/change_privacy" => "lists#change_privacy"
+  match "lists/sort" => 'lists#sort'
 
   resources :items
   resources :comments

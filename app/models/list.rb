@@ -1,5 +1,5 @@
 class List < ActiveRecord::Base
-  attr_accessible :title, :user_id, :privacy, :tag_list
+  attr_accessible :title, :user_id, :privacy, :tag_list, :sort_by
 
   validates_presence_of :title
 

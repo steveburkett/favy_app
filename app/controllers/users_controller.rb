@@ -47,17 +47,20 @@ class UsersController < ApplicationController
         friends_ids.push(f.id)
       end
       self_and_friends_ids = friends_ids.push(current_user.id)
-      
+
       list_array = []
       List.where(:user_id => self_and_friends_ids).each do |l|
         list_array.push(l.id)
       end
 
+
+      list_array_searched = []
       search_benchmark = Benchmark.measure do
-        list_array.select{ |l| !List.find(l).items.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:search].downcase}%"]).empty? } 
+        list_array_searched = list_array.select{ |l| !List.find(l).items.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:search].downcase}%"]).empty? or !List.find(l).tags.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:search].downcase}%"]).empty? or (List.find(l).title == params[:search])  } 
       end
       puts "search all friends list"
       puts search_benchmark
+
 
       #texticle_benchmark = Benchmark.measure do
       #  self_and_friends_lists.each do |l|
@@ -68,7 +71,7 @@ class UsersController < ApplicationController
       #end
       #puts "texticle"
       #puts texticle_benchmark
-      @lists = List.where(:id => list_array)
+      @lists = List.where(:id => list_array_searched)
     else
   		if @user == current_user
   		  	@lists = @user.lists
@@ -79,12 +82,10 @@ class UsersController < ApplicationController
   		end
   	end
 
-    puts @tag
     if @tag
       @lists = @lists.tagged_with(params[:tag])
     end
 
-    puts @lists
     @lists.each do |l|
       puts l.tags
       puts l.tag_counts

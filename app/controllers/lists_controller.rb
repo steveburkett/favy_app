@@ -58,6 +58,6 @@ class ListsController < ApplicationController
     list = List.find(params[:id])
     list.sort_by = params[:sort_by]
     list.save
-    redirect_to user_path(current_user)
+    redirect_to user_path(list.user)
   end
 end

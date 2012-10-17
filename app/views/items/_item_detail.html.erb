@@ -1,4 +1,7 @@
-<div class="offset1 span4"><%= "#{item.name} in #{item.list.title}" %>
+<div class="offset1 span4">
+	<strong><%= "#{item.name}" %></strong> in <%= "#{item.list.title}" %>
+	<br />
+	(<%= item.category %><%= item.location ? ", #{item.location}" : "" %>)
 </div>
 <div class="span3">
   Comments:

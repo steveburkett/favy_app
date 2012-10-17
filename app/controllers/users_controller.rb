@@ -38,7 +38,33 @@ class UsersController < ApplicationController
 	  	else
         #for now a current_user can't see a user's followed lists if those are friends lists
         #eventually want to see friend's of friends lists
-	  		@lists = @user.followlists.where("privacy = ?", 0)
+	  		
+        public_lists = @user.followlists.where("privacy = ?", 0)
+        public_lists_ids = []
+        public_lists.each do |p|
+          public_lists_ids.push(p.id)
+        end
+
+
+        friends_ids = []
+        current_user.friends.each do |f|
+          friends_ids.push(f.id)
+        end
+        self_and_friends_ids = friends_ids.push(current_user.id)
+
+        friends_lists = @user.followlists.where("privacy = ?", 1).where(:user_id => self_and_friends_ids)
+
+        friends_lists.each do |f|
+          public_lists_ids.push(f.id)
+        end
+
+
+
+        #@lists = @user.followlists.where(:user_id => self_and_friends_ids)#.where("user_id IN (?)", self_and_friends_ids)
+        @lists = @user.followlists.where(:id => public_lists_ids)
+        #Person.find(:all, :conditions => ["created_at > ? AND name IN (?)", date, names])
+        #@lists = public_lists.merge(friends_lists)
+        #@lists = @user.followlists.where("privacy = ?", 0).merge(@user.followlists.where("privacy = ?", 1).where(:user_id => self_and_friends_ids))
 	  	end
   	elsif @search
       

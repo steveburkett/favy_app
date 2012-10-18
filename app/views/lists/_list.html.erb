@@ -107,7 +107,8 @@ $(function() {
 			</div>
 			<br />
 		sort by:<br />
-		<%= link_to "location", lists_sort_path(id: list.id, sort_by:"location"), :class => "btn btn-mini #{list.sort_by == "location" ? "btn-primary disabled" : ""}", method: :post, :style =>"margin-right:0px" %><%= link_to "category",  lists_sort_path(id: list.id, sort_by:"category"), :class => "btn btn-mini #{list.sort_by == "category" ? "btn-primary disabled" : ""}", method: :post %><br /><br />
+		<% no_location = list.items.select{|i| !i.location.blank?}.empty? %>
+		<%= link_to "location", lists_sort_path(id: list.id, sort_by:"location"), :class => "btn btn-mini #{list.sort_by == "location" ? "btn-primary disabled" : ""}", method: :post, :style =>"margin-right:0px" if !no_location %><%= link_to "category",  lists_sort_path(id: list.id, sort_by:"category"), :class => "btn btn-mini #{list.sort_by == "category" ? "btn-primary disabled" : ""}", method: :post %><br /><br />
 
 
 			<% @previous = "" %>

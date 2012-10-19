@@ -1,3 +1,5 @@
 $('div#<%= dom_id(@item.list) %>.items').prepend("<%= escape_javascript(render @item) %>");
 $('form#new_item').find('input:text').val('');
 $('input#item_name').focus();
+var row = $('div#<%= dom_id(@item.list) %>').parent().attr("id");
+$('.'+row).height($('.'+row).height() + 60);

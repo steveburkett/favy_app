@@ -7,7 +7,6 @@ class ItemsController < ApplicationController
 
   def create
     list = List.find(params[:item][:list_id])
-    if list.items.count <= 1
       @item = Item.new(:name => params[:item][:name], :location => params[:item][:location], :category => params[:item][:category], :initial_comment => params[:item][:initial_comment])
       @item.list = list
       authorize! :create, @item
@@ -26,12 +25,6 @@ class ItemsController < ApplicationController
           format.js {render :create}
         end
       end
-    else
-      respond_to do |format|
-        flash[:error] = "Max 20 items."
-        format.html
-      end
-    end
   end
 
   def edit

@@ -133,7 +133,8 @@
 
 <div id="lists">
 <% for i in 0..(@lists.count-1)/5 %>
-	<div class="row" style="margin-left:0px; border-bottom-width:1px; border-bottom-color:#eee; border-bottom-style:solid;">
+	<% @row = i %>
+	<div class="row" id="row-<%= @row %>" style="margin-left:0px; border-bottom-width:1px; border-bottom-color:#eee; border-bottom-style:solid;">
 		<% @max_items = 0 %>
 		<% @lists[5*i..(5*(i+1)-1)].each do |l| %>
 			<% if l.items.count > @max_items %>

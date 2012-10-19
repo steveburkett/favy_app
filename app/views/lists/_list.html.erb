@@ -67,8 +67,8 @@ $(function() {
 
 </script>
 
-<%= div_for(list, :class => "offset0 span2 row-#{@row}", :style => "border-right-style:solid; border-right-width:1px; border-right-color:#eee; padding-left:20px; padding-right:20px; margin-right:0px; margin-left:0px; height:#{150+@max_items*60}px") do %>
-			<h4 style="display:inline" id="listTitle-<%= dom_id(list) %>"><%= "#{list.title}" %></h4>
+<%= div_for(list, :class => "offset0 span2 row-#{@row}", :style => "border-right-style:solid; border-right-width:1px; border-right-color:#eee; padding-left:20px; padding-right:20px; margin-right:0px; margin-left:0px; height:#{150+ (@max_items.nil? ? 0 : @max_items*60)}px") do %>
+			<h4 style="display:inline; margin-bottom:4px;" id="listTitle-<%= dom_id(list) %>"><%= "#{list.title}" %></h4>
 
 			<% if list.user == current_user and !list.reserved %>
 					<%= link_to 'x', list, confirm: "Delete list?", method: :delete %>
@@ -81,15 +81,15 @@ $(function() {
 
 			<% if not list.user == current_user %>
 				<% if current_user.listships.where("followlist_id = ?", list.id).exists? %>
-					<%= link_to 'unfollow', listship_path(id: list.id), method: :delete, :class => "btn btn-mini"  %>
+					<%= link_to 'unfollow', listship_path(id: list.id), method: :delete, :class => "btn btn-mini", :style => "margin-bottom:6px"  %>
 				<% else %>
-					<%= link_to 'follow', listships_path(id: list.id), method: :post, :class => "btn btn-mini"  %>
+					<%= link_to 'follow', listships_path(id: list.id), method: :post, :class => "btn btn-mini",:style => "margin-bottom:6px"  %>
 				<% end %>
 			<% end %>
 
 				<% if list.user == current_user %>
 					<div class="btn-group">
-					<%= link_to "public", lists_change_privacy_path(id: list.id, privacy:0), :class => "btn btn-mini #{list.privacy == 0 ? "btn-primary disabled" : ""}", method: :post, :style =>"margin-right:0px" %><%= link_to "friends",  lists_change_privacy_path(id: list.id, privacy:1), :class => "btn btn-mini #{list.privacy == 1 ? "btn-primary disabled" : ""}", method: :post %><%= link_to "private",  lists_change_privacy_path(id: list.id, privacy:2), :class => "btn btn-mini #{list.privacy == 2 ? "btn-primary disabled" : ""}", method: :post %><br /><br />
+					<%= link_to "public", lists_change_privacy_path(id: list.id, privacy:0), :class => "btn btn-mini #{list.privacy == 0 ? "btn-primary disabled" : ""}", method: :post, :style =>"margin-right:0px" %><%= link_to "friends",  lists_change_privacy_path(id: list.id, privacy:1), :class => "btn btn-mini #{list.privacy == 1 ? "btn-primary disabled" : ""}", method: :post %><%= link_to "private",  lists_change_privacy_path(id: list.id, privacy:2), :class => "btn btn-mini #{list.privacy == 2 ? "btn-primary disabled" : ""}", method: :post %><br />
 					</div>
 				<% end %>
 
@@ -98,16 +98,17 @@ $(function() {
 
 		    <% if list.user == current_user %>
 				<!-- Button to trigger modal -->
-				<a href="#" role="button" class="itemModalButton btn btn-mini btn-primary" data-toggle="modal" style="margin-top:5px" id="itemModalButton-<%= dom_id(list) %>">+ item</a>
+				<a href="#" role="button" class="itemModalButton btn btn-mini btn-primary" data-toggle="modal" style="margin-top:6px; margin-bottom:4px" id="itemModalButton-<%= dom_id(list) %>">+ item</a>
 			<% end %>
 
 
 
 			<br />
-		sort by:<br />
 		<% no_location = list.items.select{|i| !i.location.blank?}.empty? %>
+		<% if !no_location %>
+		sort by:<br />
 		<%= link_to "location", lists_sort_path(id: list.id, sort_by:"location"), :class => "btn btn-mini #{list.sort_by == "location" ? "btn-primary disabled" : ""}", method: :post, :style =>"margin-right:0px" if !no_location %><%= link_to "category",  lists_sort_path(id: list.id, sort_by:"category"), :class => "btn btn-mini #{list.sort_by == "category" ? "btn-primary disabled" : ""}", method: :post %><br /><br />
-
+		<% end %>
 
 			<% @previous = "" %>
 			<div class="items" id="<%= dom_id(list) %>">

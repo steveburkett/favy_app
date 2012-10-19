@@ -52,7 +52,7 @@
 		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 		    <h3 id="myModalLabel">Pick a general title.</h3>
 		  </div>
-			<%= form_for(List.new, remote: true, :html => { :class => "modal-form" }) do |f| %>
+			<%= form_for(List.new, remote: false, :html => { :class => "modal-form" }) do |f| %>
 				<%= f.hidden_field :user_id, :value => @user.id %>
 				<div class="modal-body field">
 					<%= f.label :title, "List title:" %>
@@ -131,10 +131,10 @@
 				</div>
 			<% end %>
 
-<div id="lists">
+<div id="lists" style="margin-top:-16px">
 <% for i in 0..(@lists.count-1)/5 %>
 	<% @row = i %>
-	<div class="row" id="row-<%= @row %>" style="margin-left:0px; border-bottom-width:1px; border-bottom-color:#eee; border-bottom-style:solid;">
+	<div class="row" id="row-<%= @row %>" style="margin-left:0px; border-bottom-width:1px; border-bottom-color:#eee; border-bottom-style:solid; padding-top:8px">
 		<% @max_items = 0 %>
 		<% @lists[5*i..(5*(i+1)-1)].each do |l| %>
 			<% if l.items.count > @max_items %>

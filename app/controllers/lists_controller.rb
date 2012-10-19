@@ -17,7 +17,7 @@ class ListsController < ApplicationController
     authorize! :create, @list
     respond_to do |format|
       if @list.save
-        format.html
+        format.html {redirect_to user_path(current_user)}
         format.json
         format.js
       else

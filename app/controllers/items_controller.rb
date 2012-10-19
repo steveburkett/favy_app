@@ -7,21 +7,29 @@ class ItemsController < ApplicationController
 
   def create
     list = List.find(params[:item][:list_id])
-    @item = Item.new(:name => params[:item][:name], :location => params[:item][:location], :category => params[:item][:category])
-    @item.list = list
-    authorize! :create, @item
-    respond_to do |format|
-      if @item.save
-        if params[:item][:category]
-          @item.list.tag_list.push(params[:item][:category])
+    if list.items.count <= 1
+      @item = Item.new(:name => params[:item][:name], :location => params[:item][:location], :category => params[:item][:category], :initial_comment => params[:item][:initial_comment])
+      @item.list = list
+      authorize! :create, @item
+      respond_to do |format|
+        if @item.save
+          if params[:item][:category]
+            @item.list.tag_list.push(params[:item][:category])
+          end
+          if params[:item][:location]
+            @item.list.tag_list.push(params[:item][:location])
+          end
+          @item.list.save
+
+          format.html
+          format.json
+          format.js {render :create}
         end
-        if params[:item][:location]
-          @item.list.tag_list.push(params[:item][:location])
-        end
-        @item.list.save
+      end
+    else
+      respond_to do |format|
+        flash[:error] = "Max 20 items."
         format.html
-        format.json
-        format.js {render :create}
       end
     end
   end

@@ -14,6 +14,7 @@ FavyApp::Application.routes.draw do
   match "users" => 'users#index'
   match "users/:id/friends" => 'users#friends', :as => "friends"
   get 'users/:id/tags/:tag', to: 'users#show', as: :tag
+  match "users/set_default/:id" => "users#set_default", as: :set_default
 
   match "search" => "users#search"
 

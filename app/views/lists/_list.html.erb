@@ -67,10 +67,10 @@ $(function() {
 
 </script>
 
-<%= div_for(list, :class => "offset0 span2", :style => "border-right-style:solid; border-right-width:1px; border-right-color:#eee; padding-right:20px; height:800px") do %>
+<%= div_for(list, :class => "offset0 span2", :style => "border-right-style:solid; border-right-width:1px; border-right-color:#eee; padding-left:20px; padding-right:20px; margin-right:0px; margin-left:0px; height:#{150+@max_items*50}px") do %>
 			<h4 style="display:inline" id="listTitle-<%= dom_id(list) %>"><%= "#{list.title}" %></h4>
 
-			<% if list.user == current_user %>
+			<% if list.user == current_user and !list.reserved %>
 					<%= link_to 'x', list, confirm: "Delete list?", method: :delete %>
 			<% end %>
 			<br />

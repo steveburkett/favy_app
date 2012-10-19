@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  attr_accessible :name, :location, :category
+  attr_accessible :name, :location, :category, :initial_comment
 
   validates_presence_of :name
 

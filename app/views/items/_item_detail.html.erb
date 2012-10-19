@@ -1,7 +1,11 @@
 <div class="offset1 span4">
-	<strong><%= "#{item.name}" %></strong> in <%= "#{item.list.title}" %>
+	<strong><%= "#{item.name}" %></strong> in <%= "#{item.list.title}" %><% if item.list.user == current_user %>
+		<%= link_to ' x', item, method: :delete %><% end %>
 	<br />
-	(<%= item.category %><%= item.location ? ", #{item.location}" : "" %>)
+	(<%= item.category %><%= !item.location.blank? ? ", #{item.location}" : "" %>)
+	<br /> 
+	<br /> 
+	<%= item.initial_comment %>	
 </div>
 <div class="span3">
   Comments:

@@ -80,21 +80,6 @@
  		Searched your list and your friends: <strong><%= @lists.count %> <%= "list".pluralize(@lists.count) %> returned for <%= @search %></strong>
  	<% end %>
 
-
-	<ul class="pager" style="margin-left:800px; margin-top:<%= ((@user == current_user) and  !@followedlists and !@search and !@tag) ? -20 : 0 %>px">
-		<% if @lists.previous_page %>
-		  <li><%= link_to "&larr;".html_safe, params.merge(page: @lists.previous_page) %></li>
-		<% end %>
-		<% if not @lists.total_pages == 1 %>
-			<%= @lists.current_page %> / <%= @lists.total_pages %>
-		<% end %>
-		<% if @lists.next_page %>
-		  <li><%= link_to "&rarr;".html_safe, params.merge(page: @lists.next_page) %></li>
-		<% end %>
-	</ul>
-
-
-
  	<% if @tag %>
  		Filtered by: <strong><%= @tag %></strong> <%= link_to "x", user_path(@user) %>
  	<% else %>
@@ -105,7 +90,7 @@
 		<div id="tag_cloud">
 		  Tags: 
 		  <% tag_cloud @tagcounts, %w[s m l] do |tag, css_class| %>
-		    <%= link_to tag.name, tag_path(id:@user.id, tag:tag.name, search:@search, followedlists:@followedlists), class: css_class %>
+		    <%= link_to tag.name.downcase, tag_path(id:@user.id, tag:tag.name, search:@search, followedlists:@followedlists), class: css_class %>
 		  <% end %>
 		  <br />
 		</div>
@@ -129,12 +114,13 @@
 						<div class="modal-body field">
 							<div class="field" id="location">
 								<%= f.label :location, "If it's a place, enter a location:" %>
-								<%= f.text_field :location, placeholder: "city, neighborhood, or zipcode" %>
+								<%= f.text_field :location, placeholder: "city, neighborhood, or zipcode", :style => "font-size:1em" %>
 							</div>
 							<br />
 							<div class="ui-widget">
 								<%= f.text_field :name, placeholder: "Enter item here", :style => "width:400px;height:40px;margin-left:60px;font-size:1.5em" %>
-								<%= f.text_field :category, placeholder: "Enter category for item", :style => "width:400px;height:28px;margin-left:60px;font-size:1.5em" %>
+								<%= f.text_field :category, placeholder: "Enter category for item", :style => "width:400px;height:28px;margin-left:60px;font-size:1em" %>
+								<%= f.text_area :initial_comment, placeholder: "Write what you think about this item...", :style => "width:400px;height:60px;margin-left:60px;font-size:1em" %>
 							</div>					
 						</div>
 						<div class="modal-footer">
@@ -145,8 +131,16 @@
 				</div>
 			<% end %>
 
-<div class="row" style="margin-left:5px">
 <div id="lists">
-  <%= render @lists %>
-</div>
+<% for i in 0..(@lists.count-1)/5 %>
+	<div class="row" style="margin-left:0px; border-bottom-width:1px; border-bottom-color:#eee; border-bottom-style:solid;">
+		<% @max_items = 0 %>
+		<% @lists[5*i..(5*(i+1)-1)].each do |l| %>
+			<% if l.items.count > @max_items %>
+				<% @max_items = l.items.count %>
+			<% end%>
+		<% end %>
+		<%= render @lists[5*i..(5*(i+1)-1)] %>
+	</div>
+<% end %>
 </div>

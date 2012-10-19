@@ -122,7 +122,7 @@ class UsersController < ApplicationController
       @tagcounts = @lists.tag_counts
       @lists = @lists.order("created_at DESC")
     end
-    @lists = @lists.paginate(:page => params[:page], :per_page => 5)
+    #@lists = @lists.paginate(:page => params[:page], :per_page => 5)
   end
 
   def index
@@ -133,4 +133,47 @@ class UsersController < ApplicationController
   def friends
   	@user = User.find(params[:id])
   end
+
+
+  def set_default
+
+    #make secure later
+    if current_user.lists.count == 0
+      title = "Services"
+      tag = title.downcase
+      list = List.new(title: title, tag_list: tag, privacy: 1, sort_by: "category", reserved: true)
+      list.user = current_user
+      list.save
+
+      title = "Vacation Spots"
+      tag = title.downcase
+      list = List.new(title: title, tag_list: tag, privacy: 1, sort_by: "category", reserved: true)
+      list.user = current_user
+      list.save
+
+      title = "Restaurants"
+      tag = title.downcase
+      list = List.new(title: title, tag_list: tag, privacy: 1, sort_by: "category", reserved: true)
+      list.user = current_user
+      list.save
+
+      title = "Movies"
+      tag = title.downcase
+      list = List.new(title: title, tag_list: tag, privacy: 1, sort_by: "category", reserved: true)
+      list.user = current_user
+      list.save
+
+      title = "Books"
+      tag = title.downcase
+      list = List.new(title: title, tag_list: tag, privacy: 1, sort_by: "category", reserved: true)
+      list.user = current_user
+      list.items.build(name: "The Name of the Wind", category: "Fantasy",
+        initial_comment:"Hey this is Patrick, I wrote this site. Like it? This is my favorite book. 
+        It's not your favorite book - or is it. I put it here for you to see how this works.
+        Now delete this (you can figure it out) and add yours. Go.")
+      list.save
+    end    
+    redirect_to user_path(current_user)
+  end
+
 end

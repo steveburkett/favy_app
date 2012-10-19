@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121017045530) do
+ActiveRecord::Schema.define(:version => 20121018072353) do
 
   create_table "comments", :force => true do |t|
     t.text     "body"
@@ -36,10 +36,11 @@ ActiveRecord::Schema.define(:version => 20121017045530) do
   create_table "items", :force => true do |t|
     t.string   "name"
     t.integer  "list_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.string   "location"
     t.string   "category"
+    t.text     "initial_comment"
   end
 
   create_table "lists", :force => true do |t|
@@ -49,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20121017045530) do
     t.datetime "updated_at", :null => false
     t.integer  "privacy"
     t.string   "sort_by"
+    t.boolean  "reserved"
   end
 
   create_table "listships", :force => true do |t|

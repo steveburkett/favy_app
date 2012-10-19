@@ -99,7 +99,7 @@ $(function() {
 
 		    <% if list.user == current_user %>
 				<!-- Button to trigger modal -->
-				<a href="#" role="button" class="itemModalButton btn btn-mini btn-primary" data-toggle="modal" style="margin-top:-30px; margin-bottom:4px" id="itemModalButton-<%= dom_id(list) %>">+ item</a>
+				<a href="#" role="button" class="itemModalButton btn btn-mini btn-primary" data-toggle="modal" style="margin-top:-30px; margin-bottom:0px" id="itemModalButton-<%= dom_id(list) %>">+ item</a>
 			<% end %>
 
 
@@ -107,11 +107,11 @@ $(function() {
 			<br />
 		<% no_location = list.items.select{|i| !i.location.blank?}.empty? %>
 		<% if !no_location %>
-		sort by:<br />
-		<%= link_to "location", lists_sort_path(id: list.id, sort_by:"location"), :class => "btn btn-mini #{list.sort_by == "location" ? "btn-primary disabled" : ""}", method: :post, :style =>"margin-right:0px" if !no_location %><%= link_to "category",  lists_sort_path(id: list.id, sort_by:"category"), :class => "btn btn-mini #{list.sort_by == "category" ? "btn-primary disabled" : ""}", method: :post %><br /><br />
+			sort by:<br />
+			<%= link_to "location", lists_sort_path(id: list.id, sort_by:"location"), :class => "btn btn-mini #{list.sort_by == "location" ? "btn-primary disabled" : ""}", method: :post, :style =>"margin-right:0px" if !no_location %><%= link_to "category",  lists_sort_path(id: list.id, sort_by:"category"), :class => "btn btn-mini #{list.sort_by == "category" ? "btn-primary disabled" : ""}", method: :post %><br /><br />
 		<% end %>
 
-			<% @previous = "" %>
+			<% @previous = "initial" %>
 			<div class="items" id="<%= dom_id(list) %>">
 				<% if list.sort_by == "category" %>
 	      			<%= render list.items.order("category ASC") %>

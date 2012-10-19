@@ -38,7 +38,10 @@ class ItemsController < ApplicationController
     authorize! :destroy, @item
     @item.destroy
     flash[:success] = "Item deleted."
-    redirect_to user_path(current_user)
+    respond_to do |format|
+      format.html {redirect_to user_path(current_user)}
+      format.js
+    end
   end
 
   def index

@@ -1,18 +1,18 @@
 <br />
 
-<div class="row">
-  <div class="span3">
-  	<h3><%= @user.firstname %> <%= @user.lastname %> </h3>
-  	<% if (not @user == current_user) and (not @friend) %>
-	  	<%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
-	 <% end %>
-  	<br />
-  	<%= link_to "View Friends", friends_path(@user) %>
-	<br />
-  	<br />
-  </div>  
-  <div id="item_show"></div>
-</div>
+	<div class="row">
+		  <div class="span3">
+		  	<h3><%= @user.firstname %> <%= @user.lastname %> </h3>
+		  	<% if (not @user == current_user) and (not @friend) %>
+			  	<%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
+			 <% end %>
+		  	<br />
+		  	<%= link_to "View Friends", friends_path(@user) %>
+			<br />
+		  	<br />
+		  </div>  
+		  <div id="item_show"></div>
+	</div>
 
 <% if @followedlists %>
 	<ul class="nav nav-tabs">

@@ -49,7 +49,7 @@ class ListsController < ApplicationController
   end
 
   def change_privacy
-    list = List.find(params[:id])
+    list = List.find(params[:list_id])
     authorize! :change_privacy, list
     privacy = params[:privacy]
     list.update_attributes(privacy: privacy)
@@ -62,5 +62,6 @@ class ListsController < ApplicationController
     list.save
     redirect_to user_path(list.user)
   end
+
 
 end

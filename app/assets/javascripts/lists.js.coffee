@@ -48,3 +48,7 @@ $ ->
     $('input#list_title').val("")
     $('input#list_title').focus()
     $('input#list_tag_list').val("")
+
+$ ->
+  $('.privacy').change ->
+    $(this).closest("form").submit()

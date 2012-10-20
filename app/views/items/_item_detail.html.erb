@@ -1,4 +1,4 @@
-<div class="offset1 span4">
+
 	<strong><%= "#{item.name}" %></strong> in <%= "#{item.list.title}" %><% if item.list.user == current_user %>
 		<%= link_to ' x', item, method: :delete %><% end %>
 	<br />
@@ -6,8 +6,6 @@
 	<br /> 
 	<br /> 
 	<%= item.initial_comment %>	
-</div>
-<div class="span3">
   Comments:
 
 			<div class="comments">
@@ -25,5 +23,3 @@
 			<% end %>
 
 
-
-</div>

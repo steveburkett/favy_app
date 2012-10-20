@@ -1,18 +1,21 @@
 <br />
 
 <div class="row">
-  <div class="span3">
+  <div class="offset0 span3 affix" style="margin-left:60px" >
   	<h3><%= @user.firstname %> <%= @user.lastname %> </h3>
   	<% if (not @user == current_user) and (not @friend) %>
-	  	<%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %>
+	  	<%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %><br />
 	 <% end %>
-  	<br />
+  	
   	<%= link_to "View Friends", friends_path(@user) %>
 	<br />
   	<br />
+	<div id="item_show"></div>
   </div>  
-  <div id="item_show"></div>
-</div>
+
+
+  <div class="offset4 span12">
+
 
 <% if @followedlists %>
 	<ul class="nav nav-tabs">
@@ -144,4 +147,7 @@
 		<%= render @lists[5*i..(5*(i+1)-1)] %>
 	</div>
 <% end %>
+</div>
+
+</div>
 </div>

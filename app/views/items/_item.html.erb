@@ -28,7 +28,7 @@
 					  <%= hidden_field_tag :item_id, item.id %>
 				      <%= select_tag :list, options_for_select(current_user.lists.map{|l| l.title}), :style => 'width:160px; height:28px; font-size:1em; margin-top:10px; margin-right:20px', :class=>'list' %>
 				      <%= submit_tag "Add", :class=>"btn btn-primary" %>
-				    <% end %>' data-title="Add item to your list" style="font-size:0.8em">+</a><br />
+				    <% end %><div class="item_notice" style="color:green"></div>' data-title="Add item to your list" style="font-size:0.8em">+</a><br />
 	<% end %>
 
 

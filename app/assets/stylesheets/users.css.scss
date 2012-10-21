@@ -3,5 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .affix {
-    position: fixed; 
+    position: fixed;
+    height: 500px;
+    width: 270px; 
+    overflow: auto;
 }

@@ -168,9 +168,11 @@ class UsersController < ApplicationController
       list = List.new(title: title, tag_list: tag, privacy: 1, sort_by: "category", reserved: true)
       list.user = current_user
       list.items.build(name: "The Name of the Wind", category: "Fantasy",
-        initial_comment:"Hey this is Patrick, I wrote this site. Like it? This is my favorite book. 
-        It's not your favorite book - or is it. I put it here for you to see how this works.
-        Now delete this (you can figure it out) and add yours. Go.")
+        initial_comment:"Hey this is Patrick, I made this site. Like it? This is my favorite book. 
+        I put it here for you to see how this works. Now delete this book and add yours. You also have other lists where you can add
+        your favorite movies, restaurants, vacation spots, services (like doctors and dentists and mechanic),
+        and you can make your own lists too. Each list has its own privacy setting so you can just keep track of
+        things for yourself but it's always good to share with friends.")
       list.save
     end    
     redirect_to user_path(current_user)

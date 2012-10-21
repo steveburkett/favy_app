@@ -6,3 +6,14 @@ $ ->
   $('#listModal').on 'shown', (event) ->
     $('#list_title').val("")
     $('#list_title').focus()
+
+$ ->
+  $("[rel=tooltip]").tooltip()
+
+$ ->
+  $("[rel=popover]").popover({placement:'bottom', trigger:'manual'}).click ->
+        $(this).popover('toggle')
+
+$ ->
+  $('.poppy').live 'click', ->
+    $(this).popover('toggle')

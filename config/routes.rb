@@ -24,6 +24,8 @@ FavyApp::Application.routes.draw do
   match "lists/sort" => 'lists#sort'
 
   resources :items
+  match "items/add" => 'items#add'
+
   resources :comments
 
   get "static_pages/home"

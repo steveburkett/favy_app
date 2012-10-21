@@ -28,6 +28,10 @@ class Ability
         item.list.user_id == user.id
     end
 
+    can :add, Item do |item|
+        item.list.user_id == user.id
+    end
+
     can :destroy, Item do |item|
         item.list.user_id == user.id
     end

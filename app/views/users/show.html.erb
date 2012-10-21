@@ -10,6 +10,7 @@
   	<%= link_to "View Friends", friends_path(@user) %>
 	<br />
   	<br />
+  	<br />
 	<div id="item_show"></div>
   </div>  
 
@@ -63,7 +64,7 @@
 					<p style="font-size:x-small; margin-top:-1em">Eg. Books, Movies, Restaurants, Destinations, Music, Doctors, Shoes...</p>
 					<%= f.label :privacy, "Privacy for list:" %>
 					<%= f.select :privacy, [['public', 0], ['friends only', 1], ['private', 2]], :selected => 1 %>
-					<a href="#" rel="tooltip" title="Your list can be public, visible to your friends only, or private. Friends of your friends can see it only if it is public."><i class="icon-question-sign"></i></a>
+					<a href="#" rel="tooltip" data-placement="right" title="Your list can be public, visible to your friends only, or private. Friends of your friends can see it only if it is public."><i class="icon-question-sign"></i></a>
 				</div>
 				<div class="modal-footer">
 					<%= f.submit "Add List", :class => "btn btn-primary" %>

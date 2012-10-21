@@ -3,6 +3,19 @@
 		<%= link_to ' x', item, method: :delete %><% end %>
 	<br />
 	(<%= item.category %><%= !item.location.blank? ? ", #{item.location}" : "" %>)
+
+
+	<br />
+			<a href="#" rel="popover2" data-placement="right" data-trigger="manual" data-content='
+
+		<%= form_tag url_for(:controller => 'items', :action => 'add'), :remote => 'true', :method => 'post', :class => 'add_form' do %>
+					  <%= hidden_field_tag :item_id, item.id %>
+				      <%= select_tag :list, options_for_select(current_user.lists.map{|l| l.title}), :style => 'width:160px; height:28px; font-size:1em; margin-top:10px; margin-right:20px', :class=>'list' %>
+				      <%= submit_tag "Add", :class=>"btn btn-primary" %>
+				    <% end %>' data-title="Add item to your list" style="font-size:0.8em" class="poppy btn btn-mini">add</a><br />
+
+
+
 	<br /> 
 	<br /> 
 	<%= item.initial_comment %>	

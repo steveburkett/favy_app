@@ -71,7 +71,7 @@ $(function() {
 			<h4 style="display:inline; margin-bottom:4px;" id="listTitle-<%= dom_id(list) %>"><%= "#{list.title}" %></h4>
 
 			<% if list.user == current_user and !list.reserved %>
-					<%= link_to 'x', list, confirm: "Delete list?", method: :delete %>
+					<%= link_to '&times;'.html_safe, list, :class => "close", confirm: "Delete list?", method: :delete %>
 			<% end %>
 			<br />
 

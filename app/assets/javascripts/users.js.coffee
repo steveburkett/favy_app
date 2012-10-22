@@ -17,3 +17,7 @@ $ ->
 $ ->
   $('.poppy').live 'click', ->
     $(this).popover('toggle')
+
+$ ->
+  $('#item_location_name').autocomplete
+    source: $('#item_location_name').data('autocomplete-source')

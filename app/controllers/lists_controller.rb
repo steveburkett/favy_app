@@ -53,6 +53,7 @@ class ListsController < ApplicationController
     authorize! :change_privacy, list
     privacy = params[:privacy]
     list.update_attributes(privacy: privacy)
+    flash[:notice] = "Privacy updated."
     redirect_to user_path(current_user)
   end
 

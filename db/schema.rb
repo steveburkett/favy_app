@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121018072353) do
+ActiveRecord::Schema.define(:version => 20121022040335) do
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "comments", :force => true do |t|
     t.text     "body"
@@ -38,9 +44,9 @@ ActiveRecord::Schema.define(:version => 20121018072353) do
     t.integer  "list_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.string   "location"
-    t.string   "category"
     t.text     "initial_comment"
+    t.integer  "category_id"
+    t.integer  "location_id"
   end
 
   create_table "lists", :force => true do |t|
@@ -63,6 +69,12 @@ ActiveRecord::Schema.define(:version => 20121018072353) do
   add_index "listships", ["followlist_id"], :name => "index_listships_on_followlist_id"
   add_index "listships", ["user_id", "followlist_id"], :name => "index_listships_on_user_id_and_followlist_id", :unique => true
   add_index "listships", ["user_id"], :name => "index_listships_on_user_id"
+
+  create_table "locations", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

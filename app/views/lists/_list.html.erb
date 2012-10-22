@@ -34,7 +34,7 @@ $(function() {
 			        $.ajax({
 			            url      : 'http://api.yelp.com/business_review_search',
 			            dataType : 'jsonp',
-			            data     : {term: req.term, location: $("input#item_location").val(), limit:10, ywsid:'cpdQ-5t6lIHziB-PIS-eHA'}, // callback is not necessary
+			            data     : {term: req.term, location: $("input#item_location_name").val(), limit:10, ywsid:'cpdQ-5t6lIHziB-PIS-eHA'}, // callback is not necessary
 			            success  : function(data) {
 			                // data is a normal response shown on yelp's API page
 			                
@@ -60,7 +60,7 @@ $(function() {
 			        });
 			},
 			select: function( event, ui ) {
-                $('input#item_category').val(ui.item.category);
+                $('input#item_category_name').val(ui.item.category);
             }
   })
 })
@@ -114,9 +114,9 @@ $(function() {
 			<% @previous = "initial" %>
 			<div class="items" id="<%= dom_id(list) %>">
 				<% if list.sort_by == "category" %>
-	      			<%= render list.items.order("category ASC") %>
+	      			<%= render list.items %>
 	      		<% else %>
-	      			<%= render list.items.order("location ASC") %>
+	      			<%= render list.items %>
 	      		<% end %>
 		    </div>
 <% end %>

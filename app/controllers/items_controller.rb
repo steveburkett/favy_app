@@ -7,16 +7,19 @@ class ItemsController < ApplicationController
 
   def create
     list = List.find(params[:item][:list_id])
-    @item = Item.new(:name => params[:item][:name], :location => params[:item][:location], :category => params[:item][:category], :initial_comment => params[:item][:initial_comment])
+    @item = Item.new(:name => params[:item][:name], :initial_comment => params[:item][:initial_comment])
     @item.list = list
+    @item.location_name = params[:item][:location_name]
+    @item.category_name = params[:item][:category_name]
+
     authorize! :create, @item
     respond_to do |format|
       if @item.save
-        if params[:item][:category]
-          @item.list.tag_list.push(params[:item][:category])
+        if params[:item][:category_name]
+          @item.list.tag_list.push(params[:item][:category_name])
         end
-        if params[:item][:location]
-          @item.list.tag_list.push(params[:item][:location])
+        if params[:item][:location_name]
+          @item.list.tag_list.push(params[:item][:location_name])
         end
         @item.list.save
 
@@ -30,13 +33,17 @@ class ItemsController < ApplicationController
   def add
     list = current_user.lists.where("title = ?", params[:list]).first
     item = Item.find(params[:item_id])
-    list.items.create(:name => item.name, :location => item.location, :category => item.category)
-    
-        if item.category
-          list.tag_list.push(item.category)
+    item_copy = Item.new(:name => item.name, :initial_comment => params[:initial_comment])
+    item_copy.list = list
+    item_copy.location_name = item.location_name
+    item_copy.category_name = item.category_name
+    item_copy.save
+
+        if item_copy.category
+          list.tag_list.push(item_copy.category_name)
         end
-        if item.location
-          list.tag_list.push(item.location)
+        if item_copy.location
+          list.tag_list.push(item_copy.location_name)
         end
         list.save
 

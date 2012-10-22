@@ -167,13 +167,16 @@ class UsersController < ApplicationController
       tag = title.downcase
       list = List.new(title: title, tag_list: tag, privacy: 1, sort_by: "category", reserved: true)
       list.user = current_user
-      list.items.build(name: "The Name of the Wind", category: "Fantasy",
-        initial_comment:"Hey this is Patrick, I made this site. Like it? This is my favorite book. 
-        I put it here for you to see how this works. Now delete this book and add yours. You also have other lists where you can add
-        your favorite movies, restaurants, vacation spots, services (like doctors and dentists and mechanic),
-        and you can make your own lists too. Each list has its own privacy setting so you can just keep track of
-        things for yourself but it's always good to share with friends.")
       list.save
+      item = Item.new(name: "The Name of the Wind",
+        initial_comment:"Hey this is Patrick, I made this site. Like it? This is my favorite book. 
+        I put it here for you to see how this works. Now delete this book and add your favorite. You also have other lists where you can add
+        your favorite movies, restaurants, vacation spots, services (like doctors),
+        and you can create your own lists too. Each list has its own privacy setting so you can just keep track of
+        things for yourself or share with friends.")
+      item.list = list
+      item.category_name = "Fantasy"      
+      item.save
     end    
     redirect_to user_path(current_user)
   end

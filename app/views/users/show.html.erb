@@ -1,4 +1,5 @@
 <br />
+                  <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
 
 <div class="row">
   <div class="offset0 span3 affix" style="margin-left:60px" >
@@ -117,13 +118,13 @@
 						<%= f.hidden_field :list_id, :value => 1 %>
 						<div class="modal-body field">
 							<div class="field" id="location">
-								<%= f.label :location, "If it's a place, enter a location:" %>
-								<%= f.text_field :location, placeholder: "city, neighborhood, or zipcode", :style => "font-size:1em" %>
+								<%= f.label :location_name, "If it's a place, enter a location:" %>
+								<%= f.text_field :location_name, placeholder: "city, neighborhood, or zipcode", :style => "font-size:1em" %>
 							</div>
 							<br />
 							<div class="ui-widget">
 								<%= f.text_field :name, placeholder: "Enter item here", :style => "width:400px;height:40px;margin-left:60px;font-size:1.5em" %>
-								<%= f.text_field :category, placeholder: "Enter category for item", :style => "width:400px;height:28px;margin-left:60px;font-size:1em" %>
+								<%= f.text_field :category_name, placeholder: "Enter category for item", :style => "width:400px;height:28px;margin-left:60px;font-size:1em" %>
 								<%= f.text_area :initial_comment, placeholder: "Write what you think about this item...", :style => "width:400px;height:60px;margin-left:60px;font-size:1em" %>
 							</div>					
 						</div>

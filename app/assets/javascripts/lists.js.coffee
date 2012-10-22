@@ -14,7 +14,7 @@ $ ->
   $('#itemModal').on 'shown', ->
     $('input#item_name').focus()
     $('input#item_name').val("")
-    $('input#item_location').val("")
+    $('input#item_location_name').val("")
 
 $ ->
   $('#submit_item_another').click (event) ->

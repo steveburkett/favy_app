@@ -15,13 +15,13 @@ class ItemsController < ApplicationController
     authorize! :create, @item
     respond_to do |format|
       if @item.save
-        if params[:item][:category_name]
-          @item.list.tag_list.push(params[:item][:category_name])
+        if !params[:item][:category_name].blank?
+          list.tag_list.push(params[:item][:category_name])
         end
-        if params[:item][:location_name]
-          @item.list.tag_list.push(params[:item][:location_name])
+        if !params[:item][:location_name].blank?
+          list.tag_list.push(params[:item][:location_name])
         end
-        @item.list.save
+        list.save
 
         format.html
         format.json

@@ -114,9 +114,9 @@ $(function() {
 			<% @previous = "initial" %>
 			<div class="items" id="<%= dom_id(list) %>">
 				<% if list.sort_by == "category" %>
-	      			<%= render list.items %>
+	      			<%= render list.items.order("category_id ASC") %>
 	      		<% else %>
-	      			<%= render list.items %>
+	      			<%= render list.items.order("location_id ASC") %>
 	      		<% end %>
 		    </div>
 <% end %>

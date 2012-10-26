@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:index]
 
   def new
     @item = Item.new
@@ -75,6 +75,17 @@ class ItemsController < ApplicationController
   end
 
   def index
+
+
+
+
+    #@locations = Location.order(:name).where("name like ?", "%#{params[:term]}%")
+    #render json: @locations.map(&:name)
+    #@items = [Item.new(name:"test1"), Item.new(name:"test2")]
+    render json: ["item1","item2"]#@items.map(&:name)
+
+
+
   end
 
   def show

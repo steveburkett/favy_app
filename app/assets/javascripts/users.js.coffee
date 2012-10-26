@@ -20,4 +20,13 @@ $ ->
 
 $ ->
   $('#item_location_name').autocomplete
-    source: $('#item_location_name').data('autocomplete-source')
+    source: '/locations'
+
+$ ->
+  $('#item_name').autocomplete({source: '/items'})
+
+$ ->
+  $('#item_name').keyup ->
+    $('#item_name').autocomplete("option", "source", '/items?location=' + $('#item_location_name').val() )
+
+

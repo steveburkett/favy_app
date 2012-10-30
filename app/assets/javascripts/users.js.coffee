@@ -23,10 +23,12 @@ $ ->
     source: '/locations'
 
 $ ->
-  $('#item_name').autocomplete({source: '/items'})
+  $('#item_name').autocomplete
+    source: '/items'
+    select: ( event, ui ) -> $('#item_category_name').val(ui.item.label)
 
 $ ->
-  $('#item_name').keyup ->
+  $('#item_name').focus ->
     $('#item_name').autocomplete("option", "source", '/items?location=' + $('#item_location_name').val() )
 
 

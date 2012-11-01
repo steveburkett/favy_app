@@ -98,8 +98,8 @@ class ItemsController < ApplicationController
     response_body = access_token.get(path).body
     #puts response_body
     businesses = JSON.parse(response_body)["businesses"]
-    #businesses_response = businesses.map{|b| {"label" => b["name"], "category" =>b["categories"][0][0]}, "api" => "Yelp Results" }
-    businesses_response = businesses.map{|b| b["name"] } 
+    businesses_response = businesses.map{|b| {"label" => b["name"], "category" =>b["categories"][0][0], "api" => "Yelp Results" }}
+    #businesses_response = businesses.map{|b| b["name"] } 
     #p businesses_response
 
     #@locations = Location.order(:name).where("name like ?", "%#{params[:term]}%")

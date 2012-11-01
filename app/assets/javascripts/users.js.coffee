@@ -23,12 +23,22 @@ $ ->
     source: '/locations'
 
 $ ->
-  $('#item_name').autocomplete
+  $.widget("custom.catcomplete", $.ui.autocomplete,
+    _renderMenu: ( ul, items ) ->
+      that = this
+      currentCategory = ""
+      for item in items
+        if item.api != currentCategory
+          ul.append( "<li class='ui-autocomplete-category'>" + item.api + "</li>" )
+          currentCategory = item.api        
+        that._renderItem( ul, item )
+  )
+$ ->
+  $('#item_name').catcomplete
     source: '/items'
-    select: ( event, ui ) -> $('#item_category_name').val(ui.item.label)
+    select: ( event, ui ) -> $('#item_category_name').val(ui.item.category)
 
 $ ->
   $('#item_name').focus ->
-    $('#item_name').autocomplete("option", "source", '/items?location=' + $('#item_location_name').val() )
-
+    $('#item_name').catcomplete("option", "source", '/items?location=' + $('#item_location_name').val() )
 

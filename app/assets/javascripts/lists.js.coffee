@@ -15,6 +15,8 @@ $ ->
     $('input#item_name').focus()
     $('input#item_name').val("")
     $('input#item_location_name').val("")
+    $('input#item_category_name').val("")
+    $('input#item_url').val("")
 
 $ ->
   $('#submit_item_another').click (event) ->

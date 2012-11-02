@@ -3,7 +3,11 @@
 		<%= link_to ' &times;'.html_safe, item, method: :delete %><% end %>
 	<br />
 	<% if item.category or item.location %>
-	(<%= item.category_name %><%= item.location ? ", #{item.location.name}" : "" %>)
+		(<%= item.category_name %><%= item.location ? ", #{item.location.name}" : "" %>)
+	<% end %>
+
+	<% if item.url %>
+		<div style="font-size:0.8em"><%= link_to item.url, item.url if !item.url.empty? %></div>
 	<% end %>
 
 	<% if item.list.user != current_user %>

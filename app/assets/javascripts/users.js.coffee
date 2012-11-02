@@ -33,10 +33,14 @@ $ ->
           currentCategory = item.api        
         that._renderItem( ul, item )
   )
+
 $ ->
   $('#item_name').catcomplete
     source: '/items'
-    select: ( event, ui ) -> $('#item_category_name').val(ui.item.category)
+    minLength: 3
+    select: ( event, ui ) -> 
+      $('#item_category_name').val(ui.item.category)
+      $('#item_url').val(ui.item.url)
 
 $ ->
   $('#item_name').focus ->

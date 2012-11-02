@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121022040335) do
+ActiveRecord::Schema.define(:version => 20121102051844) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20121022040335) do
     t.text     "initial_comment"
     t.integer  "category_id"
     t.integer  "location_id"
+    t.text     "url"
   end
 
   create_table "lists", :force => true do |t|

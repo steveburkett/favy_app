@@ -115,6 +115,7 @@
 				  </div>
 					<%= form_for(Item.new, remote: true, :html => { :class => "modal-form"}) do |f| %>
 						<%= f.hidden_field :list_id, :value => 1 %>
+						<%= f.hidden_field :url, :value => "" %>
 						<div class="modal-body field">
 							<div class="field" id="location">
 								<%= f.label :location_name, "If it has a location, enter it here:" %>

@@ -11,6 +11,7 @@ class ItemsController < ApplicationController
     @item.list = list
     @item.location_name = params[:item][:location_name]
     @item.category_name = params[:item][:category_name]
+    @item.url = params[:item][:url]
 
     authorize! :create, @item
     respond_to do |format|
@@ -37,6 +38,7 @@ class ItemsController < ApplicationController
     item_copy.list = list
     item_copy.location_name = item.location_name
     item_copy.category_name = item.category_name
+    item_copy.url = item.url
     item_copy.save
 
         if item_copy.category
@@ -94,13 +96,15 @@ class ItemsController < ApplicationController
     else
       path = "/v2/search?term=#{term}&location=San+Francisco&limit=10"
     end
-
+    puts path
     response_body = access_token.get(path).body
-    #puts response_body
+    puts response_body
     businesses = JSON.parse(response_body)["businesses"]
-    businesses_response = businesses.map{|b| {"label" => b["name"], "category" =>b["categories"][0][0], "api" => "Yelp Results" }}
+    businesses_response = businesses.map{|b| {"label" => b["name"], "url" => b["url"] ,"category" => b["categories"][0][0], "api" => "Yelp Results" }}
     #businesses_response = businesses.map{|b| b["name"] } 
     #p businesses_response
+
+    businesses_response.push({"label" => "Back to the Future", "url" => "XX", "category" => "Sci Fi", "api" => "Amazon"})
 
     #@locations = Location.order(:name).where("name like ?", "%#{params[:term]}%")
     #render json: @locations.map(&:name)

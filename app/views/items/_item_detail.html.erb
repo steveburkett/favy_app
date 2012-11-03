@@ -7,7 +7,7 @@
 	<% end %>
 
 	<% if item.url %>
-		<div style="font-size:0.8em"><%= link_to item.url, item.url if !item.url.empty? %></div>
+		<div style="font-size:0.8em"><%= link_to "View Original", item.url, :target => "_blank" if !item.url.empty? %></div>
 	<% end %>
 
 	<% if item.list.user != current_user %>

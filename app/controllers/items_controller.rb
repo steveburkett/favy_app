@@ -97,14 +97,37 @@ class ItemsController < ApplicationController
       path = "/v2/search?term=#{term}&location=San+Francisco&limit=10"
     end
     puts path
-    response_body = access_token.get(path).body
-    puts response_body
-    businesses = JSON.parse(response_body)["businesses"]
-    businesses_response = businesses.map{|b| {"label" => b["name"], "url" => b["url"] ,"category" => b["categories"][0][0], "api" => "Yelp Results" }}
-    #businesses_response = businesses.map{|b| b["name"] } 
-    #p businesses_response
+    #response_body = access_token.get(path).body
+    #puts response_body
+    #businesses = JSON.parse(response_body)["businesses"]
+    #businesses_response = businesses.map{|b| {"label" => b["name"], "url" => b["url"] ,"category" => b["categories"][0][0], "api" => "Yelp Results" }}
+    #businesses_response.push({"label" => "Back to the Future", "url" => "XX", "category" => "Sci Fi", "api" => "Amazon"})
+    businesses_response = [{"label" => "Back to the Future", "url" => "XX", "category" => "Sci Fi", "api" => "Patrick Store"}]
+    
+    #ASSOCIATES_ID = ""
+    #key_id = "AKIAICXKUN6S6AQBWWJA"
+    #il = Amazon::AWS::ItemLookup.new( 'ASIN', { 'ItemId' => 'B001COU9I6', 'MerchantId' => 'Amazon' })
+    #rg = Amazon::AWS::ResponseGroup.new( 'Medium' )
+    ##req = Request.new(KEY_ID, ASSOCIATES_ID)
+    #req =  Amazon::AWS::Search::Request.new(key_id)
+    #resp = req.search( il, rg)
+    #item_sets = resp.item_lookup_response[0].items
+    #puts item_sets
 
-    businesses_response.push({"label" => "Back to the Future", "url" => "XX", "category" => "Sci Fi", "api" => "Amazon"})
+
+# create an ASIN client
+client = ASIN::Client.instance
+
+# lookup an item with the amazon standard identification number (asin)
+#items = client.lookup '1430218150'
+
+items = client.search_keywords term
+
+items.each do |i|
+  businesses_response.push({ "label" => i.raw.ItemAttributes.Title, "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "api" => "Amazon Results"  })
+end
+# have a look at the title of the item
+#puts items
 
     #@locations = Location.order(:name).where("name like ?", "%#{params[:term]}%")
     #render json: @locations.map(&:name)

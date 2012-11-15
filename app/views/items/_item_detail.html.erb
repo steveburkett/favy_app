@@ -1,6 +1,6 @@
 
 	<% if !item.image.blank? %>
-		<%= link_to image_tag("#{item.image}", alt: "#{item.name}", size: "120x120"), item.url %><br /><br />
+		<%= link_to image_tag("#{item.image}", alt: "#{item.name}", width: "120"), item.url %><br /><br />
 	<% end %>
 
 	<strong><%= "#{item.name}" %></strong> in <%= "#{item.list.title}" %><% if item.list.user == current_user %>

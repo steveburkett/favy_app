@@ -169,7 +169,7 @@ class UsersController < ApplicationController
       list.user = current_user
       list.save
       item = Item.new(name: "The Name of the Wind",
-        initial_comment:"Hey this is Patrick, I made this site. Like it? This is my favorite book. 
+        initial_comment:"Hey this is Patrick, I made this site. Like it? It's the best way to keep track of my favorite things and see what my friends like too. This is my favorite book. 
         I put it here for you to see how this works. Now delete this book and add your favorite. You also have other lists where you can add
         your favorite movies, restaurants, vacation spots, services (like doctors),
         and you can create your own lists too. Each list has its own privacy setting so you can just keep track of

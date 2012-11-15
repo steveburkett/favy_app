@@ -6,6 +6,7 @@ $ ->
   $('#submit_item').click (event) ->
     event.preventDefault()
     console.log("done button clicked")
+    $('input#item_name').catcomplete('close');
     if $('input#item_name').val()
       $('#new_item').submit()
     $('#itemModal').modal('hide');

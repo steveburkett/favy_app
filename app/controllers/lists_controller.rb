@@ -32,10 +32,10 @@ class ListsController < ApplicationController
   def destroy
     @list = List.find(params[:id])
     authorize! :destroy, @list
-    if !@list.reserved
+    #if !@list.reserved
       @list.destroy
       flash[:success] = "List deleted."
-    end
+    #end
     redirect_to user_path(current_user)
   end
 

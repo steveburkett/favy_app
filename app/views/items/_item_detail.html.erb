@@ -1,4 +1,8 @@
 
+	<% if !item.image.blank? %>
+		<%= link_to image_tag("#{item.image}", alt: "#{item.name}", size: "120x120"), item.url %><br /><br />
+	<% end %>
+
 	<strong><%= "#{item.name}" %></strong> in <%= "#{item.list.title}" %><% if item.list.user == current_user %>
 		<%= link_to ' &times;'.html_safe, item, method: :delete %><% end %>
 	<br />
@@ -7,7 +11,11 @@
 	<% end %>
 
 	<% if item.url %>
-		<div style="font-size:0.8em"><%= link_to "View Original", item.url, :target => "_blank" if !item.url.empty? %></div>
+		<% if item.api.blank? %>
+			<div style="font-size:0.8em"><%= link_to "View link", item.url, :target => "_blank" if !item.url.empty? %></div>
+		<% else %>
+			<div style="font-size:0.8em"><%= link_to "View on #{item.api}", item.url, :target => "_blank" if !item.url.empty? %></div>
+		<% end %>
 	<% end %>
 
 	<% if item.list.user != current_user %>

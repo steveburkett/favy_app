@@ -37,10 +37,12 @@ $ ->
 $ ->
   $('#item_name').catcomplete
     source: '/items'
-    minLength: 3
+    minLength: 1
     select: ( event, ui ) -> 
       $('#item_category_name').val(ui.item.category)
       $('#item_url').val(ui.item.url)
+      $('#item_api').val(ui.item.api)
+      $('#item_image').val(ui.item.image)
 
 $ ->
   $('#item_name').focus ->

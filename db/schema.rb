@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102051844) do
+ActiveRecord::Schema.define(:version => 20121115173841) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(:version => 20121102051844) do
     t.integer  "category_id"
     t.integer  "location_id"
     t.text     "url"
+    t.text     "api"
+    t.text     "image"
   end
 
   create_table "lists", :force => true do |t|

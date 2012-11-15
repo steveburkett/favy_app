@@ -12,6 +12,8 @@ class ItemsController < ApplicationController
     @item.location_name = params[:item][:location_name]
     @item.category_name = params[:item][:category_name]
     @item.url = params[:item][:url]
+    @item.api = params[:item][:api]    
+    @item.image = params[:item][:image]    
 
     authorize! :create, @item
     respond_to do |format|
@@ -39,6 +41,8 @@ class ItemsController < ApplicationController
     item_copy.location_name = item.location_name
     item_copy.category_name = item.category_name
     item_copy.url = item.url
+    item_copy.api = item.api
+    item_copy.image = item.image
     item_copy.save
 
         if item_copy.category
@@ -78,31 +82,35 @@ class ItemsController < ApplicationController
 
   def index
 
-    location = params[:location]
-    term = params[:term]
+    location = ERB::Util.url_encode(params[:location])
+    term = ERB::Util.url_encode(params[:term])
 
-    consumer_key = '7RYTwy6YE2Ml3xns_WyENQ'
-    consumer_secret = '-lZovlfphg7Y0EVLPqw9cOzp5dg'
-    token = 'lcY-UHpnqPxT2EmHb9IEKTfK8RS6s7x9'
-    token_secret = 'IEN-REYWBKyUndjkY6uHE2AvcZc'
+    businesses_response = [{"label" => "Back to the Future", "url" => "XX", "category" => "Sci Fi", "api" => "Patrick Store"}]
+    
 
-    api_host = 'api.yelp.com'
-
-    consumer = OAuth::Consumer.new(consumer_key, consumer_secret, {:site => "http://#{api_host}"})
-    access_token = OAuth::AccessToken.new(consumer, token, token_secret)
+    #YELP
 
     if not location.blank?
+      consumer_key = '7RYTwy6YE2Ml3xns_WyENQ'
+      consumer_secret = '-lZovlfphg7Y0EVLPqw9cOzp5dg'
+      token = 'lcY-UHpnqPxT2EmHb9IEKTfK8RS6s7x9'
+      token_secret = 'IEN-REYWBKyUndjkY6uHE2AvcZc'
+
+      api_host = 'api.yelp.com'
+
+      consumer = OAuth::Consumer.new(consumer_key, consumer_secret, {:site => "http://#{api_host}"})
+      access_token = OAuth::AccessToken.new(consumer, token, token_secret)
+
       path = "/v2/search?term=#{term}&location=#{location}&limit=10"
-    else
-      path = "/v2/search?term=#{term}&location=San+Francisco&limit=10"
+      puts path
+
+      response_body = access_token.get(path).body
+      #puts response_body
+      businesses = JSON.parse(response_body)["businesses"]
+      businesses_response = businesses.map{|b| {"label" => b["name"], "url" => b["url"] ,"category" => b["categories"][0][0], "api" => "Yelp", "image" => b["image_url"] }}
+      #businesses_response.push({"label" => "Back to the Future", "url" => "XX", "category" => "Sci Fi", "api" => "Amazon"})
+
     end
-    puts path
-    #response_body = access_token.get(path).body
-    #puts response_body
-    #businesses = JSON.parse(response_body)["businesses"]
-    #businesses_response = businesses.map{|b| {"label" => b["name"], "url" => b["url"] ,"category" => b["categories"][0][0], "api" => "Yelp Results" }}
-    #businesses_response.push({"label" => "Back to the Future", "url" => "XX", "category" => "Sci Fi", "api" => "Amazon"})
-    businesses_response = [{"label" => "Back to the Future", "url" => "XX", "category" => "Sci Fi", "api" => "Patrick Store"}]
     
     #ASSOCIATES_ID = ""
     #key_id = "AKIAICXKUN6S6AQBWWJA"
@@ -115,19 +123,23 @@ class ItemsController < ApplicationController
     #puts item_sets
 
 
-# create an ASIN client
-client = ASIN::Client.instance
+    # create an ASIN client
+    client = ASIN::Client.instance
 
-# lookup an item with the amazon standard identification number (asin)
-#items = client.lookup '1430218150'
+    # lookup an item with the amazon standard identification number (asin)
+    #items = client.lookup '1430218150'
 
-items = client.search_keywords term
+    items = client.search_keywords term
 
-items.each do |i|
-  businesses_response.push({ "label" => i.raw.ItemAttributes.Title, "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "api" => "Amazon Results"  })
-end
-# have a look at the title of the item
-#puts items
+    items.each do |i|
+      businesses_response.push({ "label" => i.raw.ItemAttributes.Title, "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
+    end
+    # have a look at the title of the item
+    #puts items
+
+
+
+
 
     #@locations = Location.order(:name).where("name like ?", "%#{params[:term]}%")
     #render json: @locations.map(&:name)

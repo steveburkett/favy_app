@@ -15,6 +15,7 @@ gem 'paperclip', '~> 3.0'
 gem 'aws-s3'
 gem 'aws-sdk'
 gem 'cancan'
+gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'rack-rewrite', '~> 1.2.1'
 gem 'texticle', "2.0", :require => "texticle/rails"

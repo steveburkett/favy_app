@@ -7,7 +7,7 @@ FavyApp::Application.routes.draw do
   match 'friendships/approve' => 'friendships#approve'
   match 'friendships/ignore' => 'friendships#ignore'
 
-
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_for :users, :controllers => { :registrations => "registrations" }, :path_prefix => 'd'
 
   match "users/:id" => 'users#show', :as => "user"

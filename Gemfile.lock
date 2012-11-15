@@ -261,6 +261,7 @@ DEPENDENCIES
   guard-spork (= 0.3.2)
   jquery-rails
   oauth
+  omniauth
   omniauth-facebook
   paperclip (~> 3.0)
   pg

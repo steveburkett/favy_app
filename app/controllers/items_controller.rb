@@ -84,13 +84,12 @@ class ItemsController < ApplicationController
 
     location = ERB::Util.url_encode(params[:location])
     term = ERB::Util.url_encode(params[:term])
-
-    businesses_response = [{"label" => "Back to the Future", "url" => "XX", "category" => "Sci Fi", "api" => "Patrick Store"}]
-    
-
-    #YELP
+  
+    #create friend's items for autocomplete
 
     if not location.blank?
+      #YELP
+
       consumer_key = '7RYTwy6YE2Ml3xns_WyENQ'
       consumer_secret = '-lZovlfphg7Y0EVLPqw9cOzp5dg'
       token = 'lcY-UHpnqPxT2EmHb9IEKTfK8RS6s7x9'
@@ -110,34 +109,35 @@ class ItemsController < ApplicationController
       businesses_response = businesses.map{|b| {"label" => b["name"], "url" => b["url"] ,"category" => b["categories"][0][0], "api" => "Yelp", "image" => b["image_url"] }}
       #businesses_response.push({"label" => "Back to the Future", "url" => "XX", "category" => "Sci Fi", "api" => "Amazon"})
 
+    else
+      #AMAZON
+
+      #ASSOCIATES_ID = ""
+      #key_id = "AKIAICXKUN6S6AQBWWJA"
+      #il = Amazon::AWS::ItemLookup.new( 'ASIN', { 'ItemId' => 'B001COU9I6', 'MerchantId' => 'Amazon' })
+      #rg = Amazon::AWS::ResponseGroup.new( 'Medium' )
+      ##req = Request.new(KEY_ID, ASSOCIATES_ID)
+      #req =  Amazon::AWS::Search::Request.new(key_id)
+      #resp = req.search( il, rg)
+      #item_sets = resp.item_lookup_response[0].items
+      #puts item_sets
+
+
+      # create an ASIN client
+      client = ASIN::Client.instance
+
+      # lookup an item with the amazon standard identification number (asin)
+      #items = client.lookup '1430218150'
+
+      items = client.search_keywords term
+
+      items.each do |i|
+        businesses_response.push({ "label" => i.raw.ItemAttributes.Title, "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
+      end
+      # have a look at the title of the item
+      #puts items
+
     end
-    
-    #ASSOCIATES_ID = ""
-    #key_id = "AKIAICXKUN6S6AQBWWJA"
-    #il = Amazon::AWS::ItemLookup.new( 'ASIN', { 'ItemId' => 'B001COU9I6', 'MerchantId' => 'Amazon' })
-    #rg = Amazon::AWS::ResponseGroup.new( 'Medium' )
-    ##req = Request.new(KEY_ID, ASSOCIATES_ID)
-    #req =  Amazon::AWS::Search::Request.new(key_id)
-    #resp = req.search( il, rg)
-    #item_sets = resp.item_lookup_response[0].items
-    #puts item_sets
-
-
-    # create an ASIN client
-    client = ASIN::Client.instance
-
-    # lookup an item with the amazon standard identification number (asin)
-    #items = client.lookup '1430218150'
-
-    items = client.search_keywords term
-
-    items.each do |i|
-      businesses_response.push({ "label" => i.raw.ItemAttributes.Title, "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
-    end
-    # have a look at the title of the item
-    #puts items
-
-
 
 
 

@@ -34,7 +34,7 @@ FavyApp::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  config.assets.debug = false #default is true. When debug mode is off, Sprockets concatenates and runs the necessary preprocessors on all files.
 
   #devise default url option
   config.action_mailer.default_url_options = { :host => 'localhost:5000' }

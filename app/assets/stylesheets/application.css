@@ -10,6 +10,5 @@
  *
  *= require_self
  *= require bootstrap_and_overrides
- *= require jquery-ui-1.9.0.custom.min
  *= require_tree
 */

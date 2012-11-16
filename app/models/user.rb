@@ -28,6 +28,9 @@ class User < ActiveRecord::Base
   has_many :listships
   has_many :followlists, :through => :listships, :source => :followlist
 
+  after_create :set_default
+
+
   
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)    
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
@@ -61,7 +64,48 @@ class User < ActiveRecord::Base
     end
   end
 
+  private
 
+    def set_default
+        title = "Services"
+        tag = title.downcase
+        list = List.new(title: title, tag_list: tag, privacy: 1, sort_by: "category", reserved: true)
+        list.user = self
+        list.save
+
+        title = "Vacation Spots"
+        tag = title.downcase
+        list = List.new(title: title, tag_list: tag, privacy: 1, sort_by: "category", reserved: true)
+        list.user = self
+        list.save
+
+        title = "Restaurants"
+        tag = title.downcase
+        list = List.new(title: title, tag_list: tag, privacy: 1, sort_by: "category", reserved: true)
+        list.user = self
+        list.save
+
+        title = "Movies"
+        tag = title.downcase
+        list = List.new(title: title, tag_list: tag, privacy: 1, sort_by: "category", reserved: true)
+        list.user = self
+        list.save
+
+        title = "Books"
+        tag = title.downcase
+        list = List.new(title: title, tag_list: tag, privacy: 1, sort_by: "category", reserved: true)
+        list.user = self
+        list.save
+        item = Item.new(name: "The Name of the Wind",
+          initial_comment:"Hey this is Patrick, I made this site. Like it? It's the best way to keep track of my favorite things and see what my friends like too. This is my favorite book. 
+          I put it here for you to see how this works. Now delete this book and add your favorite. You also have other lists where you can add
+          your favorite movies, restaurants, vacation spots, services (like doctors),
+          and you can create your own lists too. Each list has its own privacy setting so you can just keep track of
+          things for yourself or share with friends.")
+        item.list = list
+        item.category_name = "Fantasy"      
+        item.save
+    end    
 
 
 

@@ -4,7 +4,7 @@
   <div class="offset0 span3 affix" style="margin-left:60px" >
   	
     <% if current_user.provider == "facebook" %>
-      <%= link_to image_tag(current_user.image, alt: "profile pic", size: "40x40"), user_path(current_user), :style=>"display:inline; margin-left:10px"  %><h4 style="display:inline"><%= @user.firstname %> <%= @user.lastname %> </h4>
+      <%= link_to image_tag(current_user.image, alt: "profile pic", size: "40x40"), user_path(current_user)  %><h4 style="display:inline; margin-left:10px"><%= @user.firstname %> <%= @user.lastname %> </h4>
         <br />
 	  	<br />
     <% else %>

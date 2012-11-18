@@ -25,6 +25,16 @@ class User < ActiveRecord::Base
     direct_friends | inverse_friends
   end
 
+  def friend?(user)
+      friend = false
+      user.friends.each do |f|
+        if f == self
+          friend = true
+        end
+      end
+      friend
+  end
+
   has_many :listships
   has_many :followlists, :through => :listships, :source => :followlist
 

@@ -1,15 +1,15 @@
-    
-    <% if user.provider == "facebook" %>
-      <%= link_to image_tag(user.image, alt: "profile pic", size: "40x40"), user_path(user)  %><%= link_to "#{user.firstname} #{user.lastname}", user_path(user), :style => "margin-left:6px" %>
-    <% else %>
-	  	<%= link_to "#{user.firstname} #{user.lastname}", user_path(user) %>
-  	<% end %>
-  	<% if (not user == current_user) and (not @friend)XXXXX %>
-	  	<%= link_to "Add Friend", friendships_path(:friend_id => user), :method => :post %>
-	<% end %>
 
-	<br />
-  	<br />
+<% if user.provider == "facebook" %>
+  <%= link_to image_tag(user.image, alt: "profile pic", size: "40x40"), user_path(user)  %><%= link_to "#{user.firstname} #{user.lastname}", user_path(user), :style => "margin-left:6px" %>
+  <br />
+  <br />
+<% else %>
+	<%= link_to "#{user.firstname} #{user.lastname}", user_path(user) %>
+<% end %>
+<% if (not user == current_user) and (not current_user.friend?(user)) %>
+	<%= link_to "(Add Friend)", friendships_path(:friend_id => user), :method => :post, :style=>"font-size:0.8em;" %>
+<% end %>
+
 
 
 <br />

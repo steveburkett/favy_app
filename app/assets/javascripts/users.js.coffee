@@ -10,13 +10,21 @@ $ ->
 $ ->
   $("[rel=tooltip]").tooltip()
 
-$ ->
-  $("[rel=popover]").popover({placement:'bottom', trigger:'manual'}).click ->
-        $(this).popover('toggle')
 
 $ ->
   $('.poppy').live 'click', ->
-    $(this).popover('toggle')
+    $(this).popover('show')
+
+$ ->
+  $('html').on 'click.popover.data-api', (e) ->
+    if $(e.target).parents('.popover').length == 1
+      return false
+    else
+      if $(e.target).is('.poppy')
+        $(this).popover('show')
+      else
+        $('.poppy').popover('hide')
+
 
 $ ->
   $('#item_location_name').autocomplete

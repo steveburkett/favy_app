@@ -5,13 +5,18 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-    @friendship = current_user.friendships.build(:friend_id => params[:friend_id], :approved => false)
-    if @friendship.save
-      flash[:notice] = "Request sent."
-      redirect_to user_path(id: params[:friend_id])
+    if Friendship.where("user_id = ? and friend_id = ?", params[:friend_id], current_user.id).first
+        flash[:notice] = "Request already sent."
+        redirect_to user_path(current_user)      
     else
-      flash[:error] = "Unable to send request."
-      redirect_to root_path
+      @friendship = current_user.friendships.build(:friend_id => params[:friend_id], :approved => false)
+      if @friendship.save
+        flash[:notice] = "Request sent."
+        redirect_to user_path(id: params[:friend_id])
+      else
+        flash[:error] = "Unable to send request."
+        redirect_to root_path
+      end
     end
   end
 

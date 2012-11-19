@@ -4,21 +4,14 @@
 	<p>One place to keep track of what you like and your wishlists. Discover what your friends like.</p>
 	<br />
 	<br />
-	<span>Connect with</span><br />
 	<br />
-
-	<%= link_to image_tag("FacebookButton.jpg", width:"120"), omniauth_authorize_path(:user, :facebook) %>
-
-
-	<br />
-	<br />
-	or, sign up with your <%= link_to "email address" , sign_up_email_path %>
+	<%= link_to "Sign Up", sign_up_main_path, :class => "btn btn-large btn-primary" %>
 </div>
 
 <div class="row">
 	<div class="span4">
 		<h2>Make a list, any list</h2>
-		Stop trying to showoff. Add stuff that you really like and that your friends will find valuable.
+		Add stuff that you really like and that your friends will find valuable.
 	</div>
 	<div class="span4">
 		<h2>Keep it private</h2>

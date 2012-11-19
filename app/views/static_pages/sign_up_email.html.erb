@@ -44,14 +44,14 @@
     </div>
 
   <div class="actions">
-    <%= f.button :submit, "Sign up", :class => "btn btn-primary btn-large", :style => "margin-left:300px" %>
+    <%= f.button :submit, "Sign up", :class => "btn btn-primary btn-large", :style => "width:300px; margin-left:80px" %>
   </div>
 <% end %>
 
 <br />
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-  <%= link_to "Forgot your password?", new_password_path(resource_name), :style => "margin-left:240px" %><br />
+  <%= link_to "Forgot your password?", new_password_path(resource_name), :style => "margin-left:0" %><br />
 <% end -%>
 
 </div>

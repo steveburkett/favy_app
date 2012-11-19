@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :firstname, :lastname, :image, :provider, :uid
   # attr_accessible :title, :body
 
+  validates_presence_of :firstname
+
   has_many :lists, dependent: :destroy
   has_many :comments, dependent: :destroy
 

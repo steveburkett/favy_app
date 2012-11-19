@@ -1,12 +1,45 @@
 <br />
+<div class="row">
+  <div class="offset5 span6">
 
-<div style="text-align:center">
-      <h3 style="font-weight:normal;">Connect with</h3>
-      
-      <%= link_to image_tag("FacebookButton.jpg", width:"200"), omniauth_authorize_path(:user, :facebook) %>
-  <br />
-  <br />
-  or, log in with your <%= link_to "email address" , sign_in_email_path %>
+<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name),   :html => {:class => 'form-horizontal'}  ) do |f| %>
+  <%= devise_error_messages! %>
+
+  <legend>Log In</legend>
+    
+    <div class="control-group">
+        <%= f.label :email, "Email", :class => 'control-label'  %>
+        <div class="controls">
+            <%= f.input_field :email, :autofocus => true %>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <%= f.label :password, "Password", :class => 'control-label'  %>
+        <div class="controls">
+            <%= f.input_field :password %>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <%= f.label :remember_me, "Remember Me", :class => 'control-label'  %>
+        <div class="controls">
+            <%= f.input_field :remember_me, :as => :boolean if devise_mapping.rememberable? %>
+        </div>
+    </div>
+
+
+    <%= f.button :submit, "Log In", :class => "btn btn-primary btn-large", :style => "width:300px; margin-left:80px" %>
+<% end %>
+
+<br />
+<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <%= link_to "No account? Sign up", sign_up_path, :style => "margin-left:0"  %><br />
+<% end -%>
+
+<%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+  <%= link_to "Forgot your password?", new_password_path(resource_name), :style => "margin-left:0" %><br />
+<% end -%>
 
 </div>
-
+</div>

@@ -1,15 +1,13 @@
 FavyApp::Application.routes.draw do
 
-  root :to => 'static_pages#home'
-
   resources :listships
 
   resources :friendships
   match 'friendships/approve' => 'friendships#approve'
   match 'friendships/ignore' => 'friendships#ignore'
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  devise_for :users, :controllers => { :registrations => "registrations" }, :path_prefix => 'd'
+  #devise_for :users, :controllers => { }
+  devise_for :users, :controllers => { :registrations => "registrations",:omniauth_callbacks => "users/omniauth_callbacks"  }
 
   match "users/:id" => 'users#show', :as => "user"
   match "users" => 'users#index'
@@ -30,9 +28,8 @@ FavyApp::Application.routes.draw do
   resources :comments
 
   get "static_pages/home"
-  match "sign_up_email" => "static_pages#sign_up_email", as: :sign_up_email
-  match "sign_in_email" => "static_pages#sign_in_email", as: :sign_in_email
-  match "sign_up_main" => "static_pages#sign_up_main", as: :sign_up_main
+  match "sign_up" => "static_pages#sign_up", as: :sign_up
+  match "sign_in" => "static_pages#sign_in", as: :sign_in
 
   match 'main' => 'dashboard#main'
 

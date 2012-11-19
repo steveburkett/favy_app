@@ -1,0 +1,20 @@
+<div class="hero-unit" style="text-align:center">
+	<h2 style="font-weight:400">Welcome to Favy!</h2>
+
+	<h3 style="font-weight:200">Create your account</h3>
+
+	<br />
+	<br />
+	<%= link_to image_tag("FacebookButton.jpg", width:"200"), omniauth_authorize_path(:user, :facebook) %>
+
+
+	<br />
+	<br />
+	or, sign up with your <%= link_to "email address" , new_registration_path(resource_name) %>
+	<br />
+	<br />
+	<br />
+	<br />
+	<p style="font-size:0.8em">Alread have an account? <%- if controller_name != 'sessions' %><%= link_to "Log in", new_session_path(resource_name) %><br /><% end -%></p>
+
+</div>

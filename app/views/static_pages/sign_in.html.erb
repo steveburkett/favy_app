@@ -1,0 +1,12 @@
+<br />
+
+<div style="text-align:center">
+      <h3 style="font-weight:300;">Connect with</h3>
+      
+      <%= link_to image_tag("FacebookButton.jpg", width:"200"), omniauth_authorize_path(:user, :facebook) %>
+  <br />
+  <br />
+  or, log in with your <%= link_to "email address" , new_session_path(resource_name) %>
+
+</div>
+

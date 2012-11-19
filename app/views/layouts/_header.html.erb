@@ -14,12 +14,12 @@
             <li style="margin-bottom:-20px; margin-top:5px">
 
 
-<%= form_tag(search_path, :method => 'get', :html => {:style => "padding-top:10px"}) do %>
-  
-    <%= text_field_tag :search, params[:search] %>
-    <%= image_submit_tag('search.png', :name => nil, :style =>"width:20px;margin-bottom:10px") %>
-  
-<% end %>
+              <%= form_tag(search_path, :method => 'get', :html => {:style => "padding-top:10px"}) do %>
+                
+                  <%= text_field_tag :search, params[:search] %>
+                  <%= image_submit_tag('search.png', :name => nil, :style =>"width:20px;margin-bottom:10px") %>
+                
+              <% end %>
 
           
             </li>
@@ -46,7 +46,7 @@
               </ul>
             </li>
           <% else %>
-          
+              <li><div><%= link_to "LOG IN", new_user_session_path, :style =>"font-size:10px;", :class => "btn btn-mini" %></div></li> 
           <% end %>
 
 

@@ -31,6 +31,7 @@ FavyApp::Application.routes.draw do
 
   get "static_pages/home"
   match "sign_up_email" => "static_pages#sign_up_email", as: :sign_up_email
+  match "sign_in_email" => "static_pages#sign_in_email", as: :sign_in_email
 
   match 'main' => 'dashboard#main'
 

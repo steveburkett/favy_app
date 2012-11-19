@@ -1,30 +1,35 @@
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
+<div class="hero-unit" style="text-align:center">
+	<h1>Simple lists for your favorite things</h1>
+	<br/>
+	<p>One place to keep track of what you like and your wishlists. Discover what your friends like.</p>
+	<br />
+	<br />
+	<span>Connect with</span><br />
+	<br />
 
-<script>
-var YWSID = "cpdQ-5t6lIHziB-PIS-eHA";
+	<%= link_to image_tag("FacebookButton.jpg", width:"120"), omniauth_authorize_path(:user, :facebook) %>
 
-$(function() {
-  	$('#restaurantSearch').autocomplete({
-	        source: function(req, add){
 
-				$.ajax({
-				    url      : 'http://api.yelp.com/business_review_search',
-				    dataType : 'jsonp',
-				    data     : {term: req.term, location: 'San Francisco', limit:20, ywsid:'cpdQ-5t6lIHziB-PIS-eHA'}, // callback is not necessary
-				    success  : function(data) {
-				        // data is a normal response shown on yelp's API page
-				        var restaurantSuggestions = [];
+	<br />
+	<br />
+	or, sign up with your <%= link_to "email address" , sign_up_email_path %>
+</div>
 
-						          $.each(data.businesses, function(i, business){  
-						            restaurantSuggestions.push(business.name);  
-						          });
-
-						          add(restaurantSuggestions);  
-				    	}
-					});
-			}
-	})
-})
-</script>
-<input id="restaurantSearch" />
+<div class="row">
+	<div class="span4">
+		<h2>Make a list, any list</h2>
+		Stop trying to showoff. Add stuff that you really like and that your friends will find valuable.
+	</div>
+	<div class="span4">
+		<h2>Keep it private</h2>
+		A list can be private, for your friends only, or public. Simple as that.
+	</div>
+	<div class="span4">
+		<h2>Follow lists</h2>
+		Not all friends are created equal. Follow the lists that you like, not just your friends.
+	</div>
+	<div class="span4">
+		<h2>At a glance</h2>
+		See all lists at once for quick discoverabilty.
+	</div>
+</div>

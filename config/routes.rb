@@ -1,5 +1,6 @@
 FavyApp::Application.routes.draw do
 
+  root :to => 'static_pages#home'
 
   resources :listships
 
@@ -29,6 +30,7 @@ FavyApp::Application.routes.draw do
   resources :comments
 
   get "static_pages/home"
+  match "sign_up_email" => "static_pages#sign_up_email", as: :sign_up_email
 
   match 'main' => 'dashboard#main'
 

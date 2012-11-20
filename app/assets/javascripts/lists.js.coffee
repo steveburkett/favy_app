@@ -18,6 +18,19 @@ $ ->
     $('input#item_location_name').val("")
     $('input#item_category_name').val("")
     $('input#item_url').val("")
+    itemPreview = document.getElementById("itemPreview")
+    itemPreview.innerHTML = ""
+
+$ ->
+  $('#itemModal').on 'hide', ->
+    $('input#item_name').focus()
+    $('input#item_name').val("")
+    $('input#item_location_name').val("")
+    $('input#item_category_name').val("")
+    $('input#item_url').val("")
+    itemPreview = document.getElementById("itemPreview")
+    itemPreview.innerHTML = ""
+
 
 $ ->
   $('#submit_item_another').click (event) ->

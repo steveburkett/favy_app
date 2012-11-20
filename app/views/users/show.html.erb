@@ -3,10 +3,8 @@
 <div class="row">
   <div class="offset0 span3 affix" style="margin-left:60px" >
   	
-    <% if current_user.provider == "facebook" %>
-      <%= link_to image_tag(current_user.image, alt: "profile pic", size: "40x40"), user_path(current_user)  %><h4 style="display:inline; margin-left:10px"><%= @user.firstname %> <%= @user.lastname %> </h4>
-        <br />
-	  	<br />
+    <% if @user.provider == "facebook" %>
+      <%= link_to image_tag(@user.image, alt: "profile pic", size: "40x40"), user_path(@user)  %><h4 style="display:inline; margin-left:10px"><%= @user.firstname %> <%= @user.lastname %> </h4>
     <% else %>
       <h4><%= @user.firstname %> <%= @user.lastname %> </h4>
   	<% end %>
@@ -116,7 +114,7 @@
 
 <% if @user == current_user %>
 				<!-- Modal -->
-				<div class="modal hide fade" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel" aria-hidden="true">
+				<div class="modal hide fade" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel" aria-hidden="true" style="width:650px">
 				  <div class="modal-header">
 				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 				    <h3 id="itemModalLabel"></h3>
@@ -134,8 +132,10 @@
 							<br />
 							<div class="ui-widget">
 								<%= f.text_field :name, placeholder: "Enter item", :style => "width:400px;height:40px;margin-left:60px;font-size:1em" %>
+								<div id="itemPreview" style="float:right; margin-left:20px; width:100px")></div>
 								<%= f.text_field :category_name, placeholder: "Category", :style => "width:400px;height:28px;margin-left:60px;font-size:1em" %>
 								<%= f.text_area :initial_comment, placeholder: "Write what you think about this...", :style => "width:400px;height:60px;margin-left:60px;font-size:1em" %>
+
 							</div>					
 						</div>
 						<div class="modal-footer">

@@ -36,9 +36,9 @@ $ ->
       that = this
       currentCategory = ""
       for item in items
-        if item.api != currentCategory
-          ul.append( "<li class='ui-autocomplete-category'>" + item.api + "</li>" )
-          currentCategory = item.api        
+        if item.category != currentCategory
+          ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" )
+          currentCategory = item.category        
         that._renderItem( ul, item )
   )
 
@@ -51,6 +51,10 @@ $ ->
       $('#item_url').val(ui.item.url)
       $('#item_api').val(ui.item.api)
       $('#item_image').val(ui.item.image)
+      img = document.createElement("img");
+      img.src = ui.item.image
+      itemPreview = document.getElementById("itemPreview")
+      itemPreview.appendChild(img)
 
 $ ->
   $('#item_name').focus ->

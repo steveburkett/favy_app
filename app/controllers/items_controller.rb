@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  include ActionView::Helpers::TextHelper
   before_filter :authenticate_user!, :except => [:index]
 
   def new
@@ -136,17 +137,45 @@ class ItemsController < ApplicationController
 
       items.each do |i|
         if i.raw.MediumImage.nil?
-          businesses_response.push({ "label" => i.raw.ItemAttributes.Title, "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => "", "api" => "Amazon"  })
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => "", "api" => "Amazon"  })
         else
-          businesses_response.push({ "label" => i.raw.ItemAttributes.Title, "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
         end
       end
-      # have a look at the title of the item
-      #puts items
+
+      items = client.search :Keywords => term, :SearchIndex => :DVD, :Sort => 'relevancerank', :ResponseGroup => :Medium
+
+      items.each do |i|
+        if i.raw.MediumImage.nil?
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => "", "api" => "Amazon"  })
+        else
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
+        end
+      end
+
+      items = client.search :Keywords => term, :SearchIndex => :Music, :Sort => 'psrank', :ResponseGroup => :Medium
+
+      items.each do |i|
+        if i.raw.MediumImage.nil?
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => "", "api" => "Amazon"  })
+        else
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
+        end
+      end
+
+      items = client.search :Keywords => term, :SearchIndex => :VideoGames, :Sort => 'salesrank', :ResponseGroup => :Medium
+
+      items.each do |i|
+        if i.raw.MediumImage.nil?
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => "", "api" => "Amazon"  })
+        else
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
+        end
+      end
 
     end
 
-
+    businesses_response.sort!{|a,b| a["category"].downcase <=> b["category"].downcase}
 
     #@locations = Location.order(:name).where("name like ?", "%#{params[:term]}%")
     #render json: @locations.map(&:name)

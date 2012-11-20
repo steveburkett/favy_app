@@ -29,6 +29,13 @@
 					  <%= label_tag :list, "Pick a list" %>
 				      <%= select_tag :list, options_for_select(current_user.lists.map{|l| l.title}), :style => 'width:160px; height:28px; font-size:1em; margin-top:0px; margin-right:20px', :class=>'list' %>
 				      <%= text_area_tag :initial_comment, nil, :placeholder => "Write what you think about this item...", :style => "width:200px;height:60px;font-size:1em" %>
+
+				        <label class="checkbox" style="margin-left:0px">
+							<%= check_box_tag :wishlist %>Wishlist
+						</label>
+						<br />
+
+
 				      <%= submit_tag "Add", :class=>"btn btn-primary" %>
 				    <% end %><div class="item_notice" style="color:green"></div>' data-title="Add item to your list" style="font-size:0.8em" class="poppy">+</a><br />
 	<% end %>

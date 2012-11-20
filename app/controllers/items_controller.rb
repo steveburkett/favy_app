@@ -44,6 +44,7 @@ class ItemsController < ApplicationController
     item_copy.url = item.url
     item_copy.api = item.api
     item_copy.image = item.image
+    item_copy.wishlist = params[:wishlist]
     item_copy.save
 
         if item_copy.category
@@ -55,8 +56,6 @@ class ItemsController < ApplicationController
         list.save
 
     respond_to do |format|
-
-
         format.html
         format.json
         format.js {render :add}

@@ -18,6 +18,7 @@ $ ->
     $('input#item_location_name').val("")
     $('input#item_category_name').val("")
     $('input#item_url').val("")
+    $('input#item_wishlist').prop('checked', false)
     itemPreview = document.getElementById("itemPreview")
     itemPreview.innerHTML = ""
 
@@ -28,6 +29,7 @@ $ ->
     $('input#item_location_name').val("")
     $('input#item_category_name').val("")
     $('input#item_url').val("")
+    $('input#item_wishlist').prop('checked', false)
     itemPreview = document.getElementById("itemPreview")
     itemPreview.innerHTML = ""
 

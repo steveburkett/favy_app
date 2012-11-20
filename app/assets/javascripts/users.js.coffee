@@ -18,7 +18,10 @@ $ ->
 $ ->
   $('html').on 'click.popover.data-api', (e) ->
     if $(e.target).parents('.popover').length == 1
-      return false
+      if $(e.target).is('#wishlist') or $(e.target).is('.btn')
+        return true
+      else
+        return false
     else
       if $(e.target).is('.poppy')
         $(this).popover('show')

@@ -134,8 +134,10 @@
 								<%= f.text_field :name, placeholder: "Enter item", :style => "width:400px;height:40px;margin-left:60px;font-size:1em" %>
 								<div id="itemPreview" style="float:right; margin-left:20px; width:100px")></div>
 								<%= f.text_field :category_name, placeholder: "Category", :style => "width:400px;height:28px;margin-left:60px;font-size:1em" %>
-								<%= f.text_area :initial_comment, placeholder: "Write what you think about this...", :style => "width:400px;height:60px;margin-left:60px;font-size:1em" %>
-
+								<%= f.text_area :initial_comment, placeholder: "Write what you think about this...", :style => "width:400px;height:60px;margin-left:60px;font-size:1em" %></br >
+								<label class="checkbox" style="margin-left:60px">
+									<%= f.check_box :wishlist, {} %>Wishlist
+								</label>
 							</div>					
 						</div>
 						<div class="modal-footer">

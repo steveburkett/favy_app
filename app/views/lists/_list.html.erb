@@ -114,9 +114,25 @@ $(function() {
 			<% @previous = "initial" %>
 			<div class="items" id="<%= dom_id(list) %>">
 				<% if list.sort_by == "category" %>
-	      			<%= render list.items.order("category_id ASC") %>
+	      			<%= render list.items.where("wishlist=?",false).order("category_id ASC") %>
+	      			<% if !list.items.where("wishlist=?",true).empty? and list.user == current_user %>
+	      				<% @previous = "initial" %>
+		      			<hr>
+		      			<p style="font-size:0.9em">Your Private Wishlist</p>
+		      			<div class="wishlist" id="<%= dom_id(list) %>">
+	    	  				<%= render list.items.where("wishlist=?",true).order("category_id ASC") %>
+	    	  			</div>
+	    	  		<% end %>
 	      		<% else %>
-	      			<%= render list.items.order("location_id ASC") %>
+	      			<%= render list.items.where("wishlist=?",false).order("location_id ASC") %>
+	      			<% if !list.items.where("wishlist=?",true).empty? and list.user == current_user %>
+	      				<% @previous = "initial" %>
+		      			<hr>
+		      			<p style="font-size:0.9em">Your Private Wishlist</p>
+		      			<div class="wishlist" id="<%= dom_id(list) %>">
+	    	  				<%= render list.items.where("wishlist=?",true).order("location_id ASC") %>
+	    	  			</div>
+	    	  		<% end %>
 	      		<% end %>
 		    </div>
 <% end %>

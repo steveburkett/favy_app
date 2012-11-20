@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
 
   def create
     list = List.find(params[:item][:list_id])
-    @item = Item.new(:name => params[:item][:name], :initial_comment => params[:item][:initial_comment])
+    @item = Item.new(:name => params[:item][:name], :initial_comment => params[:item][:initial_comment], :wishlist => params[:item][:wishlist])
     @item.list = list
     @item.location_name = params[:item][:location_name]
     @item.category_name = params[:item][:category_name]

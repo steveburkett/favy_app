@@ -3,7 +3,7 @@
 		<%= link_to image_tag("#{item.image}", alt: "#{item.name}", width: "120"), item.url %><br /><br />
 	<% end %>
 
-	<strong><%= "#{item.name}" %></strong> in <%= "#{item.list.title}" %><% if item.list.user == current_user %>
+	<strong><%= "#{item.name}" %></strong> in <%= "#{item.list.title}" %><%= item.wishlist ? " (wishlist)" : "" %><% if item.list.user == current_user %>
 		<%= link_to ' &times;'.html_safe, item, method: :delete %><% end %>
 	<br />
 	<% if item.category or item.location %>

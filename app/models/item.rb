@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  attr_accessible :name, :initial_comment
+  attr_accessible :name, :initial_comment, :wishlist, :url, :api, :image
 
   validates_presence_of :name
 

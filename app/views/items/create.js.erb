@@ -1,4 +1,18 @@
-$('div#<%= dom_id(@item.list) %>.items').prepend("<%= escape_javascript(render @item) %>");
+<% if @item.wishlist %>
+  if($('div#<%= dom_id(@item.list) %>.wishlist').length){
+  	console.log('has wishlist');
+	$('div#<%= dom_id(@item.list) %>.wishlist').prepend("<%= escape_javascript(render @item) %>");
+  }else{
+  	console.log('no wishlist');
+  	$('div#<%= dom_id(@item.list) %>.items').append("<hr>");
+  	$('div#<%= dom_id(@item.list) %>.items').append("<p style='font-size:0.9em'>Your Private Wishlist</p>");
+	$('div#<%= dom_id(@item.list) %>.items').append("<div class='wishlist' id='<%= dom_id(@item.list) %>'>");
+	$('div#<%= dom_id(@item.list) %>.wishlist').append("<%= escape_javascript(render @item) %>");
+
+  }
+<% else %>
+	$('div#<%= dom_id(@item.list) %>.items').prepend("<%= escape_javascript(render @item) %>");
+<% end %> 
 $('form#new_item').find('input:text').val('');
 $('input#item_name').focus();
 $('input#item_name').catcomplete('close');

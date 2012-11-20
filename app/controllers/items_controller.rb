@@ -87,6 +87,8 @@ class ItemsController < ApplicationController
   
     #create friend's items for autocomplete
 
+    businesses_response = []
+    
     if not location.blank?
       #YELP
 

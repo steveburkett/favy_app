@@ -67,7 +67,7 @@ $(function() {
 */
 </script>
 
-<%= div_for(list, :class => "offset0 span2 row-#{@row}", :style => "border-right-style:solid; border-right-width:1px; border-right-color:#eee; padding-left:20px; padding-right:20px; margin-right:0px; margin-left:0px; height:#{150+ (@max_items.nil? ? 0 : @max_items*60)}px") do %>
+<%= div_for(list, :class => "offset0 span2 row-#{@row}", :style => "border-right-style:solid; border-right-width:1px; border-right-color:#eee; padding-left:20px; padding-right:20px; margin-right:0px; margin-left:0px; height:#{160+ (@max_items.nil? ? 0 : @max_items*60)}px") do %>
 			<h4 style="display:inline; margin-bottom:4px;" id="listTitle-<%= dom_id(list) %>"><%= "#{list.title}" %></h4>
 
 			<% if list.user == current_user %>
@@ -118,7 +118,7 @@ $(function() {
 	      			<% if !list.items.where("wishlist=?",true).empty? and list.user == current_user %>
 	      				<% @previous = "initial" %>
 		      			<hr>
-		      			<p style="font-size:0.9em">Your Private Wishlist</p>
+		      			<p style="font-size:0.9em; margin-top:-12px; margin-bottom:-10px">Your Private Wishlist</p>
 		      			<div class="wishlist" id="<%= dom_id(list) %>">
 	    	  				<%= render list.items.where("wishlist=?",true).order("category_id ASC") %>
 	    	  			</div>
@@ -128,7 +128,7 @@ $(function() {
 	      			<% if !list.items.where("wishlist=?",true).empty? and list.user == current_user %>
 	      				<% @previous = "initial" %>
 		      			<hr>
-		      			<p style="font-size:0.9em">Your Private Wishlist</p>
+		      			<p style="font-size:0.9em; margin-top:-12px; margin-bottom:-10px">Your Private Wishlist</p>
 		      			<div class="wishlist" id="<%= dom_id(list) %>">
 	    	  				<%= render list.items.where("wishlist=?",true).order("location_id ASC") %>
 	    	  			</div>

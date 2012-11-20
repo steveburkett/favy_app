@@ -4,7 +4,7 @@
   <div class="offset0 span3 affix" style="margin-left:60px" >
   	
     <% if @user.provider == "facebook" %>
-      <%= link_to image_tag(@user.image, alt: "profile pic", size: "40x40"), user_path(@user)  %><h4 style="display:inline; margin-left:10px"><%= @user.firstname %> <%= @user.lastname %> </h4><br />
+      <%= link_to image_tag(@user.image, alt: "profile pic", size: "40x40"), user_path(@user)  %><h4 style="display:inline; margin-left:10px"><%= @user.firstname %> <%= @user.lastname %> </h4><br /><br />
     <% else %>
       <h4><%= @user.firstname %> <%= @user.lastname %> </h4>
   	<% end %>

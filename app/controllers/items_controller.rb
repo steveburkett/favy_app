@@ -131,10 +131,15 @@ class ItemsController < ApplicationController
       # lookup an item with the amazon standard identification number (asin)
       #items = client.lookup '1430218150'
 
-      items = client.search_keywords term
+      #items = client.search_keywords term
+      items = client.search :Keywords => term, :SearchIndex => :Books, :Sort => 'relevancerank', :ResponseGroup => :Medium
 
       items.each do |i|
-        businesses_response.push({ "label" => i.raw.ItemAttributes.Title, "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
+        if i.raw.MediumImage.nil?
+          businesses_response.push({ "label" => i.raw.ItemAttributes.Title, "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => "", "api" => "Amazon"  })
+        else
+          businesses_response.push({ "label" => i.raw.ItemAttributes.Title, "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
+        end
       end
       # have a look at the title of the item
       #puts items

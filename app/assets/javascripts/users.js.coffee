@@ -61,5 +61,7 @@ $ ->
 
 $ ->
   $('#item_name').focus ->
+    itemPreview = document.getElementById("itemPreview")
+    itemPreview.innerHTML = ""
     $('#item_name').catcomplete("option", "source", '/items?location=' + $('#item_location_name').val() )
 

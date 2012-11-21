@@ -5,7 +5,7 @@
   }else{
   	console.log('no wishlist');
   	$('div#<%= dom_id(@item.list) %>.items').append("<hr>");
-  	$('div#<%= dom_id(@item.list) %>.items').append("<p style='font-size:0.9em; margin-top:-12px; margin-bottom:-6px'>Your Private Wishlist</p>");
+  	$('div#<%= dom_id(@item.list) %>.items').append("<p style='font-size:0.9em; margin-top:-12px; margin-bottom:-4px'>Your Private Wishlist</p>");
 	$('div#<%= dom_id(@item.list) %>.items').append("<div class='wishlist' id='<%= dom_id(@item.list) %>'>");
 	$('div#<%= dom_id(@item.list) %>.wishlist').append("<%= escape_javascript(render @item) %>");
 

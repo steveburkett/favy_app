@@ -62,7 +62,8 @@ class User < ActiveRecord::Base
                            password:Devise.friendly_token[0,20],
                            firstname:auth.info.first_name,
                            lastname:auth.info.last_name,
-                           image:auth.info.image                           
+                           image:auth.info.image,
+                           remember_me: true                         
                            )
     end
     user

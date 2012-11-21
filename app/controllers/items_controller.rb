@@ -14,12 +14,16 @@ class ItemsController < ApplicationController
     @item.category_name = params[:item][:category_name]
     @item.url = params[:item][:url]
     @item.api = params[:item][:api]    
-    @item.image = params[:item][:image]    
+    @item.image = params[:item][:image]  
+
+    if params[:item][:category_name].blank? and params[:item][:location_name].blank?
+      @item.category_name = "Other"
+    end  
 
     authorize! :create, @item
     respond_to do |format|
       if @item.save
-        if !params[:item][:category_name].blank?
+        if !params[:item][:category_name].blank? and params[:item][:category_name] != "Other"
           list.tag_list.push(params[:item][:category_name])
         end
         if !params[:item][:location_name].blank?

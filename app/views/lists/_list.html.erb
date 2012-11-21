@@ -87,12 +87,12 @@ $(function() {
 				<% end %>
 			<% end %>
 
-				<% if list.user == current_user %>
-					<%= form_tag url_for(:controller => "lists", :action => "change_privacy", :remote => true), :method => "post", :class => "privacy_form" do %>
-					  <%= hidden_field_tag :list_id, list.id %>
-				      <%= select_tag :privacy, options_for_select([["public", 0], ["friends", 1], ["private",2]], list.privacy), :style => "width:80px; height:15px; font-size:0.8em; margin-top:5px", :class=>"privacy" %>
-				    <% end %>
-				<% end %>
+			<% if list.user == current_user %>
+				<%= form_tag url_for(:controller => "lists", :action => "change_privacy", :remote => true), :method => "post", :class => "privacy_form" do %>
+				  <%= hidden_field_tag :list_id, list.id %>
+			      <%= select_tag :privacy, options_for_select([["public", 0], ["friends", 1], ["private",2]], list.privacy), :style => "width:80px; height:28px; font-size:0.8em; margin-top:5px", :class=>"privacy" %>
+			    <% end %>
+			<% end %>
 
 
 
@@ -118,7 +118,7 @@ $(function() {
 	      			<% if !list.items.where("wishlist=?",true).empty? and list.user == current_user %>
 	      				<% @previous = "initial" %>
 		      			<hr>
-		      			<p style="font-size:0.9em; margin-top:-12px; margin-bottom:-6px">Your Private Wishlist</p>
+		      			<p style="font-size:0.9em; margin-top:-12px; margin-bottom:-4px">Your Private Wishlist</p>
 		      			<div class="wishlist" id="<%= dom_id(list) %>">
 	    	  				<%= render list.items.where("wishlist=?",true).order("category_id ASC") %>
 	    	  			</div>
@@ -128,7 +128,7 @@ $(function() {
 	      			<% if !list.items.where("wishlist=?",true).empty? and list.user == current_user %>
 	      				<% @previous = "initial" %>
 		      			<hr>
-		      			<p style="font-size:0.9em; margin-top:-12px; margin-bottom:-6px">Your Private Wishlist</p>
+		      			<p style="font-size:0.9em; margin-top:-12px; margin-bottom:-4px">Your Private Wishlist</p>
 		      			<div class="wishlist" id="<%= dom_id(list) %>">
 	    	  				<%= render list.items.where("wishlist=?",true).order("location_id ASC") %>
 	    	  			</div>

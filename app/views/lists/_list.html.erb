@@ -118,7 +118,7 @@ $(function() {
 	      			<% if !list.items.where("wishlist=?",true).empty? and list.user == current_user %>
 	      				<% @previous = "initial" %>
 		      			<hr>
-		      			<p style="font-size:0.9em; margin-top:-12px; margin-bottom:-10px">Your Private Wishlist</p>
+		      			<p style="font-size:0.9em; margin-top:-12px; margin-bottom:-6px">Your Private Wishlist</p>
 		      			<div class="wishlist" id="<%= dom_id(list) %>">
 	    	  				<%= render list.items.where("wishlist=?",true).order("category_id ASC") %>
 	    	  			</div>
@@ -128,7 +128,7 @@ $(function() {
 	      			<% if !list.items.where("wishlist=?",true).empty? and list.user == current_user %>
 	      				<% @previous = "initial" %>
 		      			<hr>
-		      			<p style="font-size:0.9em; margin-top:-12px; margin-bottom:-10px">Your Private Wishlist</p>
+		      			<p style="font-size:0.9em; margin-top:-12px; margin-bottom:-6px">Your Private Wishlist</p>
 		      			<div class="wishlist" id="<%= dom_id(list) %>">
 	    	  				<%= render list.items.where("wishlist=?",true).order("location_id ASC") %>
 	    	  			</div>

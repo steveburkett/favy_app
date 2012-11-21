@@ -6,6 +6,14 @@
 	<br />
 	<br />
 	<%= link_to "Sign Up", sign_up_path, :class => "btn btn-large btn-primary" %>
+	<br />
+	<br />
+	<br />
+	<div class="row">
+	<div class="span12 offset1">
+		<%= image_tag("example.png") %>
+	</div>
+</div>
 </div>
 
 <div class="row">
@@ -25,4 +33,23 @@
 		<h2>At a glance</h2>
 		See all lists at once for quick discoverabilty.
 	</div>
+</div>
+	<br />
+	<br />
+
+<div style="background:whitesmoke">
+<div class="row">
+	<div class="span10 offset3">
+		<h2>Why Favy?</h2>
+		I couldn't find a good way to keep track of things I like and see what my friends like. I was tired of badges and seeing what my friends pretended they like. I thought simple privacy settings and simple design unadultered by badges, pretension, and ads, would be a service I would use. This is Favy. Please give me feedback if you get a chance. Thank you!
+		<br />
+		<br />
+	</div>
+</div>
+
+<div style="text-align:center">
+	<%= mail_to "pamihood@gmail.com", "Email Feedback", :subject => "Feedback for Favy", :body => "", :class => "btn btn-primary btn-large" %>
+</div>
+<br />
+<br />
 </div>

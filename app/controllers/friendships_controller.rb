@@ -5,7 +5,7 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-    if Friendship.where("user_id = ? and friend_id = ?", params[:friend_id], current_user.id).first
+    if Friendship.where("user_id = ? and friend_id = ?",  current_user.id, params[:friend_id]).first
         flash[:notice] = "Request already sent."
         redirect_to user_path(current_user)      
     else

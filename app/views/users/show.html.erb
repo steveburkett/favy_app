@@ -13,7 +13,10 @@
 	  	<%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %><br />
 	 <% end %>
   	
-  	<%= link_to "View Friends", friends_path(@user) %>
+  	<%= link_to "View Friends", friends_path(@user) %> 
+  	<% if @user == current_user %>
+	  	<span style="color:red"><%= (@user.requested_friendships.count > 0) ? "(#{@user.requested_friendships.count})" : "" %></span>
+  	<% end %>
 	<br />
   	<br />
   	<br />

@@ -1,8 +1,6 @@
 <% if (not user == current_user) %>
   <% if user.provider == "facebook" %>
     <%= link_to image_tag(user.image, alt: "profile pic", size: "40x40"), user_path(user)  %><%= link_to "#{user.firstname} #{user.lastname}", user_path(user), :style => "margin-left:6px" %>
-    <br />
-    <br />
   <% else %>
   	<%= link_to "#{user.firstname} #{user.lastname}", user_path(user) %>
   <% end %>
@@ -10,6 +8,4 @@
   	<%= link_to "(Add Friend)", friendships_path(:friend_id => user), :method => :post, :style=>"font-size:0.8em;" %>
   <% end %>
 <% end %>
-
-
 <br />

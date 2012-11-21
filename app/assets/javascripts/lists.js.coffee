@@ -5,7 +5,6 @@
 $ ->
   $('#submit_item').click (event) ->
     event.preventDefault()
-    console.log("done button clicked")
     $('input#item_name').catcomplete('close');
     if $('input#item_name').val()
       $('#new_item').submit()
@@ -17,6 +16,7 @@ $ ->
     $('input#item_name').val("")
     $('input#item_location_name').val("")
     $('input#item_category_name').val("")
+    $('input#item_initial_comment').val("")
     $('input#item_url').val("")
     $('input#item_wishlist').prop('checked', false)
     itemPreview = document.getElementById("itemPreview")
@@ -28,6 +28,7 @@ $ ->
     $('input#item_name').val("")
     $('input#item_location_name').val("")
     $('input#item_category_name').val("")
+    $('input#item_initial_comment').val("")
     $('input#item_url').val("")
     $('input#item_wishlist').prop('checked', false)
     itemPreview = document.getElementById("itemPreview")

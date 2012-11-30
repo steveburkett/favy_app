@@ -146,6 +146,7 @@ class ItemsController < ApplicationController
         end
       end
 
+=begin
       items = client.search :Keywords => term, :SearchIndex => :DVD, :Sort => 'relevancerank', :ResponseGroup => :Medium
 
       items.each do |i|
@@ -175,6 +176,7 @@ class ItemsController < ApplicationController
           businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
         end
       end
+=end
 
     end
 

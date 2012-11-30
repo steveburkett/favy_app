@@ -90,7 +90,7 @@
  <% end %>
 
  	<% if @search %>
- 		Searched your list and your friends: <strong><%= @lists.count %> <%= "list".pluralize(@lists.count) %> returned for <%= @search %></strong>
+ 		Searched your list and your friends: <%= @lists.count %> <%= "list".pluralize(@lists.count) %> returned with <strong><%= @search %></strong>
  	<% end %>
 
  	<% if @tag %>
@@ -99,6 +99,7 @@
 
  	<% end %>
 
+ 	<!--
  	<% if not @tagcounts.empty? %>
 		<div id="tag_cloud">
 		  Tags: 
@@ -110,6 +111,7 @@
 	<% else %>
 		<br />
 	<% end %>
+-->
 
 
 	<hr>

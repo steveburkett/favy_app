@@ -48,7 +48,7 @@ $ ->
 $ ->
   $('#item_name').catcomplete
     source: '/items'
-    minLength: 1
+    minLength: 0
     select: ( event, ui ) -> 
       $('#item_category_name').val(ui.item.category)
       $('#item_url').val(ui.item.url)

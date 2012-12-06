@@ -63,15 +63,13 @@
 		<div class="modal hide fade" id="listModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-header">
 		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		    <h3 id="myModalLabel">Pick a general title.</h3>
+		    <h3 id="myModalLabel">Create a List</h3>
 		  </div>
 			<%= form_for(List.new, remote: false, :html => { :class => "modal-form" }) do |f| %>
 				<%= f.hidden_field :user_id, :value => @user.id %>
 				<div class="modal-body field">
-					<%= f.label :title, "List title:" %>
-					<%= f.text_field :title, placeholder: "" %>
+					<%= f.text_field :title, placeholder: "List title" %>
 					<p style="font-size:x-small; margin-top:-1em">Eg. Books, Movies, Restaurants, Destinations, Music, Doctors, Shoes...</p>
-					<%= f.label :privacy, "Privacy for list:" %>
 					<%= f.select :privacy, [['public', 0], ['friends only', 1], ['private', 2]], :selected => 1 %>
 					<a href="#" rel="tooltip" data-placement="right" title="Your list can be public, visible to your friends only, or private. Friends of your friends can see it only if it is public."><i class="icon-question-sign"></i></a>
 				</div>
@@ -119,38 +117,41 @@
 
 <% if @user == current_user %>
 				<!-- Modal -->
-				<div class="modal hide fade" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel" aria-hidden="true" style="width:650px">
+				<div class="modal hide fade" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel" aria-hidden="true" style="width:700px;height:700px;">
 				  <div class="modal-header">
 				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 				    <h3 id="itemModalLabel"></h3>
 				  </div>
-					<%= form_for(Item.new, remote: true, :html => { :class => "modal-form"}) do |f| %>
-						<%= f.hidden_field :list_id, :value => 1 %>
-						<%= f.hidden_field :url, :value => "" %>
-						<%= f.hidden_field :api, :value => "" %>
-						<%= f.hidden_field :image, :value => "" %>
-						<div class="modal-body field">
-							<div class="field" id="location">
-								<%= f.label :location_name, "If it has a location, enter it here:" %>
-								<%= f.text_field :location_name, placeholder: "city, neighborhood, or zipcode", :style => "font-size:1em" %>
+						<%= form_for(Item.new, remote: true, :html => { :class => "modal-form"}) do |f| %>
+							<%= f.hidden_field :list_id, :value => 1 %>
+							<%= f.hidden_field :api, :value => "" %>
+							<%= f.hidden_field :image, :value => "" %>
+							<div class="modal-body field">
+								<div class="field" id="location" style="margin-bottom:8px">
+									<%= f.label :location_name, "If it has a location, enter it here:" %>
+									<%= f.text_field :location_name, placeholder: "city, neighborhood, or zipcode", :style => "font-size:1em" %>
+								</div>
+								<div class="ui-widget">
+									<div id="search_message" style="color:#555; font-size:14px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; display:none">Searching for suggestions...</div>	
+									<div id="search_placeholder" style="display:show">&nbsp;</div>		
+									<%= f.text_field :name, placeholder: "Item Name", :style => "width:600px;height:40px;margin-left:0px;font-size:1em; margin-top:5px" %><br />
+									
+									<div style="width:600px">
+										<div id="itemPreview" style="float:right; margin-top:10px; width:100px")><span class="badge badge-inverse img_remove" style="display:none; position: absolute;">x</span></div>
+
+										<%= f.text_field :category_name, placeholder: "Category", :style => "width:400px;height:28px;margin-left:0px;font-size:1em" %><br />
+										<%= f.text_field :url, placeholder: "URL", :style => "width:400px;height:28px;margin-left:0px;font-size:1em" %><br />
+										<%= f.text_area :initial_comment, placeholder: "Write what you think about this...", :style => "width:400px;height:60px;margin-left:0px;font-size:1em" %></br >
+										<label class="checkbox" style="margin-left:0px">
+											<%= f.check_box :wishlist, {} %>Wishlist
+										</label>
+									</div> 
+								</div>					
 							</div>
-							<br />
-							<div class="ui-widget">
-								<%= f.text_field :name, placeholder: "Enter item", :style => "width:400px;height:40px;margin-left:60px;font-size:1em" %>
-								<div id="itemPreview" style="float:right; margin-left:20px; width:100px")></div>
-								<%= f.text_field :category_name, placeholder: "Category", :style => "width:400px;height:28px;margin-left:60px;font-size:1em" %>
-								<%= f.text_area :initial_comment, placeholder: "Write what you think about this...", :style => "width:400px;height:60px;margin-left:60px;font-size:1em" %></br >
-								<label class="checkbox" style="margin-left:60px">
-									<%= f.check_box :wishlist, {} %>Wishlist
-								</label>
-							</div>					
-						</div>
-						<div class="modal-footer">
-							<%= f.submit "Add Another", :id => "submit_item_another", :class => "btn btn-primary", :type => "button" %>
-							<%= f.submit "Done", :id => "submit_item", :class => "btn btn-primary" %>
-						</div>
-					<% end %>
-				</div>
+								<%= f.submit "Add Another", :id => "submit_item_another", :class => "btn btn-primary btn-large", :type => "button", :style => "margin-left:450px" %>
+								<%= f.submit "Done", :id => "submit_item", :class => "btn btn-primary btn-large" %>
+						<% end %>
+					</div>
 			<% end %>
 
 <div id="lists" style="margin-top:-16px">

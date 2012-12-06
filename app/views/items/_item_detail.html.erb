@@ -1,6 +1,6 @@
 
 	<% if !item.image.blank? %>
-		<%= link_to image_tag("#{item.image}", alt: "#{item.name}", width: "120"), item.url %><br /><br />
+		<%= link_to image_tag("#{item.image}", alt: "#{item.name}", width: "120", :class => "img-polaroid"), item.url %><br /><br />
 	<% end %>
 
 	<strong><%= "#{item.name}" %></strong> in <%= "#{item.list.title}" %><%= item.wishlist ? " (wishlist)" : "" %><% if item.list.user == current_user %>
@@ -34,7 +34,7 @@
 
 				      <%= submit_tag "Add", :class=>"btn btn-primary" %>
 				    <% end %>
-				    <div class="item_notice" style="color:green"></div>' data-title="Add item to your list" style="font-size:0.8em" class="poppy btn btn-mini">add</a><br />
+				    <div class="item_notice" style="color:green"></div>' data-title="Add item to your list" style="font-size:0.8em" class="poppy btn btn-mini btn-primary">add</a><br />
 
 				    <% end %>
 

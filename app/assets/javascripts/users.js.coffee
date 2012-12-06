@@ -16,6 +16,13 @@ $ ->
     $(this).popover('show')
 
 $ ->
+  $('.img_remove').live 'click', ->
+    $('#img_preview').hide()
+    $('.img_remove').hide()
+    $('#item_image').val('')
+
+
+$ ->
   $('html').on 'click.popover.data-api', (e) ->
     if $(e.target).parents('.popover').length == 1
       if $(e.target).is('#wishlist') or $(e.target).is('.btn')
@@ -40,28 +47,46 @@ $ ->
       currentCategory = ""
       for item in items
         if item.category != currentCategory
-          ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" )
+          if $('#item_location_name').val().length == 0
+            ul.append( "<li class='ui-autocomplete-category'>" + item.category + "&nbsp;&nbsp;<img src='http://library.corporate-ir.net/library/17/176/176060/mediaitems/93/a.com_logo_th.jpg' height='60' width='60' style='margin-top:-4px'>" + "</li>" )
+          else
+            ul.append( "<li class='ui-autocomplete-category'>" + item.category + "&nbsp;&nbsp;<img src='http://s3-media1.ak.yelpcdn.com/assets/2/www/img/14f29ad24935/map/miniMapLogo.png' style='margin-top:-4px'>" + "</li>" )
           currentCategory = item.category        
         that._renderItem( ul, item )
   )
 
 $ ->
-  $('#item_name').catcomplete
+  $('#item_name').catcomplete(
     source: '/items'
+    delay: 600
     minLength: 0
     select: ( event, ui ) -> 
+      console.log("selected")
       $('#item_category_name').val(ui.item.category)
-      $('#item_url').val(ui.item.url)
+      $('#item_url').val(ui.item.api_url)
       $('#item_api').val(ui.item.api)
       $('#item_image').val(ui.item.image)
       img = document.createElement("img");
       img.src = ui.item.image
+      img.className = "img-polaroid"
+      img.setAttribute('id','img_preview')
       itemPreview = document.getElementById("itemPreview")
-      itemPreview.appendChild(img)
+      itemPreview.appendChild(img, itemPreview.firstChild)
+    search: ->
+      $("#search_placeholder").hide()
+      $("#search_message").show()
+    open: ->
+      $("#search_message").hide()
+      $("#search_placeholder").show()
+    ).data("catcomplete")._renderItem = (ul, item) ->
+      $( "<li style='display:block'></li>" ).data( "item.autocomplete", item ).append( "<a><div class='list_item_container'><div class='item_image'><img src='" + item.image + "'></div><div class='item_label'>" + item.label + "</div><div class='item_description'>" + item.details + "</div></div></a>" ).appendTo( ul )
 
 $ ->
   $('#item_name').focus ->
-    itemPreview = document.getElementById("itemPreview")
-    itemPreview.innerHTML = ""
     $('#item_name').catcomplete("option", "source", '/items?location=' + $('#item_location_name').val() )
+
+$ ->
+  $('#img_preview').live
+    mouseenter: () -> $('.img_remove').show()
+
 

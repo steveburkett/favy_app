@@ -92,6 +92,7 @@ class ItemsController < ApplicationController
     #create friend's items for autocomplete
 
     businesses_response = []
+    label_length = 80
     
     if not location.blank?
       #YELP
@@ -112,7 +113,7 @@ class ItemsController < ApplicationController
       response_body = access_token.get(path).body
       #puts response_body
       businesses = JSON.parse(response_body)["businesses"]
-      businesses_response = businesses.map{|b| {"label" => b["name"], "url" => b["url"] ,"category" => b["categories"][0][0], "api" => "Yelp", "image" => b["image_url"] }}
+      businesses_response = businesses.map{|b| {"label" => truncate(b["name"], :length => label_length, :omission =>"..."), "api_url" => b["url"] ,"category" => b["categories"][0][0], "api" => "Yelp", "image" => b["image_url"], "details" => "<img src='#{b["rating_img_url_small"]}'> <span style='font-size:0.8em'>(#{b['review_count']})</span>" }}
       #businesses_response.push({"label" => "Back to the Future", "url" => "XX", "category" => "Sci Fi", "api" => "Amazon"})
 
     else
@@ -140,20 +141,20 @@ class ItemsController < ApplicationController
 
       items.each do |i|
         if i.raw.MediumImage.nil?
-          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => "", "api" => "Amazon"  })
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => label_length, :omission =>"..."), "api_url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => "", "api" => "Amazon", "details" => ""  })
         else
-          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => label_length, :omission =>"..."), "api_url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon", "details" => ""  })
         end
       end
 
-=begin
+
       items = client.search :Keywords => term, :SearchIndex => :DVD, :Sort => 'relevancerank', :ResponseGroup => :Medium
 
       items.each do |i|
         if i.raw.MediumImage.nil?
-          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => "", "api" => "Amazon"  })
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => label_length, :omission =>"..."), "api_url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => "", "api" => "Amazon", "details" => ""  })
         else
-          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => label_length, :omission =>"..."), "api_url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon" , "details" => "" })
         end
       end
 
@@ -161,19 +162,20 @@ class ItemsController < ApplicationController
 
       items.each do |i|
         if i.raw.MediumImage.nil?
-          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => "", "api" => "Amazon"  })
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => label_length, :omission =>"..."), "api_url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => "", "api" => "Amazon", "details" => ""  })
         else
-          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => label_length, :omission =>"..."), "api_url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon", "details" => ""  })
         end
       end
 
+=begin
       items = client.search :Keywords => term, :SearchIndex => :VideoGames, :Sort => 'salesrank', :ResponseGroup => :Medium
 
       items.each do |i|
         if i.raw.MediumImage.nil?
-          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => "", "api" => "Amazon"  })
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "api_url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => "", "api" => "Amazon"  })
         else
-          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
+          businesses_response.push({ "label" => truncate(i.raw.ItemAttributes.Title, :length => 50, :omission =>"..."), "api_url" => i.raw.DetailPageURL, "category" => i.raw.ItemAttributes.ProductGroup, "image" => i.raw.MediumImage.URL, "api" => "Amazon"  })
         end
       end
 =end

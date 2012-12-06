@@ -12,7 +12,7 @@ $ ->
 
 $ ->
   $('#itemModal').on 'shown', ->
-    $('input#item_name').focus()
+    $('#item_name').focus()
     $('input#item_name').val("")
     $('input#item_location_name').val("")
     $('input#item_category_name').val("")
@@ -20,7 +20,8 @@ $ ->
     $('input#item_url').val("")
     $('input#item_wishlist').prop('checked', false)
     itemPreview = document.getElementById("itemPreview")
-    itemPreview.innerHTML = ""
+    img_preview = document.getElementById('img_preview')
+    itemPreview.removeChild(img_preview)
 
 $ ->
   $('#itemModal').on 'hide', ->

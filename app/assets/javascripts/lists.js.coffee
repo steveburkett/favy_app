@@ -19,9 +19,8 @@ $ ->
     $('#item_initial_comment').val("")
     $('input#item_url').val("")
     $('input#item_wishlist').prop('checked', false)
-    itemPreview = document.getElementById("itemPreview")
-    img_preview = document.getElementById('img_preview')
-    itemPreview.removeChild(img_preview)
+
+    
 
 $ ->
   $('#itemModal').on 'hide', ->
@@ -32,8 +31,9 @@ $ ->
     $('#item_initial_comment').val("")
     $('input#item_url').val("")
     $('input#item_wishlist').prop('checked', false)
-    itemPreview = document.getElementById("itemPreview")
-    itemPreview.innerHTML = ""
+    document.getElementById('imgPreview').style.visibility='hidden'
+    $('.img_remove').hide()
+
 
 
 $ ->

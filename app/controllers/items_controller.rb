@@ -48,7 +48,7 @@ class ItemsController < ApplicationController
     item_copy.url = item.url
     item_copy.api = item.api
     item_copy.image = item.image
-    item_copy.wishlist = params[:wishlist]
+    item_copy.wishlist = params.has_key?(:wishlist) ? params[:wishlist] : false
     item_copy.save
 
         if item_copy.category

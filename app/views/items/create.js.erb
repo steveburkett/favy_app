@@ -18,9 +18,9 @@ $('input#item_category').val('')
 $('input#item_url').val('')
 $('#item_initial_comment').val('')
 $('input#item_wishlist').prop('checked', false)
-itemPreview = document.getElementById("itemPreview")
-itemPreview.innerHTML = ""
 $('input#item_name').focus();
 $('input#item_name').catcomplete('close');
+document.getElementById('imgPreview').style.visibility='hidden';
+$('.img_remove').hide();
 var row = $('div#<%= dom_id(@item.list) %>').parent().attr("id");
 $('.'+row).height($('.'+row).height() + 60);

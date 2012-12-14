@@ -1,7 +1,7 @@
 <br />
 
 <div class="row">
-  <div class="offset0 span3 affix" style="margin-left:60px" >
+  <div class="offset0 span3 affix" style="margin-left:60px; height:800px" >
   	
     <% if @user.provider == "facebook" %>
       <%= link_to image_tag(@user.image, alt: "profile pic", size: "40x40"), user_path(@user)  %><h4 style="display:inline; margin-left:10px"><%= @user.firstname %> <%= @user.lastname %> </h4><br /><br />
@@ -13,10 +13,29 @@
 	  	<%= link_to "Add Friend", friendships_path(:friend_id => @user), :method => :post %><br />
 	 <% end %>
   	
-  	<%= link_to "View Friends", friends_path(@user) %> 
   	<% if @user == current_user %>
-	  	<span style="color:red"><%= (@user.requested_friendships.count > 0) ? "(#{@user.requested_friendships.count})" : "" %></span>
-  	<% end %>
+  		<br />
+  		<% if (@user.requested_friendships.count > 0) %>
+  		  link_to("Friend Requests", friends_path(@user))
+  		  <span style='color:red'>(#{@user.requested_friendships.count})</span>"
+  		<% else %>
+  		 Friend Requests (0)
+  		<% end %>
+		<br />
+		<br />
+	<% end %>
+
+
+    <% if @user == current_user %>
+      Your Friends <br />
+    <% else %>
+      <%= "#{@user.firstname}'s" %> Friends <br />
+    <% end %>
+    <div style="height:100px; width:250px; overflow:scroll;">
+		<%= render @user.friends %>
+	</div>
+
+
 	<br />
   	<br />
   	<br />
@@ -25,7 +44,6 @@
 
 
   <div class="offset4 span12">
-
 
 <% if @followedlists %>
 	<ul class="nav nav-tabs">
@@ -132,12 +150,12 @@
 									<%= f.text_field :location_name, placeholder: "city, neighborhood, or zipcode", :style => "font-size:1em" %>
 								</div>
 								<div class="ui-widget">
-									<div id="search_message" style="color:#555; font-size:14px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; display:none">Searching for suggestions...</div>	
-									<div id="search_placeholder" style="display:show">&nbsp;</div>		
+									<h3 id="search_message" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; display:none">Searching for suggestions...</h3>	
+									<div id="search_placeholder" style="display:show"><h3>&nbsp;</h3></div>		
 									<%= f.text_field :name, placeholder: "Item Name", :style => "width:600px;height:40px;margin-left:0px;font-size:1em; margin-top:5px" %><br />
 									
 									<div style="width:600px">
-										<div id="itemPreview" style="float:right; margin-top:10px; width:100px")><span class="badge badge-inverse img_remove" style="display:none; position: absolute;">x</span></div>
+										<div id="itemPreview" style="float:right; margin-top:10px; width:100px")><img id="imgPreview"><span class="badge badge-inverse img_remove" style="display:none; position: absolute;">x</span></div>
 
 										<%= f.text_field :category_name, placeholder: "Category", :style => "width:400px;height:28px;margin-left:0px;font-size:1em" %><br />
 										<%= f.text_field :url, placeholder: "URL", :style => "width:400px;height:28px;margin-left:0px;font-size:1em" %><br />

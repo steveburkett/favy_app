@@ -18,7 +18,7 @@
 		<% end %>
 	<% end %>
 	
-	<%= link_to "#{item.name}", item, :style => "font-size:0.9em", remote: true %><%= item.comments.count == 0 ? "" : "  (#{item.comments.count}) " %> 
+	<%= link_to "#{item.name}", item, :style => "font-size:0.9em", remote: true %><span style="font-size:0.9em"><%= item.comments.count == 0 ? "" : "  (#{item.comments.count}) " %></span>
  	<% if item.list.user == current_user %>
 		<%= link_to '&times;'.html_safe, item, method: :delete, remote: true %><br />
 	<% else %>

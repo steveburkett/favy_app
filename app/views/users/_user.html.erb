@@ -6,6 +6,8 @@
   <% end %>
   <% if (not current_user.friend?(user)) %>
   	<%= link_to "(Add Friend)", friendships_path(:friend_id => user), :method => :post, :style=>"font-size:0.8em;" %>
+  <% else %>
+    <%= link_to '&times;'.html_safe, friendships_path(:friend_id => user.id), confirm: "Are you sure?", method: :delete, :style=>"font-size:0.8em;" %>
   <% end %>
 <% end %>
 <br />

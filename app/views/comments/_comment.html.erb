@@ -1,7 +1,7 @@
 <%= div_for comment do %>
   <strong><%= link_to "#{comment.user.firstname} #{comment.user.lastname}", user_path(comment.user) %></strong> <%= "#{comment.body}" %>
   <% if comment.user == current_user %>
-  	<%= link_to ' x', comment, method: :delete %>
+  	<%= link_to '&times;'.html_safe, comment, method: :delete %>
   <% end %>
   <br />
  <% end %>

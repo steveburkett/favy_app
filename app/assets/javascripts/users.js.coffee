@@ -17,7 +17,7 @@ $ ->
 
 $ ->
   $('.img_remove').live 'click', ->
-    $('#img_preview').hide()
+    document.getElementById('imgPreview').style.visibility='hidden'
     $('.img_remove').hide()
     $('#item_image').val('')
 
@@ -58,7 +58,7 @@ $ ->
 $ ->
   $('#item_name').catcomplete(
     source: '/items'
-    delay: 600
+    delay: 400
     minLength: 0
     select: ( event, ui ) -> 
       console.log("selected")
@@ -68,10 +68,11 @@ $ ->
       $('#item_image').val(ui.item.image)
       img = document.createElement("img");
       img.src = ui.item.image
-      img.className = "img-polaroid"
-      img.setAttribute('id','img_preview')
-      itemPreview = document.getElementById("itemPreview")
-      itemPreview.appendChild(img, itemPreview.firstChild)
+      $('imgPreview').show()
+      imgPreview = document.getElementById("imgPreview")      
+      imgPreview.src = img.src
+      imgPreview.className = "img-polaroid"
+      imgPreview.style.visibility='visible'
     search: ->
       $("#search_placeholder").hide()
       $("#search_message").show()
@@ -86,7 +87,7 @@ $ ->
     $('#item_name').catcomplete("option", "source", '/items?location=' + $('#item_location_name').val() )
 
 $ ->
-  $('#img_preview').live
+  $('#imgPreview').live
     mouseenter: () -> $('.img_remove').show()
 
 

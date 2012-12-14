@@ -24,15 +24,5 @@
 
   <br/>
   <br/>
-    <%= @user.firstname %>'s Friends: <br />
-    <ul>
-    <% for friend in @user.friends %>
-      <li>
-          <%= link_to "#{friend.firstname} #{friend.lastname}", friend %> 
-          <% if @user == current_user %>
-            <%= link_to '(remove)', friendship_path(:friend_id => friend.id), confirm: "Are you sure?", method: :delete %>
-          <% end %>
-      </li>
-    <% end %>
-  </ul>
+
 

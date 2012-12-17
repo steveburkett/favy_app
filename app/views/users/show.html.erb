@@ -27,9 +27,9 @@
 
 
     <% if @user == current_user %>
-      Your Friends <br />
+      Your Friends: <br />
     <% else %>
-      <%= "#{@user.firstname}'s" %> Friends <br />
+      <%= "#{@user.firstname}'s" %> Friends: <br />
     <% end %>
     <div style="height:100px; width:250px; overflow:scroll;">
 		<%= render @user.friends %>

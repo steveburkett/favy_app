@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :firstname, :lastname, :image, :provider, :uid
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :firstname, :lastname, :image, :provider, :uid, :access_token_expires_at, :access_token
   # attr_accessible :title, :body
 
   validates_presence_of :firstname
@@ -47,7 +47,10 @@ class User < ActiveRecord::Base
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)    
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     if user
-      #found an existing user
+      #found an existing facebook user, update access token here?
+
+      user.update_attributes(access_token:auth.credentials.token,
+        access_token_expires_at:auth.credentials.expires_at)
       #if user.first_name.nil?
         #but must update facebook details since not previously stored
       #  user.update_attributes(first_name:auth.info.first_name,
@@ -58,6 +61,8 @@ class User < ActiveRecord::Base
     else
       user = User.create(provider:auth.provider,
                            uid:auth.uid,
+                           access_token:auth.credentials.token,
+                           access_token_expires_at:auth.credentials.expires_at,
                            email:auth.info.email,
                            password:Devise.friendly_token[0,20],
                            firstname:auth.info.first_name,
@@ -67,6 +72,32 @@ class User < ActiveRecord::Base
                            )
     end
     user
+  end
+
+  def create_facebook_friendships
+
+    #deal with expireation date and error handling later
+    uri = URI.parse("https://graph.facebook.com/#{self.uid}/friends?access_token=#{self.access_token}")
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    request = Net::HTTP::Get.new(uri.request_uri)
+    response = http.request(request)
+
+    friends_from_facebook = JSON.parse response.body
+
+    #index uid
+    friends_from_facebook['data'].each do |f|
+      u = User.find_by_uid(f['id'])
+      if not u.nil?
+        if not u.friend?(self)
+          #make friendship since they are facebook friends
+          f = Friendship.create(user_id:self.id, friend_id:u.id, approved:true)
+        end
+      end
+    end
+
   end
 
   def self.new_with_session(params, session)

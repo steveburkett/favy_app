@@ -16,8 +16,8 @@
   	<% if @user == current_user %>
   		<br />
   		<% if (@user.requested_friendships.count > 0) %>
-  		  link_to("Friend Requests", friends_path(@user))
-  		  <span style='color:red'>(#{@user.requested_friendships.count})</span>"
+  		  <%= link_to("Friend Requests", friends_path(@user)) %>
+  		  <span style='color:red'>(<%= @user.requested_friendships.count %>)</span>
   		<% else %>
   		 Friend Requests (0)
   		<% end %>

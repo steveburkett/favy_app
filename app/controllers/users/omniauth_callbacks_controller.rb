@@ -7,6 +7,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.find_for_facebook_oauth(request.env["omniauth.auth"], current_user)
 
     if @user.persisted?
+      @user.remember_me!
+      @user.create_facebook_friendships
       sign_in_and_redirect @user, :event => :authentication
     else
       flash[:notice] = "Email already taken or error logging in"

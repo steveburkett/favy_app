@@ -97,12 +97,23 @@ $(function() {
 
 
 
+			<div style="margin-top:0px; margin-bottom:0px">
+
 		    <% if list.user == current_user %>
 				<!-- Button to trigger modal -->
-				<a href="#" role="button" class="itemModalButton btn btn-mini btn-primary" data-toggle="modal" style="margin-top:-30px; margin-bottom:0px" id="itemModalButton-<%= dom_id(list) %>">+ item</a>
+				<a href="#" role="button" class="itemModalButton btn btn-mini btn-primary" data-toggle="modal"  id="itemModalButton-<%= dom_id(list) %>">+ item</a>
 			<% end %>
 
+			<% caption = ERB::Util.url_encode("Track Your Favorite Things") %>
+			<% description = ERB::Util.url_encode("#{list.user.firstname}'s #{list.title}: #{list.items.map{|i| i.name}.join(', ')}") %>
 
+  			<% if Rails.env == 'development' || Rails.env == 'test' %>
+				<%= link_to "share", "https://www.facebook.com/dialog/feed?app_id=186175114855260&link=http://favyapp.herokuapp.com&picture=http://localhost:5000/images/favy.png&name=Favy&caption=#{caption}&description=#{description}&redirect_uri=http://localhost:5000/users/#{list.user.id}", :class => "btn btn-primary btn-mini"%>
+  			<% else %>
+				<%= link_to "share", "https://www.facebook.com/dialog/feed?app_id=400494310021564&link=http://favyapp.herokuapp.com/&picture=http://favyapp.herokuapp.com/images/favy.png&name=Favy&caption=#{caption}&description=#{description}&redirect_uri=http://http://favyapp.herokuapp.com/users/#{list.user.id}", :class => "btn btn-primary btn-mini" %>
+  			<% end %>
+
+  			</div>
 
 			<br />
 		<% no_location = list.items.select{|i| !i.location.blank?}.empty? %>

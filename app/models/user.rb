@@ -140,7 +140,7 @@ class User < ActiveRecord::Base
         list = List.new(title: title, tag_list: tag, privacy: 1, sort_by: "category", reserved: true)
         list.user = self
         list.save
-        item = Item.new(name: "The Name of the Wind (Kingkiller Chronicles, Da...",
+        item = Item.new(name: "The Name of the Wind",
           initial_comment:"Hey this is Patrick, I made this site. Favy is the best way to keep track of your favorite things and see what your friends like too. This is my favorite book. 
           Now delete this book and add your favorite!")
         item.image = "http://ecx.images-amazon.com/images/I/51qxhokQlWL._SL160_.jpg"

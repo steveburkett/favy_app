@@ -110,7 +110,7 @@ $(function() {
   			<% if Rails.env == 'development' || Rails.env == 'test' %>
 				<%= link_to "share", "https://www.facebook.com/dialog/feed?app_id=186175114855260&link=http://favyapp.herokuapp.com&picture=http://localhost:5000/images/favy.png&name=Favy&caption=#{caption}&description=#{description}&redirect_uri=http://localhost:5000/users/#{list.user.id}", :class => "btn btn-primary btn-mini"%>
   			<% else %>
-				<%= link_to "share", "https://www.facebook.com/dialog/feed?app_id=400494310021564&link=http://favyapp.herokuapp.com/&picture=http://favyapp.herokuapp.com/images/favy.png&name=Favy&caption=#{caption}&description=#{description}&redirect_uri=http://http://favyapp.herokuapp.com/users/#{list.user.id}", :class => "btn btn-primary btn-mini" %>
+				<%= link_to "share", "https://www.facebook.com/dialog/feed?app_id=400494310021564&link=http://favyapp.herokuapp.com/&picture=http://favyapp.herokuapp.com/images/favy.png&name=Favy&caption=#{caption}&description=#{description}&redirect_uri=http://favyapp.herokuapp.com/users/#{list.user.id}", :class => "btn btn-primary btn-mini" %>
   			<% end %>
 
   			</div>
